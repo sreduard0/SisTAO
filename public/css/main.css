@@ -4,6 +4,30 @@ html{
 
 }
 
+.gradient {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(45deg, #0d0d0f, #1d1d1F, #ffcc33);
+    background-size: 300% 300%;
+    animation: colors 10s ease infinite;
+}
+@keyframes colors {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position:100% 50%;
+    }
+
+    100% {
+        background-position:0% 50%;
+    }
+}
+
 
 /* botao flutuante / user_layout */
 .b-b-1-g{
@@ -138,7 +162,7 @@ html{
     -webkit-backface-visibility: hidden;
     -webkit-transform: translateZ(0);
 }
-
+/*
 body {
     background: url('../img/bg.jpg') no-repeat center;
     background-size: 100% 100%;
@@ -149,7 +173,7 @@ body {
     padding: 0;
     min-height:100%;
     position:relative;
-}
+} */
 
 #header img {
     width: 75px;
@@ -653,9 +677,19 @@ margin: 80px 50px;
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background-image: url('../images/bg.jpg');
-    background-size: 100% 100%;
-    background-attachment: fixed;
+  }
+
+
+
+  .img-login {
+      height: 3em;
+      padding: 0;
+      margin: 0;
+  }
+
+
+  .padding-title {
+      padding-bottom: 10px;
   }
 
   .wrap-login100 {

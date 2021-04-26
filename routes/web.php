@@ -7,3 +7,4 @@ use App\Http\Controllers\MainController;
 //========{                    PAINEL PRINCIPAL                  }========//
 //========================= ==============================================//
 Route::get('/', [MainController::class, 'index'])->name('index');
+

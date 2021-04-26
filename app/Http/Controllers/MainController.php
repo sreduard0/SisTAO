@@ -8,19 +8,8 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
 //==============================={ INDEX }=================================//
-    public function index()
-    {
-       //Verifica se o usuário esta logado
-    if(session()->has('user'))
-    {
-        return view('admin');
-    }
-    else
-    {
-        session()->put(['user' => 'eduardo']);
+    public function index(){
         return view('form-login');
-    }
-
     }
 //================================={  }====================================//
 //================================={  }====================================//

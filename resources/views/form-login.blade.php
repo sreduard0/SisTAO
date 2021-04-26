@@ -13,7 +13,7 @@
     <script src="{{ asset('js/jquery-3.5.1.slim.min.js') }}"></script>
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
 </head>
-<body>
+<body class="gradient">
 
 	<div class="limiter">
 		<div class="container-login100">
@@ -21,11 +21,11 @@
                 <form action="#" method="POST"  class="login100-form validate-form">
                     @csrf
 					<span class="login100-form-title p-b-26">
-					  SIS PICA
+					  SisTAO
 					</span>
-					<span class="login100-form-title p-b-48">
-						<i class="fas fa-file-signature"></i>
+					<span class="login100-form-title padding-title">
 
+                        <img src="{{ asset('/img/logo.png') }}" class="img-login" alt="">
 					</span>
 
 					<div class="wrap-input100">
