@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- Utils -->
+  <link rel="stylesheet" href="css/util.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
@@ -61,7 +63,6 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fa fa-user-alt"></i>
               <p>
                 Perfil
                 <i class="right fas fa-angle-left"></i>
@@ -69,23 +70,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="#" class="nav-link ">
                   <p>Editar perfil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                <a href="#" class="nav-link ">
                   <p>Alterar senha</p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p></p>
-                </a>
-              </li>
+            </li>
             </ul>
           </li>
         </nav>
