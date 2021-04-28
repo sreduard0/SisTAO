@@ -2,6 +2,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
   <title>Painel de controle</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -31,13 +32,13 @@
 <div class="wrapper">
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    <img class="animation__shake" src="img/logo.png" height="70" width="60">
   </div>
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="img/logo.png" alt="SisTAO logo" class="brand-image" >
       <span class="brand-text "><strong>SisTAO</strong> </span>
     </a>
 
@@ -50,7 +51,7 @@
           <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          Cb Eduardo
         </div>
       </div>
 
@@ -81,6 +82,12 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-lock"></i>
                   <p>Alterar senha</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                  <p>Sair</p>
                 </a>
             </li>
             </ul>
@@ -117,18 +124,7 @@
         <div class="row">
 
           <!-- ./col -->
-        <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
-                </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
+        
 
               <!-- box -->  <div class="col-lg-3 col-6">
             <a href="#" class="small-box bg-success">
@@ -215,7 +211,14 @@
     <!-- /.content -->
   </div>
 
-
+  <footer class=" align-items-center main-footer">
+    <footer>
+        <div class="text-center">
+            &copy;SisTAO 2021 (v1.0) <br>
+            Desenvolvido por: Sgt Souza Lima e Cb Eduardo
+        </div>
+    </footer>
+  </footer>
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
