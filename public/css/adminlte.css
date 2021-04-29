@@ -13912,7 +13912,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 [class*="sidebar-dark-"] .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link,
 [class*="sidebar-dark-"] .nav-flat .nav-item .nav-treeview>.nav-item>.nav-link.active {
-    border-color: rgba(255, 255, 255, 0.9);
+    border-color: #008362;
 }
 
 .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
@@ -14503,7 +14503,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 [class*="sidebar-dark"] .nav-legacy .nav-treeview>.nav-item>.nav-link.active,
 [class*="sidebar-dark"] .nav-legacy .nav-treeview>.nav-item>.nav-link:focus,
 [class*="sidebar-dark"] .nav-legacy .nav-treeview>.nav-item>.nav-link:hover {
-    background-color: transparent;
+    background-color: #464e55;
     color: #fff;
 }
 
