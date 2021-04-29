@@ -18,7 +18,7 @@
   <!-- JQVMap -->
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="css/adminlte.min.css">
+  <link rel="stylesheet" href="css/adminlte.css">
   <!-- Utils -->
   <link rel="stylesheet" href="css/util.css">
   <!-- overlayScrollbars -->
@@ -33,6 +33,7 @@
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="img/logo.png" height="70" width="60">
+    <span class="fs-30"><strong>SisTAO</strong> </span>
   </div>
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -124,7 +125,7 @@
         <div class="row">
 
           <!-- ./col -->
-        
+
 
               <!-- box -->  <div class="col-lg-3 col-6">
             <a href="#" class="small-box bg-success">

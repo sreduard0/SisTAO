@@ -159,13 +159,13 @@ sup {
 }
 
 a {
-  color: #007bff;
+  color: #20c997;
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #20c997;
   text-decoration: none;
 }
 
@@ -14393,13 +14393,13 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .dark-mode .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
 .dark-mode .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-  background-color: #3f6791;
+  background-color: #00664d;
   color: #fff;
 }
 
 .dark-mode .sidebar-dark-primary .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
 .dark-mode .sidebar-light-primary .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
-  border-color: #3f6791;
+  border-color: #008362;
 }
 
 .dark-mode .sidebar-dark-secondary .nav-sidebar > .nav-item > .nav-link.active,
@@ -49374,7 +49374,7 @@ a.text-muted:hover {
 }
 
 .dark-mode .bg-success {
-  background-color: #00bc8c !important;
+  background-color: #00664d!important;
 }
 
 .dark-mode .bg-success,
