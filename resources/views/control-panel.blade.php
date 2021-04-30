@@ -140,8 +140,9 @@
 
              </div>{{-- box  --}}
 
-              <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
+              <!-- box -->
+              <div class="col-lg-3 col-6">
+                <a href="#" class="small-box bg-success">
                 <div class="inner">
                   <h3>SPED</h3>
                   <p>Adm</p>

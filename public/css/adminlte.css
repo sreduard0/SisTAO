@@ -7493,7 +7493,7 @@ a.bg-success:hover,
 a.bg-success:focus,
 button.bg-success:hover,
 button.bg-success:focus {
-    background-color: #1e7e34 !important;
+    background-color: #005e46 !important;
 }
 
 .bg-info {
@@ -50659,7 +50659,7 @@ a.text-muted:hover {
 }
 
 .dark-mode .bg-success {
-    background-color: #00664d!important;
+    background-color: #008060!important;
 }
 
 .dark-mode .bg-success,
