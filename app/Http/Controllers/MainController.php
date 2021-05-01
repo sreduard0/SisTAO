@@ -13,7 +13,7 @@ class MainController extends Controller
 //==============================={ INDEX }=================================//
     public function index()
     {
-        if(session()->has('user'))
+        if(session()->has('login'))
         {
            return redirect()->route('control_panel');
         }
@@ -42,7 +42,7 @@ class MainController extends Controller
         $login = trim($request->input('login'));
         $password = trim($request->input('password'));
 
-        $user = LoginModel::where('login', $login)->first();
+        $user = LoginModel::where('login', $login)->with('user_info')->first();
 
         //Retorna mensagem de erro
         if(!$user){
@@ -58,17 +58,13 @@ class MainController extends Controller
         // }
 
         //Buscando informções do Usuário
-        
 
         //Inicia uma sessao
-        // session()->put([
-        //     'profile' => $user->profile,
-        //     'user'    => $user->login,
-        //     'name'    => $user->name,
-        //     'pg'      => $user->pg,
-        //     'user_id' => $user->id,
-        //     'email'   => $user->email
-        // ]);
+        session()->put([
+            'login'    => $user->login,
+            'user'    => $user,
+
+        ]);
 
 
         return redirect()->route('index');

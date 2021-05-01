@@ -52,7 +52,7 @@
           <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          Cb Eduardo
+          Cb {{ session('user')['user_info']['name'] }}
         </div>
       </div>
 
