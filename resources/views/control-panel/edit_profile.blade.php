@@ -3,7 +3,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-  <title>Painel de controle</title>
+                  {{--      Posto/Graduação          Nome de Guerra --}}
+  <title>Perfil -  {{ $rank }} {{ $professionalname }}</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -52,7 +53,8 @@
           <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          Cb {{ session('user')['user_info']['name'] }}
+         {{--      Posto/Graduação          Nome de Guerra --}}
+        <a href="#">{{ $rank }} {{ $professionalname }}</a>
         </div>
       </div>
 
@@ -61,10 +63,15 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+            <li class="nav-item menu-open">
+                <a href="{{ route('home') }}" class="nav-link">
+                    <i class="nav-icon fas fa-home"></i>
+                    <p>
+                        Home
+                    </p>
+                </a>
+            </li>
           <li class="nav-item menu-open">
-
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-user-circle"></i>
               <p>
@@ -74,19 +81,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('edit_profile') }}" class="nav-link active">
                     <i class="nav-icon fas fa-user-edit"></i>
                 <p>Editar perfil</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-lock"></i>
                   <p>Alterar senha</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('logout') }}" class="nav-link">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
                   <p>Sair</p>
                 </a>
@@ -108,7 +115,7 @@
           <div class="col-sm-6">
             <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             <h1 class="d-inline-block m-0">
-                Painel de controle
+                Editar Perfil
             </h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -118,97 +125,22 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-
-
-        <div class="row">
-
-          <!-- ./col -->
-
-
-              <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
+        <div class="container-fluid">
+            <div class="card card-widget widget-user">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header text-white" style="background: url('img/photo1.png') center center;">
                 </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
-
-              <!-- box -->
-              <div class="col-lg-3 col-6">
-                <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
+                <div class="widget-user-image">
+                  <img class="img-circle" src="img/user3-128x128.jpg" alt="User Avatar">
                 </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
-
-              <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
+                <div class="card-footer">
+                      <div class="description-block">
+                        <h3 class="widget-user-desc text-center">{{ $rank }} {{ $professionalname }}</h3>
+                        <h5 class="widget-user-username text-center">Web Designer</h5>
+                    </div>
                 </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
-
-              <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
-                </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
-
-              <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
-                </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
-
-              <!-- box -->  <div class="col-lg-3 col-6">
-            <a href="#" class="small-box bg-success">
-                <div class="inner">
-                  <h3>SPED</h3>
-                  <p>Adm</p>
-                </div>
-                {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-              </a>
-
-             </div>{{-- box  --}}
-
-
-
-      </div>
+              </div>
+        </div>
     </section>
     <!-- /.content -->
   </div>

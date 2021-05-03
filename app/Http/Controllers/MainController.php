@@ -7,15 +7,23 @@ use App\Http\Requests\LoginRequest;
 use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Classes\Tools;
+use App\Models\UserModel;
 
 class MainController extends Controller
 {
+//============================{Classe Tools}===============================//
+    private $Tools;
+    public function __construct()
+    {
+        $this->Tools = new Tools();
+    }
 //==============================={ INDEX }=================================//
     public function index()
     {
-        if(session()->has('login'))
+        if(session()->has('user'))
         {
-           return redirect()->route('control_panel');
+           return redirect()->route('home');
         }
         else
         {
@@ -23,16 +31,42 @@ class MainController extends Controller
         }
     }
 //========================{ PAINEL DE CONTROLE }===========================//
-    public function control_panel()
+//======={ home }===============//
+    public function home()
     {
-        return view('control-panel');
+        // if(!session()->has('user'))
+        // {
+        //     return redirect()->route('login');
+        // }
+
+        // $data = [
+        //     'rank' => session('user_data')['ranks']['rankAbbreviation'],
+        //     'professionalname' => session('user_data')['name']
+        // ];
+
+        // return view('control-panel.home', $data);
+
+        echo '<pre>'.$this->Tools->user_data(1);
+
+
     }
-//=============================={ LOGIN }==================================//
+//======={ Editar Perfil }=============//
+    public function edit_profile()
+    {
+        $data = [
+            'rank' => session('user_data')['ranks']['rankAbbreviation'],
+            'professionalname' => session('user_data')['name']
+        ];
+
+        return view('control-panel.edit_profile', $data);
+    }
+//=============================={ LOGIN/LOGOUT }==================================//
+//======={ LOGOUT }=============//
     public function login()
     {
         return view('form-login');
     }
-//==========================={ LOGIN SUBMIT }==============================//
+//======={ LOGIN SUBMIT }=======//
     public function login_submit(LoginRequest $request){
 
         //Validação
@@ -42,7 +76,7 @@ class MainController extends Controller
         $login = trim($request->input('login'));
         $password = trim($request->input('password'));
 
-        $user = LoginModel::where('login', $login)->with('user_info')->first();
+        $user = LoginModel::where('login', $login)->first();
 
         //Retorna mensagem de erro
         if(!$user){
@@ -57,19 +91,23 @@ class MainController extends Controller
         //     return redirect()->route('login');
         // }
 
-        //Buscando informções do Usuário
-
         //Inicia uma sessao
         session()->put([
-            'login'    => $user->login,
-            'user'    => $user,
+            'user' => $user,
+            'user_data' => $this->Tools->user_data($user->id)
 
         ]);
 
 
-        return redirect()->route('index');
+        return redirect()->route('home');
 
 
+    }
+//======={ LOGOUT }=============//
+    public function logout()
+    {
+        session()->flush();
+        return redirect()->route('login');
     }
 //================================={  }====================================//
 //================================={  }====================================//
@@ -81,6 +119,6 @@ class MainController extends Controller
 //================================={  }====================================//
 //================================={  }====================================//
 //================================={  }====================================//
-//================================={  }====================================//
+//=========================================================================//
 
 }
