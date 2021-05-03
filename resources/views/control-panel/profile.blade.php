@@ -147,96 +147,71 @@
         <div class="card card-widget">
             <div class="card-footer">
                 <div class="description-block">
-                    <div id="main" class="container-fluid">
-                        <h3 class="page-header">Adicionar Item</h3>
 
-                        <form action="index.html">
-                            <div class="row">
-                              <div class="form-group col-md-4">
-                                  <label for="exampleInputEmail1">Campo Um</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-4">
-                                  <label for="exampleInputEmail1">Campo Dois</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-4">
-                                  <label for="exampleInputEmail1">Campo Três</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                          </div>
+ <div id="main" class="container-fluid">
+    <h3 class="page-header">Visualizar Item #1</h3>
 
-                          <div class="row">
-                              <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Quatro</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Cinco</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Seis</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Sete</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                          </div>
+    <div class="row">
+      <div class="col-md-4">
+        <p><strong>Campo Um</strong></p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+      </div>
 
-                          <div class="row">
-                              <div class="form-group col-md-6">
-                                  <label for="exampleInputEmail1">Campo Oito</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-6">
-                                  <label for="exampleInputEmail1">Campo Nove</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                          </div>
+      <div class="col-md-4">
+        <p><strong>Campo Dois</strong></p>
+          <p>Lorem ipsum dolor</p>
+      </div>
 
-                          <div class="row">
-                              <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Dez</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Onze</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Doze</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-3">
-                                  <label for="exampleInputEmail1">Campo Treza</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                          </div>
+      <div class="col-md-4">
+        <p><strong>Campo Três</strong></p>
+          <p>123.456.789-0</p>
+      </div>
 
-                          <div class="row">
-                              <div class="form-group col-md-6">
-                                  <label for="exampleInputEmail1">Campo Quatorze</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                            <div class="form-group col-md-6">
-                                  <label for="exampleInputEmail1">Campo Quinze</label>
-                                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Digite o valor">
-                              </div>
-                          </div>
+      <div class="col-md-4">
+        <p><strong>Campo Quatro</strong></p>
+          <p>In vel sollicitudin leo, id fermentum augue.</p>
+      </div>
 
-                          <hr />
+      <div class="col-md-4">
+        <p><strong>Campo Cinco</strong></p>
+          <p>(00) 234-5678</p>
+      </div>
 
-                          <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Salvar</button>
-                              <a href="template.html" class="btn btn-default">Cancelar</a>
-                            </div>
-                          </div>
-                    
-                        </form>
-                    </div>
+      <div class="col-md-4">
+        <p><strong>Campo Seis</strong></p>
+          <p>Nullam ultrices elit ante.</p>
+      </div>
+
+      <div class="col-md-4">
+        <p><strong>Campo Sete</strong></p>
+          <p>Integer finibus in ligula vitae aliquet.</p>
+      </div>
+
+      <div class="col-md-4">
+        <p><strong>Campo Oito</strong></p>
+          <p>Jes</p>
+      </div>
+
+      <div class="col-md-4">
+        <p><strong>Campo Nove</strong></p>
+          <p>Lundo, Merkredo, Vendredo</p>
+      </div>
+
+      <div class="col-md-8">
+        <p><strong>Campo Dez</strong></p>
+          <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        In bibendum nunc urna, at vestibulum neque pellentesque eget.
+        Maecenas lacinia velit ante, vitae fermentum ex interdum et.
+        In vel sollicitudin leo, id fermentum augue. </p>
+      </div>
+   </div>
+
+   <hr />
+   <div id="actions" class="row">
+     <div class="col-md-12">
+       <a href="edit.html" class="btn btn-default">Editar</a>
+     </div>
+   </div>
                 </div>
             </div>
         </div>

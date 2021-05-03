@@ -36030,7 +36030,7 @@ a.disabled.mailbox-attachment-close {
 .widget-user .widget-user-header {
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
-    height: 135px;
+    height: 250px;
     padding: 1rem;
     text-align: center;
 }
@@ -36049,15 +36049,15 @@ a.disabled.mailbox-attachment-close {
 
 .widget-user .widget-user-image {
     left: 50%;
-    margin-left: -45px;
+    margin-left: -75px;
     position: absolute;
-    top: 80px;
+    top: 150px;
 }
 
 .widget-user .widget-user-image>img {
     border: 3px solid #fff;
     height: auto;
-    width: 90px;
+    width: 150px;
 }
 
 .widget-user .card-footer {

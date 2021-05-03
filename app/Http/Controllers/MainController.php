@@ -34,31 +34,29 @@ class MainController extends Controller
 //======={ home }===============//
     public function home()
     {
-        // if(!session()->has('user'))
-        // {
-        //     return redirect()->route('login');
-        // }
+        if(!session()->has('user'))
+        {
+            return redirect()->route('login');
+        }
 
-        // $data = [
-        //     'rank' => session('user_data')['ranks']['rankAbbreviation'],
-        //     'professionalname' => session('user_data')['name']
-        // ];
+        $data = [
+            'rank' => session('user_data')['ranks']['rankAbbreviation'],
+            'professionalname' => session('user_data')['name']
+        ];
 
-        // return view('control-panel.home', $data);
-
-        echo '<pre>'.$this->Tools->user_data(1);
-
-
+        return view('control-panel.home', $data);
     }
 //======={ Editar Perfil }=============//
     public function edit_profile()
     {
         $data = [
             'rank' => session('user_data')['ranks']['rankAbbreviation'],
-            'professionalname' => session('user_data')['name']
+            'professionalname' => session('user_data')['name'],
+            'departament'      => session('user_data')['departament']['name'],
+            'info_user'        => $this->Tools->user_data(session('user')['id'])
         ];
 
-        return view('control-panel.edit_profile', $data);
+        return view('control-panel.profile', $data);
     }
 //=============================={ LOGIN/LOGOUT }==================================//
 //======={ LOGOUT }=============//
