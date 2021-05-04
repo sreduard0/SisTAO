@@ -56,7 +56,7 @@ class MainController extends Controller
             'info_user'        => $this->Tools->user_data(session('user')['id'])
         ];
 
-        return view('control-panel.profile', $data);
+        return view('control-panel.edit_profile', $data);
     }
 //=============================={ LOGIN/LOGOUT }==================================//
 //======={ LOGOUT }=============//

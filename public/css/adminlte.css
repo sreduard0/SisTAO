@@ -4789,7 +4789,7 @@ input[type="button"].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #fff;
-    background-color: #33ff00;
+    background-color: #00664d;
 }
 
 .nav-fill>.nav-link,
@@ -16648,7 +16648,8 @@ body.text-sm .control-sidebar {
 }
 
 .nav-pills .nav-link:not(.active):hover {
-    color: #007bff;
+    color: #ced4da;
+    background-color: #454d55;
 }
 
 .nav-pills .nav-item.dropdown.show .nav-link:hover {
@@ -30253,7 +30254,7 @@ html.maximized-card {
 }
 
 .dark-mode .card-primary:not(.card-outline)>.card-header {
-    background-color: #3f6791;
+    background-color: #00664d;
 }
 
 .dark-mode .card-primary:not(.card-outline)>.card-header,
