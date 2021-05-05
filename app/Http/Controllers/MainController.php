@@ -8,34 +8,32 @@ use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Classes\Tools;
+use App\Models\CompanyModel;
+use App\Models\RanksModel;
 use App\Models\UserModel;
 
 class MainController extends Controller
 {
-//============================{Classe Tools}===============================//
+    //============================{Classe Tools}===============================//
     private $Tools;
     public function __construct()
     {
         $this->Tools = new Tools();
     }
-//==============================={ INDEX }=================================//
+    //==============================={ INDEX }=================================//
     public function index()
     {
-        if(session()->has('user'))
-        {
-           return redirect()->route('home');
-        }
-        else
-        {
+        if (session()->has('user')) {
+            return redirect()->route('home');
+        } else {
             return redirect()->route('login');
         }
     }
-//========================{ PAINEL DE CONTROLE }===========================//
-//======={ home }===============//
+    //========================{ PAINEL DE CONTROLE }===========================//
+    //======={ home }===============//
     public function home()
     {
-        if(!session()->has('user'))
-        {
+        if (!session()->has('user')) {
             return redirect()->route('login');
         }
 
@@ -46,26 +44,37 @@ class MainController extends Controller
 
         return view('control-panel.home', $data);
     }
-//======={ Editar Perfil }=============//
+    //======={ Editar Perfil }=============//
     public function edit_profile()
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
+
+        //Buscando toda tabela hierárquica
+        $all_ranks = RanksModel::all();
+        //Buscando informações do usuário
+        $user_data = $this->Tools->user_data(session('user')['id']);
+        //Buscando companias
+        $all_company = CompanyModel::all();
+
         $data = [
-            'rank' => session('user_data')['ranks']['rankAbbreviation'],
-            'professionalname' => session('user_data')['name'],
-            'departament'      => session('user_data')['departament']['name'],
-            'info_user'        => $this->Tools->user_data(session('user')['id'])
+            'user_data' => $user_data,
+            'all_ranks' => $all_ranks,
+            'all_company' => $all_company
         ];
 
         return view('control-panel.edit_profile', $data);
     }
-//=============================={ LOGIN/LOGOUT }==================================//
-//======={ LOGOUT }=============//
+    //=============================={ LOGIN/LOGOUT }==================================//
+    //======={ LOGOUT }=============//
     public function login()
     {
         return view('form-login');
     }
-//======={ LOGIN SUBMIT }=======//
-    public function login_submit(LoginRequest $request){
+    //======={ LOGIN SUBMIT }=======//
+    public function login_submit(LoginRequest $request)
+    {
 
         //Validação
         $request->validated();
@@ -77,8 +86,8 @@ class MainController extends Controller
         $user = LoginModel::where('login', $login)->first();
 
         //Retorna mensagem de erro
-        if(!$user){
-            session()->flash('erro','Este usuário não existe.');
+        if (!$user) {
+            session()->flash('erro', 'Este usuário não existe.');
             return redirect()->route('login');
         }
 
@@ -98,25 +107,23 @@ class MainController extends Controller
 
 
         return redirect()->route('home');
-
-
     }
-//======={ LOGOUT }=============//
+    //======={ LOGOUT }=============//
     public function logout()
     {
         session()->flush();
         return redirect()->route('login');
     }
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//================================={  }====================================//
-//=========================================================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //================================={  }====================================//
+    //=========================================================================//
 
 }
