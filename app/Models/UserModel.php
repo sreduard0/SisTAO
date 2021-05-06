@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends Model
 {
-    public function ranks()
+    public function rank()
     {
         return $this->hasOne('App\Models\RanksModel', 'id', 'rank_id');
     }

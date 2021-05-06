@@ -33384,15 +33384,15 @@ html.maximized-card {
 
 .dark-mode .btn-success {
     color: #fff;
-    background-color: #00bc8c;
-    border-color: #00bc8c;
+    background-color: #00664d;
+    border-color: #00664d;
     box-shadow: none;
 }
 
 .dark-mode .btn-success:hover {
     color: #fff;
-    background-color: #009670;
-    border-color: #008966;
+    background-color: #008161;
+    border-color: #008161;
 }
 
 .dark-mode .btn-success:focus,

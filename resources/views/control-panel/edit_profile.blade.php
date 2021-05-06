@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     {{-- Posto/Graduação          Nome de Guerra --}}
-    <title>Perfil - {{ $user_data->ranks->rankAbbreviation }} {{ $user_data->professionalName }}</title>
+    <title>Perfil - {{ $user_data->rank->rankAbbreviation }} {{ $user_data->professionalName }}</title>
 
 
     <!-- Bootstrap Color Picker -->
@@ -65,11 +65,11 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ $user_data->photoUrl }}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         {{-- Posto/Graduação          Nome de Guerra --}}
-                        <a href="#">{{ $user_data->ranks->rankAbbreviation }} {{ $user_data->professionalName }}</a>
+                        <a href="#">{{ $user_data->rank->rankAbbreviation }} {{ $user_data->professionalName }}</a>
                     </div>
                 </div>
 
@@ -150,11 +150,11 @@
                             style="background: url('img/photo1.png') center center;">
                         </div>
                         <div class="widget-user-image">
-                            <img class="img-circle" src="img/user2-160x160.jpg" alt="User Avatar">
+                            <img class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
                         </div>
                         <div class="card-footer">
                             <div class="description-block">
-                                <h3 class="widget-user-desc text-center"> {{ $user_data->ranks->rankAbbreviation }}
+                                <h3 class="widget-user-desc text-center"> {{ $user_data->rank->rankAbbreviation }}
                                     {{ $user_data->professionalName }}</h3>
                                 <h5 class="widget-user-username text-center">{{ $user_data->departament->name }}</h5>
                             </div>
@@ -170,24 +170,26 @@
                                 <div class="card">
                                     <div class="card-header p-2">
                                         <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#teste"
+                                            <li class="nav-item"><a class="nav-link active" href="#info"
                                                     data-toggle="tab">Informações basicas</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#timeline"
                                                     data-toggle="tab">Endereço</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#settings"
                                                     data-toggle="tab">Configuraçoes</a></li>
+
                                         </ul>
                                     </div>
+
                                     <div class="card-body">
                                         <div class="tab-content m-rl-80">
-                                            <div class="active tab-pane" id="teste">
+                                            <div class="active tab-pane" id="info">
                                                 <div class="row">
                                                     <div class="form-group col-md-2">
-                                                        <label for="pg">Posto/Graduação</label>
+                                                        <label for="pg">Posto/Grad</label>
                                                         <select class="form-control" name="pg" id="pg">
                                                             <option value="">Selecione</option>
                                                             @foreach ($all_ranks as $rank)
-                                                                <option value="{{ $rank->id }}">
+                                                                <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif value="{{ $rank->id }}">
                                                                     {{ $rank->rankAbbreviation }}</option>
                                                             @endforeach
                                                         </select>
@@ -195,19 +197,20 @@
                                                     <div class="form-group col-md-1">
                                                         <label for="militaryId">N°</label>
                                                         <input type="text" class="form-control" id="militaryId"
-                                                            placeholder="N°">
+                                                            placeholder="N°" value="{{ $user_data->militaryId }}">
                                                     </div>
                                                     <div class="form-group col">
                                                         <label for="professionalname">Nome de gerra</label>
                                                         <input type="text" class="form-control" id="professionalname"
-                                                            placeholder="Digite seu nome de guerra">
+                                                            placeholder="Digite seu nome de guerra"
+                                                            value="{{ $user_data->professionalName }}">
                                                     </div>
-                                                    <div class="form-group col-md-3">
+                                                    <div class="form-group col-md-2">
                                                         <label for="company_id">CIA</label>
                                                         <select name="company_id" id="company_id" class="form-control">
                                                             <option value="">Selecione</option>
                                                             @foreach ($all_company as $company)
-                                                                <option value="{{ $company->id }}">
+                                                                <option @if ($user_data->company_id == $company->id) selected="selected" @endif value="{{ $company->id }}">
                                                                     {{ $company->name }}</option>
                                                             @endforeach
                                                         </select>
@@ -216,18 +219,28 @@
                                                 </div>
                                                 <div class="row">
 
-                                                    <div class="form-group col-md-8">
+                                                    <div class="form-group col">
                                                         <label for="name">Nome completo</label>
                                                         <input type="text" class="form-control" id="name"
-                                                            placeholder="Digite seu nome completo">
+                                                            placeholder="Digite seu nome completo"
+                                                            value="{{ $user_data->name }}">
                                                     </div>
-
-                                                    <div class="form-group col-md-4">
+                                                    <div class="form-group col-md-3">
+                                                        <label for="cpf">CPF</label>
+                                                        <input type="text" class="form-control"
+                                                            data-inputmask="'mask': ['999.999.999-99']" data-mask=""
+                                                            inputmode="text" name="cpf" placeholder="___.___.___-__"
+                                                            value="{{ $user_data->cpf }}">
+                                                    </div>
+                                                    <div class="form-group col-md-3">
                                                         <label>Data de nascimento</label>
                                                         <div class="input-group date" id="born_at"
                                                             data-target-input="nearest">
                                                             <input type="text" class="form-control datetimepicker-input"
-                                                                data-target="#born_at" name="born_at" />
+                                                                data-inputmask-alias="datetime"
+                                                                data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                                inputmode="numeric" data-target="#born_at"
+                                                                name="born_at" value="13-07-1998">
                                                             <div class="input-group-append" data-target="#born_at"
                                                                 data-toggle="datetimepicker">
                                                                 <div class="input-group-text"><i
@@ -237,8 +250,20 @@
                                                     </div>
 
                                                 </div>
-
-
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="mother_name">Nome da mãe</label>
+                                                        <input type="text" name="mother_name" class="form-control"
+                                                            placeholder="Nome da mãe"
+                                                            value="{{ $user_data->motherName }}">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="father_name">Nome do pai</label>
+                                                        <input type="text" name="father_name" class="form-control"
+                                                            placeholder="Nome do pai"
+                                                            value="{{ $user_data->fatherName }}">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <!-- /.tab-pane -->
                                             <div class="tab-pane" id="timeline">
@@ -513,11 +538,11 @@
 
             //Datemask dd/mm/yyyy
             $('#datemask').inputmask('dd/mm/yyyy', {
-                'placeholder': 'dd/mm/yyyy'
+                'placeholder': 'dd/mm/aaaa'
             })
             //Datemask2 mm/dd/yyyy
             $('#datemask2').inputmask('mm/dd/yyyy', {
-                'placeholder': 'mm/dd/yyyy'
+                'placeholder': 'mm/dd/aaaa'
             })
             //Money Euro
             $('[data-mask]').inputmask()

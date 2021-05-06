@@ -38,7 +38,7 @@ class MainController extends Controller
         }
 
         $data = [
-            'rank' => session('user_data')['ranks']['rankAbbreviation'],
+            'rank' => session('user_data')['rank']['rankAbbreviation'],
             'professionalname' => session('user_data')['name']
         ];
 
