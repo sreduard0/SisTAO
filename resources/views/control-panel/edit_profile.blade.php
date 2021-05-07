@@ -50,6 +50,7 @@
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="img/logo.png" height="70" width="60">
             <span class="fs-30"><strong>SisTAO</strong> </span>
+            q
         </div>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -237,10 +238,8 @@
                                                         <div class="input-group date" id="born_at"
                                                             data-target-input="nearest">
                                                             <input type="text" class="form-control datetimepicker-input"
-                                                                data-inputmask-alias="datetime"
-                                                                data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                                inputmode="numeric" data-target="#born_at"
-                                                                name="born_at" value="13-07-1998">
+                                                                data-target="#born_at"
+                                                                value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}">
                                                             <div class="input-group-append" data-target="#born_at"
                                                                 data-toggle="datetimepicker">
                                                                 <div class="input-group-text"><i
@@ -267,107 +266,11 @@
                                             </div>
                                             <!-- /.tab-pane -->
                                             <div class="tab-pane" id="timeline">
-                                                <!-- The timeline -->
-                                                <div class="timeline timeline-inverse">
-                                                    <!-- timeline time label -->
-                                                    <div class="time-label">
-                                                        <span class="bg-danger">
-                                                            10 Feb. 2014
-                                                        </span>
-                                                    </div>
-                                                    <!-- /.timeline-label -->
-                                                    <!-- timeline item -->
-                                                    <div>
-                                                        <i class="fas fa-envelope bg-primary"></i>
-
-                                                        <div class="timeline-item">
-                                                            <span class="time"><i class="far fa-clock"></i> 12:05</span>
-
-                                                            <h3 class="timeline-header"><a href="#">Support Team</a>
-                                                                sent you an email</h3>
-
-                                                            <div class="timeline-body">
-                                                                Etsy doostang zoodles disqus groupon greplin oooj voxy
-                                                                zoodles,
-                                                                weebly ning heekya handango imeem plugg dopplr jibjab,
-                                                                movity
-                                                                jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo
-                                                                kaboodle
-                                                                quora plaxo ideeli hulu weebly balihoo...
-                                                            </div>
-                                                            <div class="timeline-footer">
-                                                                <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                                                <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- END timeline item -->
-                                                    <!-- timeline item -->
-                                                    <div>
-                                                        <i class="fas fa-user bg-info"></i>
-
-                                                        <div class="timeline-item">
-                                                            <span class="time"><i class="far fa-clock"></i> 5 mins
-                                                                ago</span>
-
-                                                            <h3 class="timeline-header border-0"><a href="#">Sarah
-                                                                    Young</a> accepted your friend request
-                                                            </h3>
-                                                        </div>
-                                                    </div>
-                                                    <!-- END timeline item -->
-                                                    <!-- timeline item -->
-                                                    <div>
-                                                        <i class="fas fa-comments bg-warning"></i>
-
-                                                        <div class="timeline-item">
-                                                            <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                                ago</span>
-
-                                                            <h3 class="timeline-header"><a href="#">Jay White</a>
-                                                                commented on your post</h3>
-
-                                                            <div class="timeline-body">
-                                                                Take me to your leader!
-                                                                Switzerland is small and neutral!
-                                                                We are more like Germany, ambitious and misunderstood!
-                                                            </div>
-                                                            <div class="timeline-footer">
-                                                                <a href="#" class="btn btn-warning btn-flat btn-sm">View
-                                                                    comment</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- END timeline item -->
-                                                    <!-- timeline time label -->
-                                                    <div class="time-label">
-                                                        <span class="bg-success">
-                                                            3 Jan. 2014
-                                                        </span>
-                                                    </div>
-                                                    <!-- /.timeline-label -->
-                                                    <!-- timeline item -->
-                                                    <div>
-                                                        <i class="fas fa-camera bg-purple"></i>
-
-                                                        <div class="timeline-item">
-                                                            <span class="time"><i class="far fa-clock"></i> 2 days
-                                                                ago</span>
-
-                                                            <h3 class="timeline-header"><a href="#">Mina Lee</a>
-                                                                uploaded new photos</h3>
-
-                                                            <div class="timeline-body">
-                                                                <img src="https://placehold.it/150x100" alt="...">
-                                                                <img src="https://placehold.it/150x100" alt="...">
-                                                                <img src="https://placehold.it/150x100" alt="...">
-                                                                <img src="https://placehold.it/150x100" alt="...">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- END timeline item -->
-                                                    <div>
-                                                        <i class="far fa-clock bg-gray"></i>
+                                                <div class="row">
+                                                    <div class="form-group col">
+                                                        <label for="street">Endereço</label>
+                                                        <input type="text" class="form-control" id="street"
+                                                            name="street" placeholder="Rua, Av.">
                                                     </div>
                                                 </div>
                                             </div>
@@ -549,7 +452,7 @@
 
             //Date picker
             $('#born_at').datetimepicker({
-                format: 'L'
+                format: 'DD/MM/YYYY'
             });
 
             //Date and time picker
@@ -560,13 +463,13 @@
             });
 
             //Date range picker
-            $('#reservation').daterangepicker()
+            $('#burn_at').daterangepicker()
             //Date range picker with time picker
-            $('#reservationtime').daterangepicker({
+            $('#burn_at_time').daterangepicker({
                 timePicker: true,
                 timePickerIncrement: 30,
                 locale: {
-                    format: 'MM/DD/YYYY hh:mm A'
+                    format: 'DD/MM/YYYY hh:mm A'
                 }
             })
             //Date range as a button
@@ -584,8 +487,8 @@
                     endDate: moment()
                 },
                 function(start, end) {
-                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
-                        'MMMM D, YYYY'))
+                    $('#burn_at span').html(start.format('D MMMM, YYYY') + ' - ' + end.format(
+                        'D MMMM, YYYY'))
                 }
             )
 
