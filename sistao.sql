@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07-Maio-2021 às 13:51
+-- Tempo de geração: 23-Maio-2021 às 06:02
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -311,7 +311,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `login`, `password`, `created_at`, `updated_at`, `deleted_at`, `status`, `users_id`) VALUES
-(1, 'dudu_duardo', 'dudu', '2021-04-08 18:34:20', '2021-04-08 18:34:20', NULL, 1, 1),
+(1, 'eduardo', '12345678', '2021-05-23 03:00:49', '2021-04-08 18:34:20', NULL, 1, 1),
 (2, 'lulu_luardo', 'lulu', '2021-04-08 18:34:20', '2021-04-08 18:34:20', NULL, 1, 2);
 
 -- --------------------------------------------------------
@@ -484,6 +484,8 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL DEFAULT 'NOME COMPLETO',
   `professionalName` varchar(45) NOT NULL DEFAULT 'NOME DE GUERRA',
   `email` varchar(200) DEFAULT NULL,
+  `phone1` bigint(13) DEFAULT NULL,
+  `phone2` bigint(13) DEFAULT NULL,
   `born_at` date DEFAULT NULL,
   `motherName` varchar(255) NOT NULL,
   `fatherName` varchar(255) DEFAULT NULL,
@@ -491,8 +493,10 @@ CREATE TABLE `users` (
   `cpf` varchar(12) NOT NULL,
   `photoUrl` varchar(255) DEFAULT 'LINK PARA STORAGE',
   `street` varchar(255) NOT NULL,
+  `house_number` bigint(6) DEFAULT NULL,
   `district` varchar(100) NOT NULL DEFAULT 'BAIRRO',
   `city_id` int(11) DEFAULT NULL,
+  `cep` int(9) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `departament_id` int(11) NOT NULL,
@@ -505,9 +509,9 @@ CREATE TABLE `users` (
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `professionalName`, `email`, `born_at`, `motherName`, `fatherName`, `militaryId`, `cpf`, `photoUrl`, `street`, `district`, `city_id`, `created_at`, `updated_at`, `departament_id`, `rank_id`, `rank_group_id`, `company_id`) VALUES
-(1, 'Eduardo Martins', 'Eduardo', 'edu@gmail', '2021-05-19', 'Raquel', 'Ricardo', '159', '87792877555', 'img/avatar5.png', 'av caju', 'caju', 2, '2021-05-07 02:20:36', '2021-04-08 18:27:29', 1, 2, 1, 2),
-(2, 'LULU', 'LULU', NULL, NULL, 'LULA', 'LULE', 'LULU', 'LULU', 'LINK PARA STORAGE', 'LULU', 'BAIRRO', 1, '2021-04-08 18:27:29', '2021-04-08 18:27:29', 2, 2, 2, 1);
+INSERT INTO `users` (`id`, `name`, `professionalName`, `email`, `phone1`, `phone2`, `born_at`, `motherName`, `fatherName`, `militaryId`, `cpf`, `photoUrl`, `street`, `house_number`, `district`, `city_id`, `cep`, `created_at`, `updated_at`, `departament_id`, `rank_id`, `rank_group_id`, `company_id`) VALUES
+(1, 'Eduardo Martins', 'Eduardo', 'edu@gmail', 51980204595, 51980423365, '2021-05-19', 'Raquel', 'Ricardo', '159', '87792877555', 'img/avatar5.png', 'av caju', NULL, 'caju', 2, NULL, '2021-05-09 02:30:24', '2021-04-08 18:27:29', 1, 2, 1, 2),
+(2, 'LULU', 'LULU', NULL, NULL, NULL, NULL, 'LULA', 'LULE', 'LULU', 'LULU', 'LINK PARA STORAGE', 'LULU', NULL, 'BAIRRO', 1, NULL, '2021-04-08 18:27:29', '2021-04-08 18:27:29', 2, 2, 2, 1);
 
 -- --------------------------------------------------------
 

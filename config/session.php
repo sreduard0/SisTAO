@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'database'),
+    'driver' => env('SESSION_DRIVER', 'file'),
 
     /*
     |--------------------------------------------------------------------------
@@ -126,10 +126,8 @@ return [
     |
     */
 
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
-    ),
+    'cookie' =>
+    'bsup_session',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,7 +153,7 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', null),
+    'domain' => '3bsup.eb.mil.br',
 
     /*
     |--------------------------------------------------------------------------

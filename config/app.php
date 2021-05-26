@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => "base64:dq/qEqnKcXTEfvXbJ9WPuVw7C08pGbxYMVe3oTDyeDk=",
+    'key' => 'base64:dq/qEqnKcXTEfvXbJ9WPuVw7C08pGbxYMVe3oTDyeDk=',
 
     'cipher' => 'AES-256-CBC',
 

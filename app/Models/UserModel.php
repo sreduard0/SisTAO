@@ -17,6 +17,16 @@ class UserModel extends Model
         return $this->hasOne('App\Models\DepartamentModel', 'id', 'departament_id');
     }
 
+    public function company()
+    {
+        return $this->hasOne('App\Models\CompanyModel', 'id', 'company_id');
+    }
+
+    public function city()
+    {
+        return $this->hasOne('App\Models\CitiesModel', 'id', 'city_id');
+    }
+
     use HasFactory;
     protected $table = 'users';
     protected $primarykey = 'id';

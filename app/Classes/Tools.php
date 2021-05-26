@@ -9,9 +9,9 @@ class Tools
     //=================[ Buscar dados do usuario ]=========================
     public function user_data($user_id)
     {
-        return UserModel::with('rank', 'departament')->find($user_id);
+        return UserModel::with('rank', 'departament', 'company', 'city')->find($user_id);
     }
-    //=============================[]======================================
+    //===============[Verificar se a usuario logado]=======================
     public function check_session()
     {
         if (!session()->has('user')) {
@@ -19,7 +19,16 @@ class Tools
         }
     }
 
-    //=============================[]======================================
+    //====================[Mascara para strings]===========================
+    function mask($mask, $str)
+    {
+        $str = str_replace(" ", "", $str);
+
+        for ($i = 0; $i < strlen($str); $i++) {
+            $mask[strpos($mask, "#")] = $str[$i];
+        }
+        return $mask;
+    }
     //=============================[]======================================
     //=============================[]======================================
     //=============================[]======================================
