@@ -11532,7 +11532,7 @@ body,
 }
 
 .wrapper .content-wrapper {
-    min-height: calc(90vh - calc(3.4rem + 1px) - calc(3.5rem + 1px));
+    min-height: calc(100vh + calc(15em + 1px));
 }
 
 .layout-boxed .wrapper {
@@ -29976,6 +29976,12 @@ html.maximized-card {
 
 .text-sm .card-title {
     font-size: 1rem;
+}
+
+.card-title-background {
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    background-color: #00664d;
 }
 
 .text-sm .nav-link {

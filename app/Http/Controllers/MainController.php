@@ -86,9 +86,9 @@ class MainController extends Controller
             return redirect()->route('login');
         }
 
+        $user_data = $this->Tools->user_data(session('user')['id']);
         $data = [
-            'rank' => session('user_data')['rank']['rankAbbreviation'],
-            'professionalname' => session('user_data')['name']
+            'user_data' => $user_data,
         ];
 
         return view('control-panel.home', $data);

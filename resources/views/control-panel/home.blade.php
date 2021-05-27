@@ -56,8 +56,8 @@
                     </div>
                     <div class="info">
                         {{-- Posto/Graduação          Nome de Guerra --}}
-                        <a class="d-block" href="{{ route('profile') }}">{{ $rank }}
-                            {{ $professionalname }}</a>
+                        <a class="d-block" href="{{ route('profile') }}">{{ $user_data->rank->rankAbbreviation }}
+                            {{ $user_data->professionalName }}</a>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item menu-open">
+                        <li class="nav-item ">
 
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-user-circle"></i>
@@ -112,7 +112,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="min-height: 765px;">
             <!-- Content Header (Page header) -->
             <div class="content-header">
                 <div class="container-fluid">
@@ -170,7 +170,7 @@
 
                         <!-- box -->
                         <div class="col-lg-3 col-6">
-                            <a href="{{ route('dispatch') }}" class="small-box bg-success">
+                            <a href="#" class="small-box bg-success">
                                 <div class="inner">
                                     <h3>Despacho</h3>
                                     <p>Gerenciamento da fila de despacho de documentos</p>

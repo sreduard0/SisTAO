@@ -165,256 +165,261 @@ $tools = new Tools();
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="row">
 
-                            <div class="col-md-9">
-                                <div class="card">
-                                    <div class="card-header p-2">
-                                        <ul class="nav nav-pills">
-                                            <li class="nav-item"><a class="nav-link active" href="#info"
-                                                    data-toggle="tab">Informações basicas</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#address"
-                                                    data-toggle="tab">Endereço</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#contact"
-                                                    data-toggle="tab">Contato</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#settings"
-                                                    data-toggle="tab">Configuraçoes</a></li>
 
-                                        </ul>
-                                    </div>
+                    <div class="row">
 
-                                    <div class="card-body">
-                                        <div class="tab-content m-rl-80">
-                                            <div class="active tab-pane" id="info">
-                                                <div class="row">
-                                                    <div class="form-group col-md-2">
-                                                        <label for="pg">Posto/Grad</label>
-                                                        <select class="form-control" name="pg" id="pg">
-                                                            <option value="">Selecione</option>
-                                                            @foreach ($all_ranks as $rank)
-                                                                <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif value="{{ $rank->id }}">
-                                                                    {{ $rank->rankAbbreviation }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-1">
-                                                        <label for="militaryId">N°</label>
-                                                        <input type="text" class="form-control" id="militaryId"
-                                                            placeholder="N°" value="{{ $user_data->militaryId }}">
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="professionalname">Nome de gerra</label>
-                                                        <input type="text" class="form-control" id="professionalname"
-                                                            placeholder="Digite seu nome de guerra"
-                                                            value="{{ $user_data->professionalName }}">
-                                                    </div>
-                                                    <div class="form-group col-md-2">
-                                                        <label for="company_id">CIA</label>
-                                                        <select name="company_id" id="company_id" class="form-control">
-                                                            <option value="">Selecione</option>
-                                                            @foreach ($all_company as $company)
-                                                                <option @if ($user_data->company_id == $company->id) selected="selected" @endif value="{{ $company->id }}">
-                                                                    {{ $company->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                        <div class="col-md-9">
+                            <div class="card">
+                                <div class="card-header p-2">
+                                    <ul class="nav nav-pills">
+                                        <li class="nav-item"><a class="nav-link active" href="#info"
+                                                data-toggle="tab">Informações basicas</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#address"
+                                                data-toggle="tab">Endereço</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#contact"
+                                                data-toggle="tab">Contato</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#settings"
+                                                data-toggle="tab">Configuraçoes</a></li>
 
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="tab-content m-rl-80">
+                                        <div class="active tab-pane" id="info">
+                                            <div class="row">
+                                                <div class="form-group col-md-2">
+                                                    <label for="pg">Posto/Grad</label>
+                                                    <select class="form-control" name="pg" id="pg">
+                                                        <option value="">Selecione</option>
+                                                        @foreach ($all_ranks as $rank)
+                                                            <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif value="{{ $rank->id }}">
+                                                                {{ $rank->rankAbbreviation }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
-                                                <div class="row">
+                                                <div class="form-group col-md-1">
+                                                    <label for="militaryId">N°</label>
+                                                    <input type="text" class="form-control" id="militaryId"
+                                                        placeholder="N°" value="{{ $user_data->militaryId }}">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="professionalname">Nome de gerra</label>
+                                                    <input type="text" class="form-control" id="professionalname"
+                                                        placeholder="Digite seu nome de guerra"
+                                                        value="{{ $user_data->professionalName }}">
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <label for="company_id">CIA</label>
+                                                    <select name="company_id" id="company_id" class="form-control">
+                                                        <option value="">Selecione</option>
+                                                        @foreach ($all_company as $company)
+                                                            <option @if ($user_data->company_id == $company->id) selected="selected" @endif value="{{ $company->id }}">
+                                                                {{ $company->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
 
-                                                    <div class="form-group col">
-                                                        <label for="name">Nome completo</label>
-                                                        <input type="text" class="form-control" id="name"
-                                                            placeholder="Digite seu nome completo"
-                                                            value="{{ $user_data->name }}">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="cpf">CPF</label>
-                                                        <input type="text" class="form-control"
-                                                            data-inputmask="'mask': ['999.999.999-99']" data-mask=""
-                                                            inputmode="text" name="cpf" placeholder="___.___.___-__"
-                                                            value="{{ $user_data->cpf }}">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label>Data de nascimento</label>
-                                                        <div class="input-group date" id="born_at"
-                                                            data-target-input="nearest">
-                                                            <input type="text" class="form-control datetimepicker-input"
-                                                                data-target="#born_at"
-                                                                value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}">
-                                                            <div class="input-group-append" data-target="#born_at"
-                                                                data-toggle="datetimepicker">
-                                                                <div class="input-group-text"><i
-                                                                        class="fa fa-calendar"></i></div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="form-group col">
+                                                    <label for="name">Nome completo</label>
+                                                    <input type="text" class="form-control" id="name"
+                                                        placeholder="Digite seu nome completo"
+                                                        value="{{ $user_data->name }}">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="cpf">CPF</label>
+                                                    <input type="text" class="form-control"
+                                                        data-inputmask="'mask': ['999.999.999-99']" data-mask=""
+                                                        inputmode="text" name="cpf" placeholder="___.___.___-__"
+                                                        value="{{ $user_data->cpf }}">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label>Data de nascimento</label>
+                                                    <div class="input-group date" id="born_at"
+                                                        data-target-input="nearest">
+                                                        <input type="text" class="form-control datetimepicker-input"
+                                                            data-target="#born_at"
+                                                            value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}">
+                                                        <div class="input-group-append" data-target="#born_at"
+                                                            data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fa fa-calendar"></i>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="mother_name">Nome da mãe</label>
-                                                        <input type="text" name="mother_name" class="form-control"
-                                                            placeholder="Nome da mãe"
-                                                            value="{{ $user_data->motherName }}">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="father_name">Nome do pai</label>
-                                                        <input type="text" name="father_name" class="form-control"
-                                                            placeholder="Nome do pai"
-                                                            value="{{ $user_data->fatherName }}">
-                                                    </div>
-                                                </div>
                                             </div>
-                                            <!-- /.tab-pane -->
-                                            <div class="tab-pane" id="address">
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="street">Logradouro</label>
-                                                        <input type="text" class="form-control" id="street"
-                                                            name="street" placeholder="Logradouro"
-                                                            value="{{ $user_data->street }}">
-                                                    </div>
-                                                    <div class="form-group col-md-1">
-                                                        <label for="house_number">Nº</label>
-                                                        <input type="text" class="form-control" id="house_number"
-                                                            name="house_number" placeholder="Nº"
-                                                            value="{{ $user_data->house_number }}">
-                                                    </div>
-                                                    <div class="form-group col-md-3">
-                                                        <label for="cpf">CEP</label>
-                                                        <input type="text" class="form-control"
-                                                            data-inputmask="'mask': ['99999-999']" data-mask=""
-                                                            inputmode="text" name="cep" placeholder="_______-__"
-                                                            value="{{ $user_data->cep }}">
-                                                    </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="mother_name">Nome da mãe</label>
+                                                    <input type="text" name="mother_name" class="form-control"
+                                                        placeholder="Nome da mãe"
+                                                        value="{{ $user_data->motherName }}">
                                                 </div>
-                                                <div class="row">
-                                                    <div class="form-group col-md-4">
-                                                        <label for="district">Bairro</label>
-                                                        <input type="text" id="district" name="district"
-                                                            class="form-control" placeholder="Bairro"
-                                                            value="{{ $user_data->district }}">
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="city">Cidade</label>
-                                                        <input type="text" class="form-control" id="city" name="city"
-                                                            placeholder="Cidade"
-                                                            value="{{ $user_data->city->name }}">
-                                                    </div>
-                                                    <div class="form-group col-md-1">
-                                                        <label for="state">UF</label>
-                                                        <input type="text" class="form-control" id="state" name="state"
-                                                            disabled placeholder="UF"
-                                                            value="{{ $user_data->city->state }}">
-                                                    </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="father_name">Nome do pai</label>
+                                                    <input type="text" name="father_name" class="form-control"
+                                                        placeholder="Nome do pai"
+                                                        value="{{ $user_data->fatherName }}">
                                                 </div>
-                                            </div>
-                                            <div class="tab-pane" id="contact">
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="phone1">Telefone 1</label>
-                                                        <input type="text" class="form-control"
-                                                            data-inputmask="'mask': ['(99) 9 9999-9999']"
-                                                            inputmode="text" data-mask="" id="phone1" name="phone1"
-                                                            placeholder="Telefone" value="{{ $user_data->phone1 }}">
-                                                    </div>
-                                                    <div class="form-group col">
-                                                        <label for="phone2">Telefone 2</label>
-                                                        <input type="text" class="form-control"
-                                                            data-inputmask="'mask': ['(99) 9 9999-9999']"
-                                                            inputmode="text" data-mask="" id="phone2" name="phone2"
-                                                            placeholder="Telefone" value="{{ $user_data->phone2 }}">
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col">
-                                                        <label for="email">E-mail</label>
-                                                        <input type="text" class="form-control" id="email" name="email"
-                                                            placeholder="E-mail" value="{{ $user_data->email }}">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="settings">
-
                                             </div>
                                         </div>
-                                        <!-- /.tab-content -->
-                                    </div><!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                            </div>
-                            <div class="col-md-3">
+                                        <!-- /.tab-pane -->
+                                        <div class="tab-pane" id="address">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="street">Logradouro</label>
+                                                    <input type="text" class="form-control" id="street" name="street"
+                                                        placeholder="Logradouro" value="{{ $user_data->street }}">
+                                                </div>
+                                                <div class="form-group col-md-1">
+                                                    <label for="house_number">Nº</label>
+                                                    <input type="text" class="form-control" id="house_number"
+                                                        name="house_number" placeholder="Nº"
+                                                        value="{{ $user_data->house_number }}">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <label for="cpf">CEP</label>
+                                                    <input type="text" class="form-control"
+                                                        data-inputmask="'mask': ['99999-999']" data-mask=""
+                                                        inputmode="text" name="cep" placeholder="_______-__"
+                                                        value="{{ $user_data->cep }}">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="district">Bairro</label>
+                                                    <input type="text" id="district" name="district"
+                                                        class="form-control" placeholder="Bairro"
+                                                        value="{{ $user_data->district }}">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="city">Cidade</label>
+                                                    <input type="text" class="form-control" id="city" name="city"
+                                                        placeholder="Cidade" value="{{ $user_data->city->name }}">
+                                                </div>
+                                                <div class="form-group col-md-1">
+                                                    <label for="state">UF</label>
+                                                    <input type="text" class="form-control" id="state" name="state"
+                                                        disabled placeholder="UF"
+                                                        value="{{ $user_data->city->state }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="contact">
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="phone1">Telefone 1</label>
+                                                    <input type="text" class="form-control"
+                                                        data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
+                                                        data-mask="" id="phone1" name="phone1" placeholder="Telefone"
+                                                        value="{{ $user_data->phone1 }}">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label for="phone2">Telefone 2</label>
+                                                    <input type="text" class="form-control"
+                                                        data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
+                                                        data-mask="" id="phone2" name="phone2" placeholder="Telefone"
+                                                        value="{{ $user_data->phone2 }}">
+                                                </div>
 
-                                <!-- About Me Box -->
-                                <div class="card card-primary">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Visão geral</h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <label for="email">E-mail</label>
+                                                    <input type="text" class="form-control" id="email" name="email"
+                                                        placeholder="E-mail" value="{{ $user_data->email }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="settings">
+
+                                        </div>
                                     </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body">
-                                        <strong><i class="fas fa-user mr-1"></i> Informações basicas</strong>
-
-                                        <ul class="text-muted">
-                                            <li class="row">NOME: {{ $user_data->name }}</li>
-                                            <li class="row">MILITAR:
-                                                {{ $user_data->rank->rankAbbreviation }}
-                                                {{ $user_data->militaryId }}
-                                                {{ $user_data->professionalName }}
-                                            </li>
-                                            <li class="row">CIA: {{ $user_data->company->name }}</li>
-                                            <li class="row">NASCIDO:
-                                                {{ date('d/m/Y', strtotime($user_data->born_at)) }}</li>
-                                        </ul>
-
-                                        <hr>
-
-                                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Endereço</strong>
-
-                                        <ul class="text-muted">
-                                            <li class="row">LOGRADOURO: {{ $user_data->street }}</li>
-                                            <li class="row">BAIRRO: {{ $user_data->district }}</li>
-                                            <li class="row">CIDADE: {{ $user_data->city->name }}</li>
-                                            <li class="row">ESTADO: {{ $user_data->city->state }}</li>
-                                        </ul>
-
-                                        <hr>
-
-                                        <strong><i class="fas fa-id-badge mr-1"></i> Contato</strong>
-
-                                        <ul class="text-muted">
-                                            <li class="row">FONE 1:
-                                                {{ $tools->mask('(##) # ####-####', $user_data->phone1) }}</li>
-                                            <li class="row">FONE 2:
-                                                {{ $tools->mask('(##) # ####-####', $user_data->phone2) }}
-                                            </li>
-                                            <li class="row">E-mail: {{ $user_data->email }}</li>
-                                        </ul>
-
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
+                                    <!-- /.tab-content -->
+                                </div><!-- /.card-body -->
                             </div>
-                            <!-- /.col -->
-                            <!-- /.col -->
+                            <!-- /.card -->
                         </div>
-                        <!-- /.row -->
-                    </div><!-- /.container-fluid -->
+                        <div class="col-md-3">
 
-                </section>
+                            <!-- About Me Box -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Visão geral</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <strong><i class="fas fa-user mr-1"></i> Informações basicas</strong>
 
-                <aside class="control-sidebar control-sidebar-dark">
-                    <!-- Control sidebar content goes here -->
-                </aside>
-                <!-- /.control-sidebar -->
+                                    <ul class="text-muted">
+                                        <li class="row">NOME: {{ $user_data->name }}</li>
+                                        <li class="row">MILITAR:
+                                            {{ $user_data->rank->rankAbbreviation }}
+                                            {{ $user_data->militaryId }}
+                                            {{ $user_data->professionalName }}
+                                        </li>
+                                        <li class="row">CIA: {{ $user_data->company->name }}</li>
+                                        <li class="row">NASCIDO:
+                                            {{ date('d/m/Y', strtotime($user_data->born_at)) }}</li>
+                                    </ul>
+
+                                    <hr>
+
+                                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Endereço</strong>
+
+                                    <ul class="text-muted">
+                                        <li class="row">LOGRADOURO: {{ $user_data->street }}</li>
+                                        <li class="row">BAIRRO: {{ $user_data->district }}</li>
+                                        <li class="row">CIDADE: {{ $user_data->city->name }}</li>
+                                        <li class="row">ESTADO: {{ $user_data->city->state }}</li>
+                                    </ul>
+
+                                    <hr>
+
+                                    <strong><i class="fas fa-id-badge mr-1"></i> Contato</strong>
+
+                                    <ul class="text-muted">
+                                        <li class="row">FONE 1:
+                                            {{ $tools->mask('(##) # ####-####', $user_data->phone1) }}</li>
+                                        <li class="row">FONE 2:
+                                            {{ $tools->mask('(##) # ####-####', $user_data->phone2) }}
+                                        </li>
+                                        <li class="row">E-mail: {{ $user_data->email }}</li>
+                                    </ul>
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
         </div>
+
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <footer class=" align-items-center main-footer">
+            <footer>
+                <div class="text-center">
+                    &copy;SisTAO 2021 (v1.0) <br>
+                    Desenvolvido por: Sgt Souza Lima e Cb Eduardo
+                </div>
+            </footer>
+        </footer>
+
     </div>
+    <!-- /.control-sidebar -->
 
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
@@ -440,12 +445,16 @@ $tools = new Tools();
     <!-- dropzonejs -->
     <script src="plugins/dropzone/min/dropzone.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="js/adminlte.min.js"></script>
+    <script src="js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="js/main.js"></script>
+
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
     <!-- Page specific script -->
     <script src="js/autocomplete-cep.js"></script>
     <script src="js/inputmask.js"></script>
+
 
 
 </body>

@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'driver' => env('SESSION_DRIVER', 'file'),
+    'driver' => 'database',
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +72,7 @@ return [
     |
     */
 
-    'connection' => env('SESSION_CONNECTION', null),
+    'connection' => 'mysql',
 
     /*
     |--------------------------------------------------------------------------
@@ -125,9 +125,7 @@ return [
     | new session cookie is created by the framework for every driver.
     |
     */
-
-    'cookie' =>
-    'bsup_session',
+    'cookie' => 'bsup_session',
 
     /*
     |--------------------------------------------------------------------------
@@ -153,7 +151,7 @@ return [
     |
     */
 
-    'domain' => '3bsup.eb.mil.br',
+    'domain' => '.3bsup.eb.mil.br',
 
     /*
     |--------------------------------------------------------------------------
