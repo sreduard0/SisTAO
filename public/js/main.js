@@ -56,14 +56,14 @@ $('#enable-form').on('click', function() {
     if (enabled == 0) {
         $(this).removeClass('fa-user-edit');
         $(this).addClass('fa-times');
-        $(".input").prop("disabled", false);
-        $('#btn-submit').html('<div class="container-login100-form-btn"><button class="btn btn-success">Salvar alterações</button></div>');
+        $(".form-control").prop("disabled", false);
+        $('#btn-submit').html('<button class="btn-submit btn btn-success">Salvar alterações</button>');
         enabled = 1;
     } else {
         $(this).addClass('fa-user-edit');
         $(this).removeClass('fa-times');
-        $(".input").prop("disabled", true);
-        $('.container-login100-form-btn').detach();
+        $(".form-control").prop("disabled", true);
+        $('.btn-submit').detach();
         enabled = 0;
     }
 

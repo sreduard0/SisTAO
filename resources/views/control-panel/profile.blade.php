@@ -290,37 +290,28 @@ $tools = new Tools();
 
                                     <div class="card-body">
 
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <label for="phone1">Telefone 1</label>
-                                                <input type="text" class="form-control"
-                                                    data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
-                                                    data-mask="" id="phone1" name="phone1" placeholder="Telefone"
-                                                    value="{{ $user_data->phone1 }}">
-                                            </div>
-                                            <div class="form-group col">
-                                                <label for="phone2">Telefone 2</label>
-                                                <input type="text" class="form-control"
-                                                    data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
-                                                    data-mask="" id="phone2" name="phone2" placeholder="Telefone"
-                                                    value="{{ $user_data->phone2 }}">
-                                            </div>
+                                        <div class=" float-l col-md-6">
+                                            <strong>Telefone</strong>
+
+                                            <p class="text-muted">
+                                                <strong>Fone 1</strong>
+                                                {{ $tools->mask('(##) # ####-####', $user_data->phone1) }}<br>
+                                                <strong>Fone 2</strong>
+                                                {{ $tools->mask('(##) # ####-####', $user_data->phone2) }}
+                                            </p>
 
                                         </div>
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <label for="email">E-mail</label>
-                                                <input type="text" class="form-control" id="email" name="email"
-                                                    placeholder="E-mail" value="{{ $user_data->email }}">
-                                            </div>
+                                        <div class=" float-r col-md-6">
+
+                                            <strong>E-mail</strong>
+
+                                            <p class="text-muted">
+                                                {{ $user_data->email }}
+                                            </p>
+
                                         </div>
+
                                     </div>
-
-
-
-
-
-
                                 </div>
                             </div>
                         </div>
