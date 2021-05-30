@@ -51,20 +51,14 @@
     }, 4000);
 })(jQuery);
 
+
+// Ativar form do campo editar perfil
 var enabled = 0;
 $('#enable-form').on('click', function() {
     if (enabled == 0) {
         $(this).removeClass('fa-user-edit');
-        $(this).addClass('fa-times');
         $(".form-control").prop("disabled", false);
-        $('#btn-submit').html('<button class="btn-submit btn btn-success">Salvar alterações</button>');
-        enabled = 1;
-    } else {
-        $(this).addClass('fa-user-edit');
-        $(this).removeClass('fa-times');
-        $(".form-control").prop("disabled", true);
-        $('.btn-submit').detach();
-        enabled = 0;
+        $('#btn-submit').html('<button class="m-l-5 btn btn-success">Salvar</button>');
     }
 
 
