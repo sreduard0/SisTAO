@@ -8,6 +8,7 @@ use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Classes\Tools;
+use App\Http\Requests\EditProfileRequest;
 use App\Models\CompanyModel;
 use App\Models\RanksModel;
 use App\Models\UserModel;
@@ -135,6 +136,15 @@ class MainController extends Controller
         ];
 
         return view('control-panel.edit_profile', $data);
+    }
+    //======={ submit_profile }======//
+    public function submit_profile(EditProfileRequest $request)
+    {
+        $request->validated();
+
+        $name = $request->input('name');
+
+        echo $name;
     }
 
     //================================={  }====================================//

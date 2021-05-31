@@ -184,7 +184,7 @@ $tools = new Tools();
                                                 data-toggle="tab">Configuraçoes</a></li>
                                     </ul>
                                 </div>
-                                <form action="#">
+                                <form action="{{ route('submit_profile') }}" method="POST">
                                     <div class="card-body">
                                         <div class="tab-content m-rl-80">
 
@@ -193,7 +193,8 @@ $tools = new Tools();
                                                 <div class="row">
                                                     <div class="form-group col-md-2">
                                                         <label for="pg">Posto/Grad</label>
-                                                        <select class="form-control" name="pg" id="pg" disabled>
+                                                        <select class="form-control" name="rank_id" id="rank_id"
+                                                            required disabled>
                                                             <option value="">Selecione</option>
                                                             @foreach ($all_ranks as $rank)
                                                                 <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif value="{{ $rank->id }}">
@@ -205,18 +206,19 @@ $tools = new Tools();
                                                         <label for="militaryId">N°</label>
                                                         <input type="text" class="form-control" id="militaryId"
                                                             placeholder="N°" value="{{ $user_data->militaryId }}"
-                                                            disabled>
+                                                            required disabled>
                                                     </div>
                                                     <div class="form-group col">
                                                         <label for="professionalname">Nome de gerra</label>
-                                                        <input type="text" class="form-control" id="professionalname"
+                                                        <input type="text" class="form-control" id="professionalName"
                                                             placeholder="Digite seu nome de guerra"
-                                                            value="{{ $user_data->professionalName }}" disabled>
+                                                            value="{{ $user_data->professionalName }}" required
+                                                            disabled>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="company_id">CIA</label>
                                                         <select name="company_id" id="company_id" class="form-control"
-                                                            disabled>
+                                                            required disabled>
                                                             <option value="">Selecione</option>
                                                             @foreach ($all_company as $company)
                                                                 <option @if ($user_data->company_id == $company->id) selected="selected" @endif value="{{ $company->id }}">
@@ -232,14 +234,14 @@ $tools = new Tools();
                                                         <label for="name">Nome completo</label>
                                                         <input type="text" class="form-control" id="name"
                                                             placeholder="Digite seu nome completo"
-                                                            value="{{ $user_data->name }}" disabled>
+                                                            value="{{ $user_data->name }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="cpf">CPF</label>
                                                         <input type="text" class="form-control"
                                                             data-inputmask="'mask': ['999.999.999-99']" data-mask=""
                                                             inputmode="text" name="cpf" placeholder="___.___.___-__"
-                                                            value="{{ $user_data->cpf }}" disabled>
+                                                            value="{{ $user_data->cpf }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label>Data de nascimento</label>
@@ -248,7 +250,7 @@ $tools = new Tools();
                                                             <input type="text" class="form-control datetimepicker-input"
                                                                 data-target="#born_at"
                                                                 value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}"
-                                                                disabled>
+                                                                required disabled>
                                                             <div class="input-group-append" data-target="#born_at"
                                                                 data-toggle="datetimepicker">
                                                                 <div class="input-group-text"><i
@@ -262,15 +264,15 @@ $tools = new Tools();
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label for="mother_name">Nome da mãe</label>
-                                                        <input type="text" name="mother_name" class="form-control"
+                                                        <input type="text" name="motherName" class="form-control"
                                                             placeholder="Nome da mãe"
-                                                            value="{{ $user_data->motherName }}" disabled>
+                                                            value="{{ $user_data->motherName }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="father_name">Nome do pai</label>
-                                                        <input type="text" name="father_name" class="form-control"
+                                                        <input type="text" name="fatherName" class="form-control"
                                                             placeholder="Nome do pai"
-                                                            value="{{ $user_data->fatherName }}" disabled>
+                                                            value="{{ $user_data->fatherName }}" required disabled>
                                                     </div>
                                                 </div>
 
@@ -283,20 +285,20 @@ $tools = new Tools();
                                                         <label for="street">Logradouro</label>
                                                         <input type="text" class="form-control" id="street"
                                                             name="street" placeholder="Logradouro"
-                                                            value="{{ $user_data->street }}" disabled>
+                                                            value="{{ $user_data->street }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-1">
                                                         <label for="house_number">Nº</label>
                                                         <input type="text" class="form-control" id="house_number"
                                                             name="house_number" placeholder="Nº"
-                                                            value="{{ $user_data->house_number }}" disabled>
+                                                            value="{{ $user_data->house_number }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label for="cpf">CEP</label>
                                                         <input type="text" class="form-control"
                                                             data-inputmask="'mask': ['99999-999']" data-mask=""
                                                             inputmode="text" name="cep" placeholder="_______-__"
-                                                            value="{{ $user_data->cep }}" disabled>
+                                                            value="{{ $user_data->cep }}" required disabled>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -304,19 +306,19 @@ $tools = new Tools();
                                                         <label for="district">Bairro</label>
                                                         <input type="text" id="district" name="district"
                                                             class="form-control" placeholder="Bairro"
-                                                            value="{{ $user_data->district }}" disabled>
+                                                            value="{{ $user_data->district }}" required disabled>
                                                     </div>
                                                     <div class="form-group col">
                                                         <label for="city">Cidade</label>
                                                         <input type="text" class="form-control" id="city" name="city"
                                                             placeholder="Cidade" value="{{ $user_data->city->name }}"
-                                                            disabled>
+                                                            required disabled>
                                                     </div>
                                                     <div class="form-group col-md-1">
                                                         <label for="state">UF</label>
                                                         <input type="text" class="form-control" id="state" name="state"
                                                             disabled placeholder="UF"
-                                                            value="{{ $user_data->city->state }}" disabled>
+                                                            value="{{ $user_data->city->state }}" required disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -328,7 +330,7 @@ $tools = new Tools();
                                                             data-inputmask="'mask': ['(99) 9 9999-9999']"
                                                             inputmode="text" data-mask="" id="phone1" name="phone1"
                                                             placeholder="Telefone" value="{{ $user_data->phone1 }}"
-                                                            disabled>
+                                                            required disabled>
                                                     </div>
                                                     <div class="form-group col">
                                                         <label for="phone2">Telefone 2</label>
@@ -345,7 +347,7 @@ $tools = new Tools();
                                                         <label for="email">E-mail</label>
                                                         <input type="text" class="form-control" id="email" name="email"
                                                             placeholder="E-mail" value="{{ $user_data->email }}"
-                                                            disabled>
+                                                            required disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -357,13 +359,17 @@ $tools = new Tools();
                                         </div>
                                         <!-- /.tab-content -->
                                     </div><!-- /.card-body -->
+                                    <div id="btn-submit" class="text-center">
+                                        <button id="enable-form" type="button" class="btn btn-success"> <i
+                                                class="fa fa-user-edit"></i> Editar</button>
+                                    </div>
+
                                 </form>
+
                             </div>
 
-                            <div id="btn-submit" class="text-center">
-                                <button id="enable-form" type="button" class="btn btn-success btn-lg"> <i
-                                        class="fa fa-user-edit"></i> Editar</button>
-                            </div>
+
+
                         </div>
                         <div class="col-md-3">
 
