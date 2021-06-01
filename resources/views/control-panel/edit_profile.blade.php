@@ -50,6 +50,20 @@ $tools = new Tools();
 
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+
+        @if ($errors->any())
+            <div id="error" class="align-alert d-inline-block">
+                <ul class="alert alert-info">
+                    @foreach ($errors->all() as $error)
+
+                        <li>{{ $error }}</li>
+
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="img/logo.png" height="70" width="60">
@@ -185,6 +199,7 @@ $tools = new Tools();
                                     </ul>
                                 </div>
                                 <form action="{{ route('submit_profile') }}" method="POST">
+                                    @csrf
                                     <div class="card-body">
                                         <div class="tab-content m-rl-80">
 
@@ -203,17 +218,29 @@ $tools = new Tools();
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-1">
-                                                        <label for="militaryId">N°</label>
-                                                        <input type="text" class="form-control" id="militaryId"
-                                                            placeholder="N°" value="{{ $user_data->militaryId }}"
-                                                            required disabled>
+                                                        <label for="military_id">N°</label>
+                                                        <input type="text" class="form-control" id="military_id"
+                                                            name="military_id" placeholder="N°"
+                                                            value="{{ $user_data->militaryId }}" required disabled>
                                                     </div>
                                                     <div class="form-group col">
                                                         <label for="professionalname">Nome de gerra</label>
-                                                        <input type="text" class="form-control" id="professionalName"
+                                                        <input type="text" class="form-control" id="professional_name"
+                                                            name="professional_name"
                                                             placeholder="Digite seu nome de guerra"
                                                             value="{{ $user_data->professionalName }}" required
                                                             disabled>
+                                                    </div>
+                                                    <div class="form-group col-md-2">
+                                                        <label for="company_id">SEÇ/SET/CL</label>
+                                                        <select name="departament_id" id="departament_id"
+                                                            class="form-control" required disabled>
+                                                            <option value="">Selecione</option>
+                                                            @foreach ($all_departament as $departament)
+                                                                <option @if ($user_data->departament_id == $departament->id) selected="selected" @endif value="{{ $departament->id }}">
+                                                                    {{ $departament->name }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                     <div class="form-group col-md-2">
                                                         <label for="company_id">CIA</label>
@@ -232,7 +259,7 @@ $tools = new Tools();
 
                                                     <div class="form-group col">
                                                         <label for="name">Nome completo</label>
-                                                        <input type="text" class="form-control" id="name"
+                                                        <input type="text" class="form-control" id="name" name="name"
                                                             placeholder="Digite seu nome completo"
                                                             value="{{ $user_data->name }}" required disabled>
                                                     </div>
@@ -240,7 +267,8 @@ $tools = new Tools();
                                                         <label for="cpf">CPF</label>
                                                         <input type="text" class="form-control"
                                                             data-inputmask="'mask': ['999.999.999-99']" data-mask=""
-                                                            inputmode="text" name="cpf" placeholder="___.___.___-__"
+                                                            inputmode="text" name="cpf" id="cpf"
+                                                            placeholder="___.___.___-__"
                                                             value="{{ $user_data->cpf }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -248,7 +276,7 @@ $tools = new Tools();
                                                         <div class="input-group date" id="born_at"
                                                             data-target-input="nearest">
                                                             <input type="text" class="form-control datetimepicker-input"
-                                                                data-target="#born_at"
+                                                                data-target="#born_at" id="born_at" name="born_at"
                                                                 value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}"
                                                                 required disabled>
                                                             <div class="input-group-append" data-target="#born_at"
@@ -264,14 +292,14 @@ $tools = new Tools();
                                                 <div class="row">
                                                     <div class="form-group col-md-6">
                                                         <label for="mother_name">Nome da mãe</label>
-                                                        <input type="text" name="motherName" class="form-control"
-                                                            placeholder="Nome da mãe"
+                                                        <input type="text" id="mother_name" name="mother_name"
+                                                            class="form-control" placeholder="Nome da mãe"
                                                             value="{{ $user_data->motherName }}" required disabled>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="father_name">Nome do pai</label>
-                                                        <input type="text" name="fatherName" class="form-control"
-                                                            placeholder="Nome do pai"
+                                                        <input type="text" id="father_name" name="father_name"
+                                                            class="form-control" placeholder="Nome do pai"
                                                             value="{{ $user_data->fatherName }}" required disabled>
                                                     </div>
                                                 </div>
@@ -297,8 +325,9 @@ $tools = new Tools();
                                                         <label for="cpf">CEP</label>
                                                         <input type="text" class="form-control"
                                                             data-inputmask="'mask': ['99999-999']" data-mask=""
-                                                            inputmode="text" name="cep" placeholder="_______-__"
-                                                            value="{{ $user_data->cep }}" required disabled>
+                                                            inputmode="text" id="cep" name="cep"
+                                                            placeholder="_______-__" value="{{ $user_data->cep }}"
+                                                            required disabled>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -351,11 +380,6 @@ $tools = new Tools();
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="settings">
-
-                                            </div>
-
-
                                         </div>
                                         <!-- /.tab-content -->
                                     </div><!-- /.card-body -->

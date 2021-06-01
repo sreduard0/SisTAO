@@ -11,15 +11,15 @@ class EditProfileRequest extends FormRequest
         return
             [
                 'name' => ['required', 'min:3'],
-                'professionalName' => ['required', 'min:3'],
+                'professional_name' => ['required', 'min:3'],
                 'email' => ['required', 'email'],
-                'phone1' => ['required', 'min:10', 'max:11'],
-                'phone2' => ['required', 'min:10', 'max:11'],
+                'phone1' => ['required', 'min:15', 'max:16'],
+                'phone2' => ['required', 'min:15', 'max:16'],
                 'born_at' => ['required'],
-                'motherName' => ['required', 'min:3'],
-                'fatherName' => ['required', 'min:3'],
-                'militaryId' => ['required', 'min:3'],
-                'cpf' => ['required', 'min:11', 'max:11'],
+                'mother_name' => ['required', 'min:3'],
+                'father_name' => ['required', 'min:3'],
+                'military_id' => ['required', 'min:3'],
+                'cpf' => ['required', 'min:14', 'max:14'],
                 'street' => ['required'],
                 'house_number' => ['required'],
                 'district' => ['required'],
@@ -34,6 +34,26 @@ class EditProfileRequest extends FormRequest
     public function messages()
     {
         return
-            [];
+            [
+                'name.required' => 'É nescessaário preencher o campo NOME COMPLETO',
+                'name.min' => 'O campo NOME COMPLETO é nescessaário no minimo :min caracteres!',
+                'professional_name' => 'É nescessaário preencher o campo NOME COMPLETO',
+                'email' => 'É nescessaário preencher o campo E-MAIL',
+                'phone1' => 'É nescessaário preencher o campo TELEFONE 1',
+                'phone2' => 'É nescessaário preencher o campo TELEFONE 2',
+                'born_at' => 'É nescessaário preencher o campo DATA DE NASCIMENTO',
+                'mother_name' => 'É nescessaário preencher o campo NOME DA MÃE',
+                'father_name' => 'É nescessaário preencher o campo NOME CDO PAI',
+                'military_id' => 'É nescessaário preencher o campo N°',
+                'cpf' => 'É nescessaário preencher o campo CPF',
+                'street' => 'É nescessaário preencher o campo LOGRADOURO',
+                'house_number' => 'É nescessaário preencher o campo N° DA CASA',
+                'district' => 'É nescessaário preencher o campo BAIRRO',
+                'city' => 'É nescessaário preencher o campo CIDADE',
+                'cep' => 'É nescessaário preencher o campo CEP',
+                'departament_id' => 'É nescessaário preencher o campo SEÇ/SET/CL',
+                'rank_id' => 'É nescessaário preencher o campo NOME COMPLETO',
+                'company_id' => 'É nescessaário preencher o campo NOME COMPLETO'
+            ];
     }
 }

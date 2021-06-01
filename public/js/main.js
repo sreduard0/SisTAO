@@ -58,7 +58,7 @@ $('#enable-form').on('click', function() {
     if (enabled == 0) {
         $(this).removeClass('fa-user-edit');
         $(".form-control").prop("disabled", false);
-        $('#btn-submit').html('<button class="m-l-5 btn btn-success">Salvar</button>');
+        $('#btn-submit').html('<button type="submit" class="m-l-5 btn btn-success">Salvar</button>');
     }
 
 

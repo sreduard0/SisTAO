@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Classes\Tools;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\CompanyModel;
+use App\Models\DepartamentModel;
 use App\Models\RanksModel;
 use App\Models\UserModel;
 
@@ -124,14 +125,18 @@ class MainController extends Controller
 
         //Buscando toda tabela hierárquica
         $all_ranks = RanksModel::all();
-        //Buscando informações do usuário
-        $user_data = $this->Tools->user_data(session('user')['id']);
         //Buscando companias
         $all_company = CompanyModel::all();
+        //Buscando companias
+        $all_departament = DepartamentModel::all();
+        //Buscando informações do usuário
+        $user_data = $this->Tools->user_data(session('user')['id']);
+
 
         $data = [
             'user_data' => $user_data,
             'all_ranks' => $all_ranks,
+            'all_departament' => $all_departament,
             'all_company' => $all_company
         ];
 
@@ -142,9 +147,29 @@ class MainController extends Controller
     {
         $request->validated();
 
-        $name = $request->input('name');
+        $info_user = [
+            'name' => $request->input('name'),
+            'professionalName' => $request->input('professionel_name'),
+            'email' => $request->input('email'),
+            'phone1' => str_replace(['(', ')', '-', ' '], '', $request->input('phone1')),
+            'phone2' => str_replace(['(', ')', '-', ' '], '', $request->input('phone2')),
+            'born_at' => $request->input('born_at'),
+            'motherName' => $request->input('mother_name'),
+            'fatherName' => $request->input('father_name'),
+            'militaryId' => $request->input('military_id'),
+            'cpf' => str_replace(['.', '-'], '', $request->input('cpf')),
+            'street' => $request->input('street'),
+            'house_number' => $request->input('house_number'),
+            'district' => $request->input('district'),
+            'city' => $request->input('city'),
+            'cep' => str_replace('-', '', $request->input('cep')),
+            'departament_id' => $request->input('departament_id'),
+            'rank_id' => $request->input('rank_id'),
+            'company_id' => $request->input('company_id')
+        ];
 
-        echo $name;
+
+        print_r($info_user);
     }
 
     //================================={  }====================================//
