@@ -147,6 +147,27 @@ class MainController extends Controller
 
         return view('control-panel.edit_profile', $data);
     }
+
+    //======={ Editar Perfil }========//
+    public function alt_password()
+    {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
+
+        $user_data = $this->Tools->user_data(session('user')['id']);
+
+
+        $data = [
+            'user_data' => $user_data,
+        ];
+
+        return view('control-panel.alt_password', $data);
+    }
+
+
+
+
     //======={ submit_profile }======//
     public function submit_profile(EditProfileRequest $request)
     {
