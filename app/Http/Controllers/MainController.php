@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Classes\Tools;
 use App\Http\Requests\EditProfileRequest;
+use App\Models\CitiesModel;
 use App\Models\CompanyModel;
 use App\Models\DepartamentModel;
 use App\Models\RanksModel;
@@ -102,17 +103,18 @@ class MainController extends Controller
             return redirect()->route('login');
         }
 
+        //Buscando companias
+        $all_company = CompanyModel::all();
         //Buscando toda tabela hierárquica
         $all_ranks = RanksModel::all();
         //Buscando informações do usuário
         $user_data = $this->Tools->user_data(session('user')['id']);
-        //Buscando companias
-        $all_company = CompanyModel::all();
 
         $data = [
             'user_data' => $user_data,
             'all_ranks' => $all_ranks,
-            'all_company' => $all_company
+            'all_company' => $all_company,
+
         ];
         return view('control-panel.profile', $data);
     }
@@ -123,6 +125,8 @@ class MainController extends Controller
             return redirect()->route('login');
         }
 
+        //Buscando todas cidades
+        $all_cities = CitiesModel::all();
         //Buscando toda tabela hierárquica
         $all_ranks = RanksModel::all();
         //Buscando companias
@@ -137,7 +141,8 @@ class MainController extends Controller
             'user_data' => $user_data,
             'all_ranks' => $all_ranks,
             'all_departament' => $all_departament,
-            'all_company' => $all_company
+            'all_company' => $all_company,
+            'all_cities' => $all_cities
         ];
 
         return view('control-panel.edit_profile', $data);
@@ -147,29 +152,29 @@ class MainController extends Controller
     {
         $request->validated();
 
-        $info_user = [
-            'name' => $request->input('name'),
-            'professionalName' => $request->input('professionel_name'),
-            'email' => $request->input('email'),
-            'phone1' => str_replace(['(', ')', '-', ' '], '', $request->input('phone1')),
-            'phone2' => str_replace(['(', ')', '-', ' '], '', $request->input('phone2')),
-            'born_at' => $request->input('born_at'),
-            'motherName' => $request->input('mother_name'),
-            'fatherName' => $request->input('father_name'),
-            'militaryId' => $request->input('military_id'),
-            'cpf' => str_replace(['.', '-'], '', $request->input('cpf')),
-            'street' => $request->input('street'),
-            'house_number' => $request->input('house_number'),
-            'district' => $request->input('district'),
-            'city' => $request->input('city'),
-            'cep' => str_replace('-', '', $request->input('cep')),
-            'departament_id' => $request->input('departament_id'),
-            'rank_id' => $request->input('rank_id'),
-            'company_id' => $request->input('company_id')
-        ];
+        $user_data = $this->Tools->user_data(session('user')['id']);
 
+        $user_data->name = $request->input('name');
+        $user_data->professionalName = $request->input('professional_name');
+        $user_data->email = $request->input('email');
+        $user_data->phone1 = str_replace(['(', ')', '-', ' '], '', $request->input('phone1'));
+        $user_data->phone2 = str_replace(['(', ')', '-', ' '], '', $request->input('phone2'));
+        $user_data->born_at = substr($request->input('born_at'), 6, 4) . "-" . substr($request->input('born_at'), 3, 2) . "-" . substr($request->input('born_at'), 0, 2);
+        $user_data->motherName = $request->input('mother_name');
+        $user_data->fatherName = $request->input('father_name');
+        $user_data->militaryId = $request->input('military_id');
+        $user_data->cpf = str_replace(['.', '-'], '', $request->input('cpf'));
+        $user_data->street = $request->input('street');
+        $user_data->house_number = $request->input('house_number');
+        $user_data->district = $request->input('district');
+        $user_data->city_id = $request->input('city');
+        $user_data->cep = str_replace('-', '', $request->input('cep'));
+        $user_data->departament_id = $request->input('departament_id');
+        $user_data->rank_id = $request->input('rank_id');
+        $user_data->company_id = $request->input('company_id');
+        $user_data->save();
 
-        print_r($info_user);
+        return back();
     }
 
     //================================={  }====================================//

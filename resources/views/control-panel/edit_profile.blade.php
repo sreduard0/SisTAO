@@ -194,8 +194,6 @@ $tools = new Tools();
                                                 data-toggle="tab">Endereço</a></li>
                                         <li class="nav-item"><a class="nav-link" href="#contact"
                                                 data-toggle="tab">Contato</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#settings"
-                                                data-toggle="tab">Configuraçoes</a></li>
                                     </ul>
                                 </div>
                                 <form action="{{ route('submit_profile') }}" method="POST">
@@ -338,16 +336,15 @@ $tools = new Tools();
                                                             value="{{ $user_data->district }}" required disabled>
                                                     </div>
                                                     <div class="form-group col">
-                                                        <label for="city">Cidade</label>
-                                                        <input type="text" class="form-control" id="city" name="city"
-                                                            placeholder="Cidade" value="{{ $user_data->city->name }}"
-                                                            required disabled>
-                                                    </div>
-                                                    <div class="form-group col-md-1">
-                                                        <label for="state">UF</label>
-                                                        <input type="text" class="form-control" id="state" name="state"
-                                                            disabled placeholder="UF"
-                                                            value="{{ $user_data->city->state }}" required disabled>
+                                                        <label for="city">CIA</label>
+                                                        <select name="city" id="city" class="form-control" required
+                                                            disabled>
+                                                            <option value="">Selecione</option>
+                                                            @foreach ($all_cities as $city)
+                                                                <option @if ($user_data->city_id == $city->id) selected="selected" @endif value="{{ $city->id }}">
+                                                                    {{ $city->name }}, {{ $city->state }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -416,6 +413,8 @@ $tools = new Tools();
                                         <li class="row">CIA: {{ $user_data->company->name }}</li>
                                         <li class="row">NASCIDO:
                                             {{ date('d/m/Y', strtotime($user_data->born_at)) }}</li>
+                                        <li class="row">MÃE: {{ $user_data->motherName }}</li>
+                                        <li class="row">PAI: {{ $user_data->fatherName }}</li>
                                     </ul>
 
                                     <hr>
