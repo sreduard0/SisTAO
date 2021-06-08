@@ -55,7 +55,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-7">
-                                        <form action="{{ route('submit_alt_pwd') }}" method="post"
+                                        <form id="form_alt_pwd" action="{{ route('submit_alt_pwd') }}" method="post"
                                             class="form-horizontal">
                                             @csrf
                                             <div class="form-group row">
@@ -63,14 +63,14 @@
                                                     antiga</label>
                                                 <div class="col-sm-7">
                                                     <input type="password" class="form-control" id="oldPwd" name="oldPwd"
-                                                        placeholder="Senha antiga">
+                                                        placeholder="Senha antiga" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="inputEmail3" class="col-sm-3 col-form-label">Nova senha</label>
                                                 <div class="col-sm-7">
                                                     <input type="password" class="form-control" id="newPwd" name="newPwd"
-                                                        placeholder="Nova senha">
+                                                        placeholder="Nova senha" value="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -82,8 +82,10 @@
                                                 </div>
                                             </div>
                                             <div class="text-center">
-                                                <button type="button" class="btn btn-default ">Cancelar</button>
-                                                <button type="submit" class="btn btn-success">Alterar</button>
+                                                <button type="button"
+                                                    class="btn btn-default swalDefaultError">Cancelar</button>
+                                                <button type="submit" onclick="return validar()"
+                                                    class="btn btn-success">Alterar</button>
                                             </div>
 
                                         </form>

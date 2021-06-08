@@ -32,30 +32,42 @@
     <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+    {{-- sweetalert2 --}}
+    <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+    <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="css/adminlte.css">
     <!-- Utils -->
     <link rel="stylesheet" href="css/util.css">
+
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+
+
+    <script src="js/request_frontend.js"></script>
 </head>
 
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        @if ($errors->any())
+        @if (isset($erro))
             <div id="error" class="align-alert d-inline-block">
-                <ul class="alert alert-info">
+                <p class="alert alert-danger">{{ $erro }}</p>
+            </div>
+        @endif
+        @if ($errors->any())
+            <div id="error" class="align-alert">
+                <div class="alert alert-danger ">
                     @foreach ($errors->all() as $error)
 
-                        <li>{{ $error }}</li>
+                        <p class="row">{{ $error }}</p>
 
                     @endforeach
-                </ul>
+                </div>
             </div>
         @endif
 
@@ -124,6 +136,7 @@
                                     <a href="{{ route('logout') }}" class="nav-link">
                                         <i class="nav-icon fas fa-sign-out-alt"></i>
                                         <p>Sair</p>
+
                                     </a>
                                 </li>
                             </ul>
@@ -141,9 +154,12 @@
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
+
+
         <footer class=" align-items-center main-footer">
             <footer>
                 <div class="text-center">
+
                     &copy;SisTAO 2021 (v1.0) <br>
                     Desenvolvido por: Sgt Souza Lima e Cb Eduardo
                 </div>
@@ -173,18 +189,24 @@
     <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <!-- BS-Stepper -->
     <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+    <script src="plugins/toastr/toastr.min.js"></script>
     <!-- dropzonejs -->
     <script src="plugins/dropzone/min/dropzone.min.js"></script>
     <!-- AdminLTE App -->
     <script src="js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="js/main.js"></script>
-
+    <!-- overlayScrollbars -->
     <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
     <!-- Page specific script -->
     <script src="js/autocomplete-cep.js"></script>
     <script src="js/inputmask.js"></script>
+    <!-- SCRIPT MANUAIS -->
+    <script src="js/main.js"></script>
+    <script src="js/toast.js"></script>
+
 
 
 

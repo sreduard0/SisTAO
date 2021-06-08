@@ -100,10 +100,6 @@
                         </a>
 
                     </div>{{-- box --}}
-
-
-
-
                 </div>
         </section>
         <!-- /.content -->

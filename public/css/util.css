@@ -11907,10 +11907,11 @@
     display: block;
     position: fixed;
     top: 30px;
-    left: 28%;
-    right: 28%;
+    left: 40%;
+    right: 40%;
     z-index: 9999;
     text-align: center;
+    min-width: 300px;
 }
 
 .z-index-1 {

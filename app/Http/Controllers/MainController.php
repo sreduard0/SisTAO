@@ -162,6 +162,7 @@ class MainController extends Controller
 
 
         $data = [
+            'erro' => session('erro'),
             'user_data' => $user_data,
         ];
 
@@ -209,28 +210,23 @@ class MainController extends Controller
             return redirect()->route('login');
         }
 
-        $user_id = session('user_id');
+        $user_id = session('user')['id'];
         $old_pwd = trim($request->input('oldPwd'));
         $new_pwd = trim($request->input('newPwd'));
         $rep_new_pwd = trim($request->input('confNewPwd'));
 
-        $user = UserModel::where('id', $user_id)->first();
+        $user = LoginModel::where('id', $user_id)->first();
 
 
         //Verifica se a senha antiga ta correta
         if (!Hash::check($old_pwd, $user->password)) {
             session()->flash('erro', 'Senha atual incorreta.');
-
-            if (session('profile') == 1) {
-                return redirect()->route('admin');
-            } else {
-                return redirect()->route('panel');
-            }
+            return back();
         }
 
         if ($new_pwd == $rep_new_pwd) {
 
-            $user = User::find($user_id);
+            $user = UserModel::find($user_id);
             $user->password = Hash::make($new_pwd);
             $user->save();
             session()->flash('erro', 'Sua senha foi alterada com sucesso.');
