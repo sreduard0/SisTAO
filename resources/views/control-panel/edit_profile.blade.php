@@ -59,7 +59,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <form action="{{ route('submit_profile') }}" method="POST">
+                            <form action="{{ route('submit_alt_profile') }}" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="tab-content m-rl-80">

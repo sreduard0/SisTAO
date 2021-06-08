@@ -30473,7 +30473,7 @@ html.maximized-card {
 }
 
 .dark-mode .card-info:not(.card-outline)>.card-header {
-    background-color: #3498db;
+    background-color: #00664d;
 }
 
 .dark-mode .card-info:not(.card-outline)>.card-header,

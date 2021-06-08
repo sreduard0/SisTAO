@@ -19,7 +19,8 @@ Route::get('home', [MainController::class, 'home'])->name('home');
 Route::get('profile', [MainController::class, 'profile'])->name('profile');
 Route::get('edit_profile', [MainController::class, 'edit_profile'])->name('edit_profile');
 Route::get('alt_password', [MainController::class, 'alt_password'])->name('alt_password');
-Route::post('submit_profile', [MainController::class, 'submit_profile'])->name('submit_profile');
+Route::post('submit_alt_profile', [MainController::class, 'submit_alt_profile'])->name('submit_alt_profile');
+Route::post('submit_alt_pwd', [MainController::class, 'submit_alt_pwd'])->name('submit_alt_pwd');
 //========================================================================//
 //========{                      APLICAÇÕES                      }========//
 //========================================================================//

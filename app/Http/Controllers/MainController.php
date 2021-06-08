@@ -8,6 +8,7 @@ use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Classes\Tools;
+use App\Http\Requests\AltPwdRequest;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\CitiesModel;
 use App\Models\CompanyModel;
@@ -34,12 +35,19 @@ class MainController extends Controller
         }
     }
     //=============================={ LOGIN/LOGOUT }==================================//
-    //======={ LOGIN }=============//
+    //======={ VIEW / LOGIN }=============//
     public function login()
     {
         return view('form-login');
     }
-    //======={ LOGIN SUBMIT }=======//
+    //======={ AÇÃO / LOGOUT }=============//
+    public function logout()
+    {
+        session()->flush();
+        return redirect()->route('login');
+    }
+
+    //======={ AÇÃO / LOGIN SUBMIT }=======//
     public function login_submit(LoginRequest $request)
     {
 
@@ -75,14 +83,9 @@ class MainController extends Controller
 
         return redirect()->route('home');
     }
-    //======={ LOGOUT }=============//
-    public function logout()
-    {
-        session()->flush();
-        return redirect()->route('login');
-    }
+
     //========================{ PAINEL DE CONTROLE }===========================//
-    //======={ home }===============//
+    //======={ VIEW / HOME }===============//
     public function home()
     {
         if (!session()->has('user')) {
@@ -96,7 +99,7 @@ class MainController extends Controller
 
         return view('control-panel.home', $data);
     }
-    //==========={ Perfil }===========//
+    //==========={ VIEW / PERFIL }===========//
     public function profile()
     {
         if (!session()->has('user')) {
@@ -118,7 +121,7 @@ class MainController extends Controller
         ];
         return view('control-panel.profile', $data);
     }
-    //======={ Editar Perfil }========//
+    //======={ VIEW / EDITAR PERFIL }========//
     public function edit_profile()
     {
         if (!session()->has('user')) {
@@ -148,7 +151,7 @@ class MainController extends Controller
         return view('control-panel.edit_profile', $data);
     }
 
-    //======={ Editar Perfil }========//
+    //======={ VIEW / ALTERAR SENHA }========//
     public function alt_password()
     {
         if (!session()->has('user')) {
@@ -168,8 +171,8 @@ class MainController extends Controller
 
 
 
-    //======={ submit_profile }======//
-    public function submit_profile(EditProfileRequest $request)
+    //======={ AÇÃO / SUBMIT ALT PERFIL }======//
+    public function submit_alt_profile(EditProfileRequest $request)
     {
         $request->validated();
 
@@ -196,6 +199,54 @@ class MainController extends Controller
         $user_data->save();
 
         return back();
+    }
+
+    //======={ AÇÃO / SUBMIT ALT SENHA }======//
+    public function submit_alt_pwd(AltPwdRequest $request)
+    {
+
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
+
+        $user_id = session('user_id');
+        $old_pwd = trim($request->input('oldPwd'));
+        $new_pwd = trim($request->input('newPwd'));
+        $rep_new_pwd = trim($request->input('confNewPwd'));
+
+        $user = UserModel::where('id', $user_id)->first();
+
+
+        //Verifica se a senha antiga ta correta
+        if (!Hash::check($old_pwd, $user->password)) {
+            session()->flash('erro', 'Senha atual incorreta.');
+
+            if (session('profile') == 1) {
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('panel');
+            }
+        }
+
+        if ($new_pwd == $rep_new_pwd) {
+
+            $user = User::find($user_id);
+            $user->password = Hash::make($new_pwd);
+            $user->save();
+            session()->flash('erro', 'Sua senha foi alterada com sucesso.');
+            if (session('profile') == 1) {
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('panel');
+            }
+        } else {
+            session()->flash('erro', 'Os campos "Nova senha" e "Confirmar senha" devem ser iguais.');
+            if (session('profile') == 1) {
+                return redirect()->route('admin');
+            } else {
+                return redirect()->route('panel');
+            }
+        }
     }
 
     //================================={  }====================================//
