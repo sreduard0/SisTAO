@@ -49,27 +49,40 @@
 
 
     <script src="js/request_frontend.js"></script>
+    <script>
+        setTimeout(function() {
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 5000
+            });
+            var Errors = @json($errors->all());
+            var Erro = @json(session('erro'));
+            var Success = @json(session('success'));
+
+            function msg_error(msg) {
+                toastr.error(msg);
+            }
+            if (Errors) {
+                Errors.forEach(msg_error);
+            }
+            if (Erro) {
+                toastr.error(Erro);
+            }
+            if (Success) {
+                Toast.fire({
+                    icon: 'success',
+                    title: '&nbsp&nbsp' + Success
+                })
+            }
+        }, 1000);
+
+    </script>
 </head>
 
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-        @if (isset($erro))
-            <div id="error" class="align-alert d-inline-block">
-                <p class="alert alert-danger">{{ $erro }}</p>
-            </div>
-        @endif
-        @if ($errors->any())
-            <div id="error" class="align-alert">
-                <div class="alert alert-danger ">
-                    @foreach ($errors->all() as $error)
-
-                        <p class="row">{{ $error }}</p>
-
-                    @endforeach
-                </div>
-            </div>
-        @endif
 
 
         <!-- Preloader -->

@@ -13,7 +13,7 @@ class AltPwdRequest extends FormRequest
             [
                 'oldPwd' => ['required', 'min:8'],
                 'newPwd' => ['required', 'min:8'],
-                'confNewPwd' => ['required', 'min:8']
+                'confNewPwd' => ['required']
             ];
     }
     public function messages()
@@ -25,7 +25,6 @@ class AltPwdRequest extends FormRequest
                 'newPwd.required' => 'É nescessaário inserir sua nova senha.',
                 'newPwd.min' => 'Sua nova senha deverá ser alfanumérica com no mínimo 8 caracteres',
                 'confNewPwd.required' => 'É nescessaário confirmar sua nova senha.',
-                'confNewPwd.min' => 'Sua nova senha deverá ser alfanumérica com no mínimo 8 caracteres',
             ];
     }
 }

@@ -18,10 +18,20 @@ function validar() {
             title: '&nbsp&nbsp É necessário preencher todos os campos. '
         });
 
+
+
+
         form_alt_pwd.oldPwd.focus();
         form_alt_pwd.newPwd.focus();
         form_alt_pwd.confNewPwd.focus();
 
+        return false;
+    }
+    if (NewPwd != ConfNewPwd) {
+        Toast.fire({
+            icon: 'error',
+            title: '&nbsp&nbsp Os campos "Nova senha" e "Confirmar senha" devem ser iguais.'
+        });
         return false;
     }
 

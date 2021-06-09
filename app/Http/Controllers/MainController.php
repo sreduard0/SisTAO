@@ -38,7 +38,16 @@ class MainController extends Controller
     //======={ VIEW / LOGIN }=============//
     public function login()
     {
-        return view('form-login');
+        $erro = session('erro');
+        $data = [];
+        if (!empty($erro)) {
+            $data = [
+                'erro' => $erro,
+            ];
+        }
+
+        //Apresenta o formulario de login
+        return view('form-login', $data);
     }
     //======={ AÇÃO / LOGOUT }=============//
     public function logout()
@@ -67,11 +76,10 @@ class MainController extends Controller
         }
 
         // //Verifica se a senha ta correta
-        // if(!Hash::check($password, $user->password)){
-
-        //     session()->flash('erro','Senha incorreta.');
-        //     return redirect()->route('login');
-        // }
+        if (!Hash::check($password, $user->password)) {
+            session()->flash('erro', 'Usuário ou senha incorreto.');
+            return redirect()->route('login');
+        }
 
         //Inicia uma sessao
         session()->put([
@@ -162,7 +170,6 @@ class MainController extends Controller
 
 
         $data = [
-            'erro' => session('erro'),
             'user_data' => $user_data,
         ];
 
@@ -225,23 +232,14 @@ class MainController extends Controller
         }
 
         if ($new_pwd == $rep_new_pwd) {
-
-            $user = UserModel::find($user_id);
             $user->password = Hash::make($new_pwd);
             $user->save();
-            session()->flash('erro', 'Sua senha foi alterada com sucesso.');
-            if (session('profile') == 1) {
-                return redirect()->route('admin');
-            } else {
-                return redirect()->route('panel');
-            }
+            session()->flash('success', 'Sua senha foi alterada com sucesso.');
+            return back();
         } else {
+
             session()->flash('erro', 'Os campos "Nova senha" e "Confirmar senha" devem ser iguais.');
-            if (session('profile') == 1) {
-                return redirect()->route('admin');
-            } else {
-                return redirect()->route('panel');
-            }
+            return back();
         }
     }
 
