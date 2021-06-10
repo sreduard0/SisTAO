@@ -343,23 +343,23 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
-                        <div>
-                            <input id="img-input" type="file" name="imagem">
-                        </div>
-                        <div id="img-container">
-                            <img id="preview" src="">
-                        </div>
-                        <div>
-                            <input type="submit" value="Enviar">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button id='enable-form' type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
-                </div>
+                <form action="#" method="post" >
+                    <div class="modal-body">
+                            <div id="img-container">
+                                <img id="preview" class="img-size-100" src="">
+                            </div>
+
+                            <div>
+                                <input id="img-input" type="file" name="imagem">
+                            </div>
+
+
+                    </div>
+                    <div class="modal-footer p-b-0">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Enviar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
