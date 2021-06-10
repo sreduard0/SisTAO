@@ -11954,3 +11954,17 @@ a .icon {
     width: 15px;
     height: 15px;
 }
+
+.theme {
+    position: absolute;
+    bottom: 0px;
+}
+
+.edit-img-profile {
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    position: absolute;
+    bottom: 5px;
+    left: 7em;
+}

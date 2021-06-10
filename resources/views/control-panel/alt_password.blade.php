@@ -82,8 +82,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-center">
-                                                <button type="button"
-                                                    class="btn btn-default swalDefaultError">Cancelar</button>
+                                                <a href="{{ route('home') }}" class="btn btn-default">Cancelar</a>
                                                 <button type="submit" onclick="return validar()"
                                                     class="btn btn-success">Alterar</button>
                                             </div>
@@ -94,12 +93,12 @@
                                         <ul>
                                             <strong> Algumas questões importantes de segurança devem ser observadas:
                                             </strong>
-                                            <li>A alteração
+                                            <li>a alteração
                                                 da senha ocorre de forma imediata;</li>
                                             <li>Atente para a forma da senha (deverá ser alfanumérica com no mínimo 8
                                                 caracteres - incluir letras maiúsculas, minúsculas e números)</li>
-                                            <li>é recomendado que o usuário troque sua senha mensalmente;</li>
-                                            <li>a senha é pessoal e intransferível, portanto não deve ser compartilhada;
+                                            <li>é recomendado que o usuário troque sua senha mensalmente; </li>
+                                            <li>a senha é pessoal e intransferível, portanto, não deve ser compartilhada;
                                             </li>
                                         </ul>
                                     </div>

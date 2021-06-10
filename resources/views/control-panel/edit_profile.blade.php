@@ -33,6 +33,8 @@
                     </div>
                     <div class="widget-user-image">
                         <img class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
+                        <button class="btn btn-success edit-img-profile" data-toggle="modal"
+                            data-target="#up-img-profile"><i class="fas fa-pen"></i></button>
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
@@ -42,9 +44,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
                 <div class="row">
 
                     <div class="col-md-9">
@@ -239,8 +238,8 @@
                                     <!-- /.tab-content -->
                                 </div><!-- /.card-body -->
                                 <div id="btn-submit" class="text-center">
-                                    <button id="enable-form" type="button" class="btn btn-success"> <i
-                                            class="fa fa-user-edit"></i> Editar</button>
+                                    <button type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#alt-user"> <i class="fa fa-user-edit"></i> Editar</button>
                                 </div>
 
                             </form>
@@ -311,4 +310,58 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
+    {{-- Modal de confirmação --}}
+    <div class="modal fade show" id="alt-user" style="display: none;" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alteração de informações pessoais</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> ATENÇÃO: As informações inseridas aqui são de <strong>responsabilidade do militar</strong>, caso
+                        seja verificada
+                        inconsistência nos dados, o militar poderá sofrer sanções disciplinares previstas no Regulamento
+                        Disciplinar do Exército (RDE).</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button id='enable-form' type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal ft perfil --}}
+    <div class="modal fade show" id="up-img-profile" style="display: none;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Imagem de perfil</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div>
+                            <input id="img-input" type="file" name="imagem">
+                        </div>
+                        <div id="img-container">
+                            <img id="preview" src="">
+                        </div>
+                        <div>
+                            <input type="submit" value="Enviar">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button id='enable-form' type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection

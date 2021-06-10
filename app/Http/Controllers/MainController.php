@@ -205,6 +205,7 @@ class MainController extends Controller
         $user_data->rank_id = $request->input('rank_id');
         $user_data->company_id = $request->input('company_id');
         $user_data->save();
+        session()->flash('success', 'Suas informações foram alteradas com sucesso.');
 
         return back();
     }

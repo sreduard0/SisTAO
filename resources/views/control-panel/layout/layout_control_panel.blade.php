@@ -99,9 +99,7 @@
             </div>
 
 
-            <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="{{ $user_data->photoUrl }}" class="img-circle elevation-2" alt="User Image">
@@ -112,7 +110,6 @@
                             {{ $user_data->professionalName }}</a>
                     </div>
                 </div>
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy" data-widget="treeview"
                         role="menu" data-accordion="false">
@@ -156,9 +153,11 @@
                         </li>
                     </ul>
                 </nav>
-                <!-- /.sidebar-menu -->
+                <div class="theme">
+                    <span>Dark Mode</span> <input type="checkbox" value="1" class="mr-1">
+                </div>
             </div>
-            <!-- /.sidebar -->
+
         </aside>
 
         @yield('content')
