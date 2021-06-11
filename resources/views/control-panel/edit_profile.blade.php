@@ -1,5 +1,9 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Perfil')
+@section('scripts')
+<script src="js/croppie.js"></script>
+<link rel="stylesheet" href="css/croppie.css" />
+@endsection
 @section('edit_profile', 'active')
 @section('content')
     @php
@@ -32,9 +36,14 @@
                     <div class="widget-user-header text-white" style="background: url('img/photo1.png') center center;">
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
-                        <button class="btn btn-success edit-img-profile" data-toggle="modal"
-                            data-target="#up-img-profile"><i class="fas fa-pen"></i></button>
+                        <img id="uploaded_image" class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
+                        <div class="panel-body" align="center">
+  					<input type="file" name="upload_image" id="upload_image" />
+  					<br />
+  					<div id="uploaded_image"></div>
+  				</div>
+                        {{-- <button class="btn btn-success edit-img-profile" data-toggle="modal"
+                            data-target="#up-img-profile"><i class="fas fa-pen"></i></button> --}}
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
@@ -333,35 +342,24 @@
             </div>
         </div>
     </div>
-    {{-- Modal ft perfil --}}
-    <div class="modal fade show" id="up-img-profile" style="display: none;" aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Imagem de perfil</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form action="#" method="post" >
-                    <div class="modal-body">
-                            <div id="img-container">
-                                <img id="preview" class="img-size-100" src="">
-                            </div>
 
-                            <div>
-                                <input id="img-input" type="file" name="imagem">
-                            </div>
-
-
-                    </div>
-                    <div class="modal-footer p-b-0">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-success">Enviar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+@endsection
+@section('add')
+<div id="uploadimageModal" class="modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+      		<div class="modal-header">
+        		<h4 class="modal-title">Upload & Cortar Imagem</h4>
+      		</div>
+      		<div class="modal-body">
+						  <div id="image_demo" style="width:280px; margin-top:30px"></div>
+      		</div>
+      		<div class="modal-footer">
+        		<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button class="btn btn-success crop_image">Enviar</button>
+      		</div>
+    	</div>
     </div>
-
+</div>
+<script src="js/crop-img-profile.js"></script>
 @endsection

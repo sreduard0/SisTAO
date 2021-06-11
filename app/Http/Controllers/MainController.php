@@ -244,7 +244,18 @@ class MainController extends Controller
         }
     }
 
-    //================================={  }====================================//
+    //===================={ AÇÃO / UPLOADE IMG PERFIL }========================//
+    public function upload_img_profile(Request $request)
+    {
+        $request->img_profile->storeAs('public/img_profiles', 'img_profile_user_' . session('user')['login'] . '.jpg');
+
+        $user_data = $this->Tools->user_data(session('user')['id']);
+        $user_data->photoUrl = '/storage/img_profiles/img_profile_user_' . session('user')['login'] . '.jpg';
+        $user_data->save();
+
+
+        return back();
+    }
     //================================={  }====================================//
     //================================={  }====================================//
     //================================={  }====================================//

@@ -39,7 +39,8 @@
     <link rel="stylesheet" href="css/adminlte.css">
     <!-- Utils -->
     <link rel="stylesheet" href="css/util.css">
-
+  <!-- jQuery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Daterange picker -->
@@ -79,6 +80,8 @@
         }, 1000);
 
     </script>
+    {{-- scripts especificos --}}
+    @yield('scripts')
 </head>
 
 <body class="dark-mode hold-transition sidebar-mini layout-fixed">
@@ -180,8 +183,7 @@
 
     </div>
 
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
@@ -225,3 +227,4 @@
 </body>
 
 </html>
+@yield('add')
