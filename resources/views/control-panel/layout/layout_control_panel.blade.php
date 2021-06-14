@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="css/adminlte.css">
     <!-- Utils -->
     <link rel="stylesheet" href="css/util.css">
-  <!-- jQuery -->
+    <!-- jQuery -->
     <script src="js/jquery-3.2.1.min.js"></script>
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
@@ -105,7 +105,8 @@
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ $user_data->photoUrl }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ $user_data->photoUrl }}" id="image_profile" class="img-circle elevation-2"
+                            alt="User Image">
                     </div>
                     <div class="info">
                         {{-- Posto/Graduação          Nome de Guerra --}}
@@ -123,6 +124,23 @@
                                     Home
                                 </p>
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link @yield('adm')">
+                                <i class="nav-icon fas fa-user-circle"></i>
+                                <p>
+                                    Administrador
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link  @yield('users')">
+                                        <i class="nav-icon fas fa-user-edit"></i>
+                                        <p>Usuários</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item menu-open">
                             <a href="#" class="nav-link @yield('profile') @yield('edit_profile')">
@@ -223,8 +241,7 @@
 
 
 
-@yield('modal')
+    @yield('modal')
 </body>
 
 </html>
-

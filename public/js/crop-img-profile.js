@@ -1,15 +1,25 @@
 $(document).ready(function() {
 
+    // var do toast de sucesso
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 4000
+    });
+
+    // fim
+
     $image_crop = $('#image_demo').croppie({
         enableExif: true,
         viewport: {
-            width: 200,
-            height: 200,
+            width: 300,
+            height: 300,
             type: 'square' //circle
         },
         boundary: {
-            width: 300,
-            height: 300
+            width: 400,
+            height: 400
         }
     });
 
@@ -42,8 +52,12 @@ $(document).ready(function() {
 
                 success: function(data) {
                     $('#uploadimageModal').modal('hide');
-
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Imagem alterada com sucesso.'
+                    });
                     document.getElementById("img_profile").src = data;
+                    document.getElementById("image_profile").src = data;
                 }
             });
         })

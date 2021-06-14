@@ -1,9 +1,9 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Perfil')
 @section('scripts')
-<script src="js/croppie.js"></script>
-<link rel="stylesheet" href="css/croppie.css" />
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="js/croppie.js"></script>
+    <link rel="stylesheet" href="css/croppie.css" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('edit_profile', 'active')
 @section('content')
@@ -34,14 +34,15 @@
             <div class="container-fluid">
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header text-white" style="background: url('img/photo1.png') center center;">
+                    <div class="widget-user-header text-white"
+                        style="background: url('{{ $user_data->backgroundUrl }}') center center;">
                     </div>
                     <div class="widget-user-image">
                         <img id="img_profile" class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
-                        <div class="panel-body" >
+                        <div class="panel-body">
                             <button class="btn btn-success edit-img-profile" data-toggle="modal"
-                                        data-target="#alt-img-profile"> <i class="fa fa-pen"></i></button>
-  				        </div>
+                                data-target="#alt-img-profile"> <i class="fa fa-pen"></i></button>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
@@ -321,8 +322,8 @@
 
 @endsection
 @section('modal')
-{{-- Modal de aviso alt img perfil --}}
-<div class="modal fade show" id="alt-img-profile" style="display: none;" aria-modal="true" role="dialog">
+    {{-- Modal de aviso alt img perfil --}}
+    <div class="modal fade show" id="alt-img-profile" style="display: none;" aria-modal="true" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -340,12 +341,12 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <label for="upload_image" class="btn btn-success">Alterar imagem</label>
-  					<input type="file" class="btn btn-success input-img-profile" name="upload_image" id="upload_image" />
+                    <input type="file" class="btn btn-success input-img-profile" name="upload_image" id="upload_image" />
                 </div>
             </div>
         </div>
     </div>
-{{-- Modal de aviso alt info pessoais --}}
+    {{-- Modal de aviso alt info pessoais --}}
     <div class="modal fade show" id="alt-user" style="display: none;" aria-modal="true" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -368,22 +369,22 @@
             </div>
         </div>
     </div>
-{{-- Modal de envio de imagem --}}
-<div id="uploadimageModal" class="modal" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-      		<div class="modal-header">
-        		<h4 class="modal-title">Upload & Cortar Imagem</h4>
-      		</div>
-      		<div class="modal-body">
-						  <div id="image_demo" style="width:280px; margin-top:30px"></div>
-      		</div>
-      		<div class="modal-footer">
-        		<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                <button class="btn btn-success crop_image">Enviar</button>
-      		</div>
-    	</div>
+    {{-- Modal de envio de imagem --}}
+    <div id="uploadimageModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Ajustar imagem</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="image_demo"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button class="btn btn-success crop_image">Enviar</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<script src="js/crop-img-profile.js"></script>
+    <script src="js/crop-img-profile.js"></script>
 @endsection

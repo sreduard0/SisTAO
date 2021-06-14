@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Classes\Tools;
 use App\Http\Requests\AltPwdRequest;
 use App\Http\Requests\EditProfileRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\CitiesModel;
 use App\Models\CompanyModel;
 use App\Models\DepartamentModel;
@@ -252,7 +253,7 @@ class MainController extends Controller
         $image_array_2 = explode(",", $image_array_1[1]);
         $data = base64_decode($image_array_2[1]);
         $imageName = 'img_profile_user_' . session('user')['login'] . '-' . date('d-m-Y-H-m-s') . '.png';
-        $fileDir = 'img_profiles/' . session('user')['login'] . '/';
+        $fileDir = 'img/img_profiles/' . session('user')['login'] . '/';
 
         if (!is_dir($fileDir)) {
             mkdir($fileDir, 0777, true); //444
