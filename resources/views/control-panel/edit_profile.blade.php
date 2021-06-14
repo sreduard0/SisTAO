@@ -3,6 +3,7 @@
 @section('scripts')
 <script src="js/croppie.js"></script>
 <link rel="stylesheet" href="css/croppie.css" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('edit_profile', 'active')
 @section('content')
@@ -36,14 +37,11 @@
                     <div class="widget-user-header text-white" style="background: url('img/photo1.png') center center;">
                     </div>
                     <div class="widget-user-image">
-                        <img id="uploaded_image" class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
-                        <div class="panel-body" align="center">
-  					<input type="file" name="upload_image" id="upload_image" />
-  					<br />
-  					<div id="uploaded_image"></div>
-  				</div>
-                        {{-- <button class="btn btn-success edit-img-profile" data-toggle="modal"
-                            data-target="#up-img-profile"><i class="fas fa-pen"></i></button> --}}
+                        <img id="img_profile" class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
+                        <div class="panel-body" >
+                            <button class="btn btn-success edit-img-profile" data-toggle="modal"
+                                        data-target="#alt-img-profile"> <i class="fa fa-pen"></i></button>
+  				        </div>
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
@@ -319,7 +317,35 @@
             </div><!-- /.container-fluid -->
         </section>
     </div>
-    {{-- Modal de confirmação --}}
+
+
+@endsection
+@section('modal')
+{{-- Modal de aviso alt img perfil --}}
+<div class="modal fade show" id="alt-img-profile" style="display: none;" aria-modal="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alteração de imagem do perfil</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> ATENÇÃO: As informações inseridas aqui são de <strong>responsabilidade do militar</strong>, caso
+                        seja verificada
+                        inconsistência nos dados, o militar poderá sofrer sanções disciplinares previstas no Regulamento
+                        Disciplinar do Exército (RDE).</p>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <label for="upload_image" class="btn btn-success">Alterar imagem</label>
+  					<input type="file" class="btn btn-success input-img-profile" name="upload_image" id="upload_image" />
+                </div>
+            </div>
+        </div>
+    </div>
+{{-- Modal de aviso alt info pessoais --}}
     <div class="modal fade show" id="alt-user" style="display: none;" aria-modal="true" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -342,9 +368,7 @@
             </div>
         </div>
     </div>
-
-@endsection
-@section('add')
+{{-- Modal de envio de imagem --}}
 <div id="uploadimageModal" class="modal" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">

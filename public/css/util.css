@@ -11960,6 +11960,10 @@ a .icon {
     bottom: 0px;
 }
 
+.input-img-profile {
+    display: none;
+}
+
 .edit-img-profile {
     border-radius: 50%;
     height: 45px;

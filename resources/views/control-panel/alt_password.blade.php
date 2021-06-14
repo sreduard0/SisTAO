@@ -95,7 +95,7 @@
                                             </strong>
                                             <li>a alteração
                                                 da senha ocorre de forma imediata;</li>
-                                            <li>Atente para a forma da senha (deverá ser alfanumérica com no mínimo 8
+                                            <li>atente para a forma da senha (deverá ser alfanumérica com no mínimo 8
                                                 caracteres - incluir letras maiúsculas, minúsculas e números)</li>
                                             <li>é recomendado que o usuário troque sua senha mensalmente; </li>
                                             <li>a senha é pessoal e intransferível, portanto, não deve ser compartilhada;

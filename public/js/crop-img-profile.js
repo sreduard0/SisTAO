@@ -1,5 +1,3 @@
-// crop image
-
 $(document).ready(function() {
 
     $image_crop = $('#image_demo').croppie({
@@ -25,6 +23,7 @@ $(document).ready(function() {
             });
         }
         reader.readAsDataURL(this.files[0]);
+        $('#alt-img-profile').modal('hide');
         $('#uploadimageModal').modal('show');
     });
 
@@ -34,9 +33,18 @@ $(document).ready(function() {
             size: 'viewport'
         }).then(function(response) {
             $.ajax({
-                url: "upload_img_profile",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/upload_img_profile",
                 type: "POST",
-                data: { response },
+                data: { "img_profile": response },
+
+                success: function(data) {
+                    $('#uploadimageModal').modal('hide');
+
+                    document.getElementById("img_profile").src = data;
+                }
             });
         })
     });

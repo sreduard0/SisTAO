@@ -49,17 +49,6 @@
     setTimeout(function() {
         $("#error").detach();
     }, 4000);
-
-    function readImage() {
-        if (this.files && this.files[0]) {
-            var file = new FileReader();
-            file.onload = function(e) {
-                document.getElementById("preview").src = e.target.result;
-            };
-            file.readAsDataURL(this.files[0]);
-        }
-    }
-    document.getElementById("img-input").addEventListener("change", readImage, false);
 })(jQuery);
 
 
@@ -83,22 +72,3 @@ function hide() {
     })
     $("#backdrop").detach();
 }
-
-
-function toggleFAB(fab) {
-    if (document.querySelector(fab).classList.contains('show')) {
-        document.querySelector(fab).classList.remove('show');
-    } else {
-        document.querySelector(fab).classList.add('show');
-    }
-}
-
-document.querySelector('.fab .main').addEventListener('click', function() {
-    toggleFAB('.fab');
-});
-
-document.querySelectorAll('.fab ul li button').forEach((item) => {
-    item.addEventListener('click', function() {
-        toggleFAB('.fab');
-    });
-});

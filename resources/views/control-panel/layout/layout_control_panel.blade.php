@@ -223,8 +223,8 @@
 
 
 
-
+@yield('modal')
 </body>
 
 </html>
-@yield('add')
+
