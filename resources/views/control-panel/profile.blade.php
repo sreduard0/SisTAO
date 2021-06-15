@@ -1,6 +1,7 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Perfil')
 @section('profile', 'active')
+@section('menu_open', 'menu-open')
 @section('content')
     @php
     use App\Classes\Tools;

@@ -127,7 +127,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link @yield('adm')">
-                                <i class="nav-icon fas fa-user-circle"></i>
+                                <i class="nav-icon fas fa-tools"></i>
                                 <p>
                                     Administrador
                                     <i class="right fas fa-angle-left"></i>
@@ -136,13 +136,13 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link  @yield('users')">
-                                        <i class="nav-icon fas fa-user-edit"></i>
+                                        <i class="nav-icon fas fa-users"></i>
                                         <p>Usuários</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item menu-open">
+                        <li class="nav-item @yield('menu_open')">
                             <a href="#" class="nav-link @yield('profile') @yield('edit_profile')">
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p>
@@ -199,6 +199,7 @@
             </footer>
         </footer>
 
+
     </div>
 
 
@@ -241,7 +242,8 @@
 
 
 
-    @yield('modal')
+
 </body>
 
 </html>
+@yield('modal')

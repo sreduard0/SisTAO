@@ -151,6 +151,7 @@ return [
     |
     */
 
+    // 'domain' => '3bsup.eb.mil.br',
     'domain' => '3bsup.eb.mil.br',
 
     /*

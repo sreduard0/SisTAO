@@ -1,15 +1,29 @@
+// var do toast de sucesso
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 4000
+});
+// fim
+function checkExt($input) {
+    var extTrue = ['jpg', 'png', 'jpeg'];
+    var extFile = $input.value.split('.').pop();
+
+    if (typeof extTrue.find(function(ext) {
+            return extFile == ext;
+        }) == 'undefined') {
+
+        Toast.fire({
+            icon: 'error',
+            title: '&nbsp&nbsp Por favor selecione um arquivo .JPG, .JPEG ou .PNG'
+        });
+
+        $input.value = '';
+        return false;
+    }
+}
 $(document).ready(function() {
-
-    // var do toast de sucesso
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 4000
-    });
-
-    // fim
-
     $image_crop = $('#image_demo').croppie({
         enableExif: true,
         viewport: {
@@ -46,7 +60,7 @@ $(document).ready(function() {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "/upload_img_profile",
+                url: "upload_img_profile",
                 type: "POST",
                 data: { "img_profile": response },
 

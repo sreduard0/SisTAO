@@ -1,11 +1,13 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Perfil')
+@section('menu_open', 'menu-open')
+@section('edit_profile', 'active')
 @section('scripts')
     <script src="js/croppie.js"></script>
     <link rel="stylesheet" href="css/croppie.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
-@section('edit_profile', 'active')
+
 @section('content')
     @php
     use App\Classes\Tools;
@@ -319,9 +321,6 @@
         </section>
     </div>
 
-
-@endsection
-@section('modal')
     {{-- Modal de aviso alt img perfil --}}
     <div class="modal fade show" id="alt-img-profile" style="display: none;" aria-modal="true" role="dialog">
         <div class="modal-dialog">
@@ -336,12 +335,14 @@
                     <p> ATENÇÃO: As informações inseridas aqui são de <strong>responsabilidade do militar</strong>, caso
                         seja verificada
                         inconsistência nos dados, o militar poderá sofrer sanções disciplinares previstas no Regulamento
-                        Disciplinar do Exército (RDE).</p>
+                        Disciplinar do Exército (RDE).</p><br>
+                    <small>(A foto deverá ser com o uniforme 9º C2 com fundo de cor clara.)</small>
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <label for="upload_image" class="btn btn-success">Alterar imagem</label>
-                    <input type="file" class="btn btn-success input-img-profile" name="upload_image" id="upload_image" />
+                    <input type="file" class="btn btn-success input-img-profile" name="upload_image" id="upload_image"
+                        accept="image/png,image/jpg,image/jpeg" onchange="checkExt(this)" />
                 </div>
             </div>
         </div>
@@ -369,6 +370,8 @@
             </div>
         </div>
     </div>
+@endsection
+@section('modal')
     {{-- Modal de envio de imagem --}}
     <div id="uploadimageModal" class="modal" role="dialog">
         <div class="modal-dialog">
