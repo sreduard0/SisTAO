@@ -117,8 +117,8 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy" data-widget="treeview"
                         role="menu" data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <a href="{{ route('home') }}" class=' nav-link @yield("home")'>
+                        <li class="nav-item">
+                            <a href="{{ route('home') }}" class='nav-link @yield("home")'>
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
@@ -141,7 +141,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
+                                    <a href="#" class="nav-link  @yield('logins')">
                                         <i class="nav-icon fas fa-lock"></i>
                                         <p>Logins</p>
                                     </a>

@@ -47,6 +47,7 @@ class CrudController extends Controller
 
         $user_data = $this->Tools->user_data(session('user')['id']);
 
+
         $user_data->name = $request->input('name');
         $user_data->professionalName = $request->input('professional_name');
         $user_data->email = $request->input('email');

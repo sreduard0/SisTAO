@@ -20,7 +20,7 @@ class MainController extends Controller
     }
     //####################################################//
     //========================{ PAINEL DE CONTROLE }===========================//
-    //======={ VIEW / HOME }===============//
+    //======={ HOME }===============//
     public function home()
     {
         if (!session()->has('user')) {
@@ -34,7 +34,7 @@ class MainController extends Controller
 
         return view('control-panel.home', $data);
     }
-    //==========={ VIEW / PERFIL }===========//
+    //==========={ PERFIL }===========//
     public function profile()
     {
         if (!session()->has('user')) {
@@ -56,7 +56,7 @@ class MainController extends Controller
         ];
         return view('control-panel.profile', $data);
     }
-    //======={ VIEW / EDITAR PERFIL }========//
+    //======={  EDITAR PERFIL }========//
     public function edit_profile()
     {
         if (!session()->has('user')) {
@@ -86,7 +86,7 @@ class MainController extends Controller
         return view('control-panel.edit_profile', $data);
     }
 
-    //======={ VIEW / ALTERAR SENHA }========//
+    //======={ ALTERAR SENHA }========//
     public function alt_password()
     {
         if (!session()->has('user')) {
