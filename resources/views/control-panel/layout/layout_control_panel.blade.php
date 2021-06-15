@@ -125,7 +125,7 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item @yield('menu_adm_open')">
                             <a href="#" class="nav-link @yield('adm')">
                                 <i class="nav-icon fas fa-tools"></i>
                                 <p>
@@ -135,14 +135,20 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link  @yield('users')">
+                                    <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
                                         <i class="nav-icon fas fa-users"></i>
                                         <p>Usuários</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
+                                        <i class="nav-icon fas fa-lock"></i>
+                                        <p>Logins</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="nav-item @yield('menu_open')">
+                        <li class="nav-item @yield('menu_profile_open')">
                             <a href="#" class="nav-link @yield('profile') @yield('edit_profile')">
                                 <i class="nav-icon fas fa-user-circle"></i>
                                 <p>
@@ -174,9 +180,6 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="theme">
-                    <span>Dark Mode</span> <input type="checkbox" value="1" class="mr-1">
-                </div>
             </div>
 
         </aside>
@@ -202,7 +205,7 @@
 
     </div>
 
-
+    @yield('plugins')
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->

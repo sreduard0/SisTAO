@@ -8,6 +8,7 @@ use App\Models\CitiesModel;
 use App\Models\CompanyModel;
 use App\Models\DepartamentModel;
 use App\Models\RanksModel;
+use App\Models\UserModel;
 
 class MainController extends Controller
 {
@@ -101,12 +102,17 @@ class MainController extends Controller
 
         return view('control-panel.alt_password', $data);
     }
+    //========================={ LISTA USUÁRIOS }==============================//
+    public function users_list()
+    {
+        $data = [
+            'user_data' => $this->Tools->user_data(session('user')['id']),
+            'users' => UserModel::all(),
+        ];
 
 
-
-
-
-    //================================={  }====================================//
+        return view('control-panel.users_list', $data);
+    }
     //================================={  }====================================//
     //================================={  }====================================//
     //================================={  }====================================//

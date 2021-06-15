@@ -43,14 +43,14 @@ class LoginController extends Controller
         //Apresenta o formulario de login
         return view('form-login', $data);
     }
-    //======={ AÇÃO / LOGOUT }=============//
+    //======={ LOGOUT }=============//
     public function logout()
     {
         session()->flush();
         return redirect()->route('login');
     }
 
-    //======={ AÇÃO / LOGIN SUBMIT }=======//
+    //======={ LOGIN SUBMIT }=======//
     public function login_submit(LoginRequest $request)
     {
 

@@ -19,7 +19,28 @@ class CrudController extends Controller
         $this->Tools = new Tools();
     }
     //####################################################//
-    //======={ AÇÃO / SUBMIT ALT PERFIL }======//
+    //===================={ UPLOADE IMG PERFIL }========================//
+    public function upload_img_profile(Request $request)
+    {
+        $data = $request->img_profile;
+        $image_array_1 = explode(";", $data);
+        $image_array_2 = explode(",", $image_array_1[1]);
+        $data = base64_decode($image_array_2[1]);
+        $imageName = 'img_profile_user_' . session('user')['login'] . '-' . date('d-m-Y-H-m-s') . '.png';
+        $fileDir = 'img/img_profiles/' . session('user')['login'] . '/';
+
+        if (!is_dir($fileDir)) {
+            mkdir($fileDir, 0777, true); //444
+        }
+        file_put_contents($fileDir . $imageName, $data);
+
+        $user_data = $this->Tools->user_data(session('user')['id']);
+        $user_data->photoUrl = $fileDir . $imageName;
+        $user_data->save();
+
+        return $fileDir . $imageName;
+    }
+    //======={ SUBMIT ALT PERFIL }======//
     public function submit_alt_profile(EditProfileRequest $request)
     {
         $request->validated();
@@ -49,8 +70,7 @@ class CrudController extends Controller
 
         return back();
     }
-
-    //======={ AÇÃO / SUBMIT ALT SENHA }======//
+    //======={ SUBMIT ALT SENHA }======//
     public function submit_alt_pwd(AltPwdRequest $request)
     {
 
@@ -82,27 +102,5 @@ class CrudController extends Controller
             session()->flash('erro', 'Os campos "Nova senha" e "Confirmar senha" devem ser iguais.');
             return back();
         }
-    }
-
-    //===================={ AÇÃO / UPLOADE IMG PERFIL }========================//
-    public function upload_img_profile(Request $request)
-    {
-        $data = $request->img_profile;
-        $image_array_1 = explode(";", $data);
-        $image_array_2 = explode(",", $image_array_1[1]);
-        $data = base64_decode($image_array_2[1]);
-        $imageName = 'img_profile_user_' . session('user')['login'] . '-' . date('d-m-Y-H-m-s') . '.png';
-        $fileDir = 'img/img_profiles/' . session('user')['login'] . '/';
-
-        if (!is_dir($fileDir)) {
-            mkdir($fileDir, 0777, true); //444
-        }
-        file_put_contents($fileDir . $imageName, $data);
-
-        $user_data = $this->Tools->user_data(session('user')['id']);
-        $user_data->photoUrl = $fileDir . $imageName;
-        $user_data->save();
-
-        return $fileDir . $imageName;
     }
 }

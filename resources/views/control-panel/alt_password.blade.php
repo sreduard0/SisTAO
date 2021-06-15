@@ -1,7 +1,7 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Alterar senha')
 @section('profile', 'active')
-@section('menu_open', 'menu-open')
+@section('menu_profile_open', 'menu-open')
 @section('alt_password', 'active')
 @section('content')
     @php

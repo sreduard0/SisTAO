@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\CrudController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
-use App\Models\CitiesModel;
 use Illuminate\Support\Facades\Cookie;
 
 //========================================================================//
@@ -19,6 +20,7 @@ Route::get('home', [MainController::class, 'home'])->name('home');
 Route::get('profile', [MainController::class, 'profile'])->name('profile');
 Route::get('edit_profile', [MainController::class, 'edit_profile'])->name('edit_profile');
 Route::get('alt_password', [MainController::class, 'alt_password'])->name('alt_password');
+Route::get('users_list', [MainController::class, 'users_list'])->name('users_list');
 //========Rotas de envio de formularios
 Route::post('submit_alt_profile', [CrudController::class, 'submit_alt_profile'])->name('submit_alt_profile');
 Route::post('submit_alt_pwd', [CrudController::class, 'submit_alt_pwd'])->name('submit_alt_pwd');
@@ -30,6 +32,6 @@ Route::post('upload_img_profile', [CrudController::class, 'upload_img_profile'])
 //========================================================================//
 
 //============================[Rota de teste]====================================
-Route::get('/cookie', function () {
-    return Cookie::get();
-});
+// Route::get('/cookie', function () {
+//     return Cookie::get();
+// });

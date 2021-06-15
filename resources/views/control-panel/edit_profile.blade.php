@@ -1,6 +1,6 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Perfil')
-@section('menu_open', 'menu-open')
+@section('menu_profile_open', 'menu-open')
 @section('edit_profile', 'active')
 @section('scripts')
     <script src="js/croppie.js"></script>
