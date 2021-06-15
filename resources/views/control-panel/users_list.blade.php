@@ -48,7 +48,7 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-                                                <td>{{ $user->rank->rank }}</td>
+                                                <td>{{ $user->rank->id }}-{{ $user->rank->rank }}</td>
                                                 <td>{{ $user->professionalName }}</td>
                                                 <td>{{ $user->company->name }}</td>
                                                 <td> {{ $user->departament->name }}</td>
@@ -85,16 +85,21 @@
     <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
 
     <script>
         $(function() {
             $("#table_users").DataTable({
                 "responsive": true,
-                "lengthChange": true,
+                "lengthChange": false,
                 "autoWidth": false,
                 "language": {
                     "url": "plugins/datatables/Portuguese.json"
-                }
+                },
+
+
+
+
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             });
         });
