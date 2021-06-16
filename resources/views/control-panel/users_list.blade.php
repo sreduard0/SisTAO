@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 @endsection
 @section('content')
     @php
@@ -37,7 +38,6 @@
                                 <table id="table_users" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-
                                             <th>P/G</th>
                                             <th>Nome de guerra</th>
                                             <th>CIA</th>
@@ -48,7 +48,7 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
-                                                <td>{{ $user->rank->id }}-{{ $user->rank->rank }}</td>
+                                                <td data-order="{{ $user->rank->id }}">{{ $user->rank->rank }}</td>
                                                 <td>{{ $user->professionalName }}</td>
                                                 <td>{{ $user->company->name }}</td>
                                                 <td> {{ $user->departament->name }}</td>
@@ -85,19 +85,22 @@
     <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+    <script src="plugins/datatables/numeric-comma.js"></script>
+
 
     <script>
         $(function() {
             $("#table_users").DataTable({
                 "responsive": true,
-                "lengthChange": false,
+                "lengthChange": true,
                 "autoWidth": false,
                 "language": {
                     "url": "plugins/datatables/Portuguese.json"
                 },
-
-
+                columnDefs: [{
+                    type: 'numeric-comma',
+                    targets: 0
+                }],
 
 
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

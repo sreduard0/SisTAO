@@ -2,7 +2,7 @@
     "emptyTable": "Não foi encontrado nenhum registo",
     "loadingRecords": "A carregar...",
     "processing": "A processar...",
-    "lengthMenu": "Mostrar _MENU_ registos",
+    "lengthMenu": "Mostrar _MENU_ usuários",
     "zeroRecords": "Não foram encontrados resultados",
     "search": "Procurar:",
     "paginate": {
@@ -159,6 +159,6 @@
             "restore": "Desfazer alterações"
         }
     },
-    "info": "Mostrando os registos _START_ a _END_ num total de _TOTAL_",
-    "infoEmpty": "Mostrando 0 os registos num total de 0"
+    "info": "Usuários de _START_ a _END_, N° total de usuários _TOTAL_",
+    "infoEmpty": "Não há usuários cadastrados."
 }
