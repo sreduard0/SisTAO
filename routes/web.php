@@ -26,6 +26,7 @@ Route::get('create_user', [MainController::class, 'create_user'])->name('create_
 Route::post('submit_alt_profile', [CrudController::class, 'submit_alt_profile'])->name('submit_alt_profile');
 Route::post('submit_alt_pwd', [CrudController::class, 'submit_alt_pwd'])->name('submit_alt_pwd');
 Route::post('upload_img_profile', [CrudController::class, 'upload_img_profile'])->name('upload_img_profile');
+Route::post('alt_img_bg', [CrudController::class, 'alt_img_bg'])->name('alt_img_bg');
 
 
 //========================================================================//

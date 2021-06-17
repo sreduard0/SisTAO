@@ -56,8 +56,23 @@
                                                 <td>{{ $user->professionalName }}</td>
                                                 <td>{{ $user->company->name }}</td>
                                                 <td> {{ $user->departament->name }}</td>
-                                                <td>
-                                                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-pen"></i></a>
+                                                <td width="200px">
+
+                                                    <a class="btn btn-primary btn-sm" href="#">
+                                                        <i class="fas fa-folder">
+                                                        </i>
+                                                        View
+                                                    </a>
+                                                    <a class="btn btn-info btn-sm" href="#">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                    <a class="btn btn-danger btn-sm" href="#">
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Delete
+                                                    </a>
                                                 </td>
 
                                             </tr>

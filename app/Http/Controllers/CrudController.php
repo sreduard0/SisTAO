@@ -105,7 +105,11 @@ class CrudController extends Controller
         }
     }
 
-    //============{  }=============//
+
+    //============{ SUBMIT Alteração de imagem do background }=============//
+    public function alt_img_bg()
+    {
+    }
     //============{  }=============//
     //============{  }=============//
     //============{  }=============//
