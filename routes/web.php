@@ -21,6 +21,7 @@ Route::get('profile', [MainController::class, 'profile'])->name('profile');
 Route::get('edit_profile', [MainController::class, 'edit_profile'])->name('edit_profile');
 Route::get('alt_password', [MainController::class, 'alt_password'])->name('alt_password');
 Route::get('users_list', [MainController::class, 'users_list'])->name('users_list');
+Route::get('create_user', [MainController::class, 'create_user'])->name('create_user');
 //========Rotas de envio de formularios
 Route::post('submit_alt_profile', [CrudController::class, 'submit_alt_profile'])->name('submit_alt_profile');
 Route::post('submit_alt_pwd', [CrudController::class, 'submit_alt_pwd'])->name('submit_alt_pwd');
