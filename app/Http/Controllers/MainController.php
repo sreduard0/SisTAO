@@ -116,7 +116,31 @@ class MainController extends Controller
     //============{ CRIAR USUÁRIO }=============//
     public function create_user()
     {
-        echo 'teste11';
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
+
+        //Buscando todas cidades
+        $all_cities = CitiesModel::all();
+        //Buscando toda tabela hierárquica
+        $all_ranks = RanksModel::all();
+        //Buscando companias
+        $all_company = CompanyModel::all();
+        //Buscando companias
+        $all_departament = DepartamentModel::all();
+        //Buscando informações do usuário
+        $user_data = $this->Tools->user_data(session('user')['id']);
+
+
+        $data = [
+            'user_data' => $user_data,
+            'all_ranks' => $all_ranks,
+            'all_departament' => $all_departament,
+            'all_company' => $all_company,
+            'all_cities' => $all_cities
+        ];
+
+        return view('control-panel.create-profile', $data);
     }
     //================================={  }====================================//
     //================================={  }====================================//

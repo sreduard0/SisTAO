@@ -6,6 +6,7 @@
     <script src="js/croppie.js"></script>
     <link rel="stylesheet" href="css/croppie.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="js/select-img-bg.js"></script>
 @endsection
 
 @section('content')
@@ -37,10 +38,13 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
-                        style="background: url('{{ $user_data->backgroundUrl }}') center center;">
+                        style="background: url('') center center;background-size:contain" id="img_bg">
+                        <button class="btn btn-success btn-img-bg" data-toggle="modal" data-target="#alt-img-bg">
+                            <i class="fa fa-pen"></i></button>
                     </div>
                     <div class="widget-user-image">
-                        <img id="img_profile" class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
+                        <img id="img_profile" class="img-circle" src="img/img-profiles/img-profile-padrao.png"
+                            alt="User Avatar">
                         <div class="panel-body">
                             <button class="btn btn-success edit-img-profile" data-toggle="modal"
                                 data-target="#alt-img-profile"> <i class="fa fa-pen"></i></button>
@@ -48,9 +52,9 @@
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
-                            <h3 class="widget-user-desc text-center"> {{ $user_data->rank->rankAbbreviation }}
-                                {{ $user_data->professionalName }}</h3>
-                            <h5 class="widget-user-username text-center">{{ $user_data->departament->name }}</h5>
+                            <h3 class="widget-user-desc text-center"> P/G
+                                Nome de guerra</h3>
+                            <h5 class="widget-user-username text-center">Seção</h5>
                         </div>
                     </div>
                 </div>
@@ -68,7 +72,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <form action="{{ route('submit_alt_profile') }}" method="POST">
+                            <form action="#" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="tab-content m-rl-80">
@@ -78,49 +82,43 @@
                                             <div class="row">
                                                 <div class="form-group col-md-2">
                                                     <label for="pg">Posto/Grad</label>
-                                                    <select class="form-control" name="rank_id" id="rank_id" required
-                                                        disabled>
+                                                    <select class="form-control" name="rank_id" id="rank_id" required>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_ranks as $rank)
-                                                            <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif
-                                                                value="{{ $rank->id }}">
-                                                                {{ $rank->rankAbbreviation }}</option>
+                                                            <option value="{{ $rank->id }}">
+                                                                {{ $rank->rankAbbreviation }} </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-1">
                                                     <label for="military_id">N°</label>
                                                     <input type="text" class="form-control" id="military_id"
-                                                        name="military_id" placeholder="N°"
-                                                        value="{{ $user_data->militaryId }}" required disabled>
+                                                        name="military_id" placeholder="N°" value="" required>
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="professionalname">Nome de gerra</label>
                                                     <input type="text" class="form-control" id="professional_name"
                                                         name="professional_name" placeholder="Digite seu nome de guerra"
-                                                        value="{{ $user_data->professionalName }}" required disabled>
+                                                        value="" required>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">SEÇ/SET/CL</label>
                                                     <select name="departament_id" id="departament_id" class="form-control"
-                                                        required disabled>
+                                                        required>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_departament as $departament)
-                                                            <option @if ($user_data->departament_id == $departament->id) selected="selected" @endif
-                                                                value="{{ $departament->id }}">
-                                                                {{ $departament->name }}</option>
+                                                            <option value="{{ $departament->id }}">
+                                                                {{ $departament->name }} </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">CIA</label>
-                                                    <select name="company_id" id="company_id" class="form-control" required
-                                                        disabled>
+                                                    <select name="company_id" id="company_id" class="form-control" required>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_company as $company)
-                                                            <option @if ($user_data->company_id == $company->id) selected="selected" @endif
-                                                                value="{{ $company->id }}">
-                                                                {{ $company->name }}</option>
+                                                            <option value="{{ $company->id }}"> {{ $company->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -131,23 +129,21 @@
                                                 <div class="form-group col">
                                                     <label for="name">Nome completo</label>
                                                     <input type="text" class="form-control" id="name" name="name"
-                                                        placeholder="Digite seu nome completo"
-                                                        value="{{ $user_data->name }}" required disabled>
+                                                        placeholder="Digite seu nome completo" value="" required>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cpf">CPF</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['999.999.999-99']" data-mask=""
                                                         inputmode="text" name="cpf" id="cpf" placeholder="___.___.___-__"
-                                                        value="{{ $user_data->cpf }}" required disabled>
+                                                        value="" required>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label>Data de nascimento</label>
                                                     <div class="input-group date" id="born_at" data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input"
-                                                            data-target="#born_at" id="born_at" name="born_at"
-                                                            value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}"
-                                                            required disabled>
+                                                            data-target="#born_at" id="born_at" name="born_at" value=""
+                                                            required>
                                                         <div class="input-group-append" data-target="#born_at"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -161,14 +157,12 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="mother_name">Nome da mãe</label>
                                                     <input type="text" id="mother_name" name="mother_name"
-                                                        class="form-control" placeholder="Nome da mãe"
-                                                        value="{{ $user_data->motherName }}" required disabled>
+                                                        class="form-control" placeholder="Nome da mãe" value="" required>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="father_name">Nome do pai</label>
                                                     <input type="text" id="father_name" name="father_name"
-                                                        class="form-control" placeholder="Nome do pai"
-                                                        value="{{ $user_data->fatherName }}" required disabled>
+                                                        class="form-control" placeholder="Nome do pai" value="" required>
                                                 </div>
                                             </div>
 
@@ -180,38 +174,33 @@
                                                 <div class="form-group col">
                                                     <label for="street">Logradouro</label>
                                                     <input type="text" class="form-control" id="street" name="street"
-                                                        placeholder="Logradouro" value="{{ $user_data->street }}"
-                                                        required disabled>
+                                                        placeholder="Logradouro" value="" required>
                                                 </div>
                                                 <div class="form-group col-md-1">
                                                     <label for="house_number">Nº</label>
                                                     <input type="text" class="form-control" id="house_number"
-                                                        name="house_number" placeholder="Nº"
-                                                        value="{{ $user_data->house_number }}" required disabled>
+                                                        name="house_number" placeholder="Nº" value="" required>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cpf">CEP</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['99999-999']" data-mask="" inputmode="text"
-                                                        id="cep" name="cep" placeholder="_______-__"
-                                                        value="{{ $user_data->cep }}" required disabled>
+                                                        id="cep" name="cep" placeholder="_______-__" value="" required>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     <label for="district">Bairro</label>
                                                     <input type="text" id="district" name="district" class="form-control"
-                                                        placeholder="Bairro" value="{{ $user_data->district }}" required
-                                                        disabled>
+                                                        placeholder="Bairro" value="" required>
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="city">CIA</label>
-                                                    <select name="city" id="city" class="form-control" required disabled>
+                                                    <select name="city" id="city" class="form-control" required>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_cities as $city)
-                                                            <option @if ($user_data->city_id == $city->id) selected="selected" @endif
-                                                                value="{{ $city->id }}">
-                                                                {{ $city->name }}, {{ $city->state }}</option>
+                                                            <option value="{{ $city->id }}"> {{ $city->name }},
+                                                                {{ $city->state }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -224,14 +213,14 @@
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
                                                         data-mask="" id="phone1" name="phone1" placeholder="Telefone"
-                                                        value="{{ $user_data->phone1 }}" required disabled>
+                                                        value="" required>
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="phone2">Telefone 2</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
                                                         data-mask="" id="phone2" name="phone2" placeholder="Telefone"
-                                                        value="{{ $user_data->phone2 }}" disabled>
+                                                        value="">
                                                 </div>
 
                                             </div>
@@ -239,8 +228,7 @@
                                                 <div class="form-group col">
                                                     <label for="email">E-mail</label>
                                                     <input type="text" class="form-control" id="email" name="email"
-                                                        placeholder="E-mail" value="{{ $user_data->email }}" required
-                                                        disabled>
+                                                        placeholder="E-mail" value="" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -248,8 +236,8 @@
                                     <!-- /.tab-content -->
                                 </div><!-- /.card-body -->
                                 <div id="btn-submit" class="text-center">
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#alt-user"> <i class="fa fa-user-edit"></i> Editar</button>
+                                    <button type="submit" class="btn btn-success"> <i
+                                            class="fa fa-user-edit"></i>Salvar</button>
                                 </div>
 
                             </form>
@@ -259,68 +247,70 @@
 
 
                     </div>
-                    <div class="col-md-3">
 
-                        <!-- About Me Box -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Visão geral</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <strong><i class="fas fa-user mr-1"></i> Informações basicas</strong>
-
-                                <ul class="text-muted">
-                                    <li class="row">NOME: {{ $user_data->name }}</li>
-                                    <li class="row">MILITAR:
-                                        {{ $user_data->rank->rankAbbreviation }}
-                                        {{ $user_data->militaryId }}
-                                        {{ $user_data->professionalName }}
-                                    </li>
-                                    <li class="row">CIA: {{ $user_data->company->name }}</li>
-                                    <li class="row">NASCIDO:
-                                        {{ date('d/m/Y', strtotime($user_data->born_at)) }}</li>
-                                    <li class="row">MÃE: {{ $user_data->motherName }}</li>
-                                    <li class="row">PAI: {{ $user_data->fatherName }}</li>
-                                </ul>
-
-                                <hr>
-
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Endereço</strong>
-
-                                <ul class="text-muted">
-                                    <li class="row">LOGRADOURO: {{ $user_data->street }}</li>
-                                    <li class="row">BAIRRO: {{ $user_data->district }}</li>
-                                    <li class="row">CIDADE: {{ $user_data->city->name }}</li>
-                                    <li class="row">ESTADO: {{ $user_data->city->state }}</li>
-                                </ul>
-
-                                <hr>
-
-                                <strong><i class="fas fa-id-badge mr-1"></i> Contato</strong>
-
-                                <ul class="text-muted">
-                                    <li class="row">FONE 1:
-                                        {{ $tools->mask('(##) # ####-####', $user_data->phone1) }}</li>
-                                    <li class="row">FONE 2:
-                                        {{ $tools->mask('(##) # ####-####', $user_data->phone2) }}
-                                    </li>
-                                    <li class="row">E-mail: {{ $user_data->email }}</li>
-                                </ul>
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
+
+            </div>
         </section>
     </div>
 
+    {{-- Modal Alteração BG --}}
+    <div class="modal fade show" id="alt-img-bg" style="display: none;" aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alteração de imagem de fundo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="image-bg">
+                        <fieldset class="radio-image">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="bg1">
+                                        <input type="radio" name="bg" id="bg1" value="img/img_background/bg1.jpg">
+                                        <img src="img/img_background/bg1.jpg" width="100%" alt="Background 1">
+                                    </label>
+                                    <label for="bg2">
+                                        <input type="radio" name="bg" id="bg2" value="img/img_background/bg2.jpg">
+                                        <img src="img/img_background/bg2.jpg" width="100%" alt="Background 2">
+                                    </label>
+                                    <label for="bg3">
+                                        <input type="radio" name="bg" id="bg3" value="img/img_background/bg3.jpg">
+                                        <img src="img/img_background/bg3.jpg" width="100%" alt="Background 3">
+                                    </label>
+                                </div>
+
+                                <div class="col">
+
+                                    <label for="bg4">
+                                        <input type="radio" name="bg" id="bg4" value="img/img_background/bg4.jpg">
+                                        <img src="img/img_background/bg4.jpg" width="100%" alt="Background 4">
+                                    </label>
+                                    <label for="bg5">
+                                        <input type="radio" name="bg" id="bg5" value="img/img_background/bg5.jpg">
+                                        <img src="img/img_background/bg5.jpg" width="100%" alt="Background 5">
+                                    </label>
+                                    <label for="bg6">
+                                        <input type="radio" name="bg" id="bg6" value="img/img_background/bg6.png">
+                                        <img src="img/img_background/bg6.png" width="100%" alt="Background 6">
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal"
+                        onclick="alt_img_bg()">Alterar</button> </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Modal de aviso alt img perfil --}}
     <div class="modal fade show" id="alt-img-profile" style="display: none;" aria-modal="true" role="dialog">
         <div class="modal-dialog">
