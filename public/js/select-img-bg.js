@@ -18,7 +18,7 @@ function alt_img_bg() {
                 icon: 'success',
                 title: '&nbsp&nbsp Imagem alterada com sucesso.'
             });
-            document.getElementById("img_bg").style = "background: url('" + dados.img_selected + "') center center;background-size: 100% 100% "
+            document.getElementById("img_bg").style = "background: url('" + dados.img_selected + "') center center;background-size:100%"
         }
     });
 

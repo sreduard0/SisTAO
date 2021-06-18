@@ -11986,11 +11986,11 @@ a .icon {
 
 .radio-image label>input+img {
     cursor: pointer;
-    border: 4px solid #EEE;
     border-radius: 5px;
     padding: 2px;
 }
 
 .radio-image label>input:checked+img {
     border: 4px solid #00664d;
+    width: 98%;
 }

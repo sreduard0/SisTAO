@@ -107,8 +107,14 @@ class CrudController extends Controller
 
 
     //============{ SUBMIT Alteração de imagem do background }=============//
-    public function alt_img_bg()
+    public function alt_img_bg(Request $request)
     {
+        $bg = $request->img_selected;
+        $user_data = $this->Tools->user_data(session('user')['id']);
+        $user_data->backgroundUrl = $bg;
+        $user_data->save();
+
+        return true;
     }
     //============{  }=============//
     //============{  }=============//

@@ -38,7 +38,7 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
-                        style="background: url('{{ $user_data->backgroundUrl }}') center center;background-size: 100% 100%"
+                        style="background: url('{{ $user_data->backgroundUrl }}') center center;background-size:contain"
                         id="img_bg">
                         <button class="btn btn-success btn-img-bg" data-toggle="modal" data-target="#alt-img-bg">
                             <i class="fa fa-pen"></i></button>
@@ -341,32 +341,32 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="bg1">
-                                        <input type="radio" name="bg" id="bg1" value="img/img_backgroud/bg1.jpg">
-                                        <img src="img/img_backgroud/bg1.jpg" width="100%" alt="Background 1">
+                                        <input type="radio" name="bg" id="bg1" value="img/img_background/bg1.jpg">
+                                        <img src="img/img_background/bg1.jpg" width="100%" alt="Background 1">
                                     </label>
                                     <label for="bg2">
-                                        <input type="radio" name="bg" id="bg2" value="img/img_backgroud/bg2.jpg">
-                                        <img src="img/img_backgroud/bg2.jpg" width="100%" alt="Background 2">
+                                        <input type="radio" name="bg" id="bg2" value="img/img_background/bg2.jpg">
+                                        <img src="img/img_background/bg2.jpg" width="100%" alt="Background 2">
                                     </label>
                                     <label for="bg3">
-                                        <input type="radio" name="bg" id="bg3" value="img/img_backgroud/bg3.jpg">
-                                        <img src="img/img_backgroud/bg3.jpg" width="100%" alt="Background 3">
+                                        <input type="radio" name="bg" id="bg3" value="img/img_background/bg3.jpg">
+                                        <img src="img/img_background/bg3.jpg" width="100%" alt="Background 3">
                                     </label>
                                 </div>
 
                                 <div class="col">
 
                                     <label for="bg4">
-                                        <input type="radio" name="bg" id="bg4" value="img/img_backgroud/bg4.jpg">
-                                        <img src="img/img_backgroud/bg4.jpg" width="100%" alt="Background 4">
+                                        <input type="radio" name="bg" id="bg4" value="img/img_background/bg4.jpg">
+                                        <img src="img/img_background/bg4.jpg" width="100%" alt="Background 4">
                                     </label>
                                     <label for="bg5">
-                                        <input type="radio" name="bg" id="bg5" value="img/img_backgroud/bg5.jpg">
-                                        <img src="img/img_backgroud/bg5.jpg" width="100%" alt="Background 5">
+                                        <input type="radio" name="bg" id="bg5" value="img/img_background/bg5.jpg">
+                                        <img src="img/img_background/bg5.jpg" width="100%" alt="Background 5">
                                     </label>
                                     <label for="bg6">
-                                        <input type="radio" name="bg" id="bg6" value="img/img_backgroud/bg6.png">
-                                        <img src="img/img_backgroud/bg6.png" width="100%" alt="Background 6">
+                                        <input type="radio" name="bg" id="bg6" value="img/img_background/bg6.png">
+                                        <img src="img/img_background/bg6.png" width="100%" alt="Background 6">
                                     </label>
                                 </div>
                             </div>
