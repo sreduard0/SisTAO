@@ -38,12 +38,13 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
-                        style="background: url('') center center;background-size:contain" id="img_bg">
+                        style="background: url('img/img_background/bg3.jpg') center center;background-size:contain"
+                        id="img_bg">
                         <button class="btn btn-success btn-img-bg" data-toggle="modal" data-target="#alt-img-bg">
                             <i class="fa fa-pen"></i></button>
                     </div>
                     <div class="widget-user-image">
-                        <img id="img_profile" class="img-circle" src="img/img-profiles/img-profile-padrao.png"
+                        <img id="img_profile" class="img-circle" src="img/img_profiles/img_profile_padrao.png"
                             alt="User Avatar">
                         <div class="panel-body">
                             <button class="btn btn-success edit-img-profile" data-toggle="modal"
