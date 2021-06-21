@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AltPwdRequest;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\LoginModel;
+use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,32 +21,25 @@ class CrudController extends Controller
     }
     //####################################################//
     //======={ SUBMIT ALT PERFIL }======//
+    public function submit_create_user(EditProfileRequest $request)
+    {
+        $request->validated();
+        $data = $request->all();
+
+        $this->Tools->crud_user($data, 'create');
+
+        session()->flash('success', 'Perfil criado com sucesso.');
+
+        return back();
+    }
+    //======={ SUBMIT ALT PERFIL }======//
     public function submit_alt_profile(EditProfileRequest $request)
     {
         $request->validated();
+        $data = $request->all();
 
-        $user_data = $this->Tools->user_data(session('user')['id']);
+        $this->Tools->crud_user($data, 'update');
 
-
-        $user_data->name = $request->input('name');
-        $user_data->professionalName = $request->input('professional_name');
-        $user_data->email = $request->input('email');
-        $user_data->phone1 = str_replace(['(', ')', '-', ' '], '', $request->input('phone1'));
-        $user_data->phone2 = str_replace(['(', ')', '-', ' '], '', $request->input('phone2'));
-        $user_data->born_at = substr($request->input('born_at'), 6, 4) . "-" . substr($request->input('born_at'), 3, 2) . "-" . substr($request->input('born_at'), 0, 2);
-        $user_data->motherName = $request->input('mother_name');
-        $user_data->fatherName = $request->input('father_name');
-        $user_data->militaryId = $request->input('military_id');
-        $user_data->cpf = str_replace(['.', '-'], '', $request->input('cpf'));
-        $user_data->street = $request->input('street');
-        $user_data->house_number = $request->input('house_number');
-        $user_data->district = $request->input('district');
-        $user_data->city_id = $request->input('city');
-        $user_data->cep = str_replace('-', '', $request->input('cep'));
-        $user_data->departament_id = $request->input('departament_id');
-        $user_data->rank_id = $request->input('rank_id');
-        $user_data->company_id = $request->input('company_id');
-        $user_data->save();
         session()->flash('success', 'Suas informações foram alteradas com sucesso.');
 
         return back();
