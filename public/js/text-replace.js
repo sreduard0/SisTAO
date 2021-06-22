@@ -4,7 +4,7 @@ $(document).ready(function() {
         // Getting the current value of textarea
         var currentText = $(this).val();
 
-        $("#professionalName").slideUp(0).fadeIn(300).text(currentText);
+        setTimeout(function() { $("#professionalName").text(currentText); }, 800)
 
 
 

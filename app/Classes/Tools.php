@@ -38,6 +38,7 @@ class Tools
                 $user_data = new UserModel();
                 $user_data->photoUrl = 'img/img_profiles/img_profile_padrao.png';
                 $user_data->backgroundUrl = 'img/img_background/bg3.jpg';
+
                 break;
 
             case 'update':
