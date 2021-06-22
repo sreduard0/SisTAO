@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/croppie.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="js/select-img-bg.js"></script>
+    <script src="js/text-replace.js"></script>
+    <script src="js/request_fronend_user.js"></script>
 @endsection
 
 @section('content')
@@ -25,7 +27,7 @@
                         <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i
                                 class="fas fa-bars"></i></a>
                         <h1 class="d-inline-block m-0">
-                            Editar Perfil
+                            Criar Perfil
                         </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -48,9 +50,11 @@
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
-                            <h3 class="widget-user-desc text-center"> P/G
-                                Nome de guerra</h3>
-                            <h5 class="widget-user-username text-center">Seção</h5>
+                            <h3 class="widget-user-desc text-center">
+                                <span id="rankAbbr"> P/G</span>
+                                <span id="professionalName">Nome de guerra</span>
+                            </h3>
+                            <h5 class="widget-user-username text-center" id="departamentId">Seção</h5>
                         </div>
                     </div>
                 </div>
@@ -68,7 +72,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <form id="create_user" action="{{ route('submit_create_user') }}" method="POST">
+                            <form id="info_user" action="{{ route('submit_create_user') }}" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="tab-content m-rl-80">
@@ -78,7 +82,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-2">
                                                     <label for="pg">Posto/Grad</label>
-                                                    <select class="form-control" name="rank_id" id="rank_id" required>
+                                                    <select class="form-control" name="rank_id" id="rank_id">
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_ranks as $rank)
                                                             <option @if (old('rank_id') == $rank->id) selected="selected" @endif
@@ -91,18 +95,17 @@
                                                     <label for="military_id">N°</label>
                                                     <input type="text" class="form-control" id="military_id"
                                                         name="military_id" placeholder="N°"
-                                                        value="{{ old('military_id') }}" required>
+                                                        value="{{ old('military_id') }}">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="professionalname">Nome de gerra</label>
                                                     <input type="text" class="form-control" id="professional_name"
                                                         name="professional_name" placeholder="Digite seu nome de guerra"
-                                                        value="{{ old('professional_name') }}" required>
+                                                        value="{{ old('professional_name') }}">
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">SEÇ/SET/CL</label>
-                                                    <select name="departament_id" id="departament_id" class="form-control"
-                                                        required>
+                                                    <select name="departament_id" id="departament_id" class="form-control">
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_departament as $departament)
                                                             <option @if (old('departament_id') == $departament->id) selected="selected" @endif
@@ -113,7 +116,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">CIA</label>
-                                                    <select name="company_id" id="company_id" class="form-control" required>
+                                                    <select name="company_id" id="company_id" class="form-control">
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_company as $company)
                                                             <option @if (old('company_id') == $company->id) select="selected" @endif
@@ -129,22 +132,21 @@
                                                 <div class="form-group col">
                                                     <label for="name">Nome completo</label>
                                                     <input type="text" class="form-control" id="name" name="name"
-                                                        placeholder="Digite seu nome completo" value="{{ old('name') }}"
-                                                        required>
+                                                        placeholder="Digite seu nome completo" value="{{ old('name') }}">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cpf">CPF</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['999.999.999-99']" data-mask=""
                                                         inputmode="text" name="cpf" id="cpf" placeholder="___.___.___-__"
-                                                        value="{{ old('cpf') }}" required>
+                                                        value="{{ old('cpf') }}">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label>Data de nascimento</label>
                                                     <div class="input-group date" id="born_at" data-target-input="nearest">
                                                         <input type="text" class="form-control datetimepicker-input"
                                                             data-target="#born_at" id="born_at" name="born_at"
-                                                            value="{{ old('born_at') }}" required>
+                                                            value="{{ old('born_at') }}">
                                                         <div class="input-group-append" data-target="#born_at"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -159,13 +161,13 @@
                                                     <label for="mother_name">Nome da mãe</label>
                                                     <input type="text" id="mother_name" name="mother_name"
                                                         class="form-control" placeholder="Nome da mãe"
-                                                        value="{{ old('mother_name') }}" required>
+                                                        value="{{ old('mother_name') }}">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="father_name">Nome do pai</label>
                                                     <input type="text" id="father_name" name="father_name"
                                                         class="form-control" placeholder="Nome do pai"
-                                                        value="{{ old('father_name') }}" required>
+                                                        value="{{ old('father_name') }}">
                                                 </div>
                                             </div>
 
@@ -177,31 +179,31 @@
                                                 <div class="form-group col">
                                                     <label for="street">Logradouro</label>
                                                     <input type="text" class="form-control" id="street" name="street"
-                                                        placeholder="Logradouro" value="{{ old('street') }}" required>
+                                                        placeholder="Logradouro" value="{{ old('street') }}">
                                                 </div>
                                                 <div class="form-group col-md-1">
                                                     <label for="house_number">Nº</label>
                                                     <input type="text" class="form-control" id="house_number"
                                                         name="house_number" placeholder="Nº"
-                                                        value="{{ old('houde_nmber') }}" required>
+                                                        value="{{ old('houde_nmber') }}">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cpf">CEP</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['99999-999']" data-mask="" inputmode="text"
                                                         id="cep" name="cep" placeholder="_______-__"
-                                                        value="{{ old('cep') }}" required>
+                                                        value="{{ old('cep') }}">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     <label for="district">Bairro</label>
                                                     <input type="text" id="district" name="district" class="form-control"
-                                                        placeholder="Bairro" value="{{ old('district') }}" required>
+                                                        placeholder="Bairro" value="{{ old('district') }}">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="city">CIA</label>
-                                                    <select name="city" id="city" class="form-control" required>
+                                                    <select name="city" id="city" class="form-control">
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_cities as $city)
                                                             <option @if (old('city') == $city->id) selected="selected" @endif
@@ -219,7 +221,7 @@
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
                                                         data-mask="" id="phone1" name="phone1" placeholder="Telefone"
-                                                        value="{{ old('phone1') }}" required>
+                                                        value="{{ old('phone1') }}">
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="phone2">Telefone 2</label>
@@ -234,25 +236,29 @@
                                                 <div class="form-group col">
                                                     <label for="email">E-mail</label>
                                                     <input type="text" class="form-control" id="email" name="email"
-                                                        placeholder="E-mail" value="{{ old('email') }}" required>
+                                                        placeholder="E-mail" value="{{ old('email') }}">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /.tab-content -->
                                 </div><!-- /.card-body -->
-                                <div id="btn-submit" class="text-center">
+                                <div class="text-center">
+                                    <div class="custom-control custom-checkbox">
+                                        <input class="custom-control-input" type="checkbox" id="login" name="login"
+                                            checked="" value="y">
+                                        <label for="login" class="custom-control-label">Criar login</label>
+                                    </div>
+
                                     <a class="btn btn-default" href="{{ route('users_list') }}">Cancelar</a>
-                                    <button type="submit" class="btn btn-success"> <i class="fa fa-user-edit"></i>
+                                    <button type="submit" class="btn btn-success" onclick="return check_info_user()"> <i
+                                            class="fa fa-user-edit"></i>
                                         Criar</button>
                                 </div>
 
                             </form>
 
                         </div>
-
-
-
                     </div>
 
                 </div>

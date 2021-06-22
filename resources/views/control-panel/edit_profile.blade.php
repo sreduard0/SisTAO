@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/croppie.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="js/select-img-bg.js"></script>
+    <script src="js/request_fronend_user.js"></script>
 @endsection
 
 @section('content')
@@ -72,7 +73,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <form action="{{ route('submit_alt_profile') }}" method="POST">
+                            <form id="info_user" action="{{ route('submit_alt_profile') }}" method="POST">
                                 @csrf
                                 <div class="card-body">
                                     <div class="tab-content m-rl-80">
@@ -82,8 +83,7 @@
                                             <div class="row">
                                                 <div class="form-group col-md-2">
                                                     <label for="pg">Posto/Grad</label>
-                                                    <select class="form-control" name="rank_id" id="rank_id" required
-                                                        disabled>
+                                                    <select class="form-control" name="rank_id" id="rank_id" disabled>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_ranks as $rank)
                                                             <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif
@@ -96,18 +96,18 @@
                                                     <label for="military_id">N°</label>
                                                     <input type="text" class="form-control" id="military_id"
                                                         name="military_id" placeholder="N°"
-                                                        value="{{ $user_data->militaryId }}" required disabled>
+                                                        value="{{ $user_data->militaryId }}" disabled>
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="professionalname">Nome de gerra</label>
                                                     <input type="text" class="form-control" id="professional_name"
                                                         name="professional_name" placeholder="Digite seu nome de guerra"
-                                                        value="{{ $user_data->professionalName }}" required disabled>
+                                                        value="{{ $user_data->professionalName }}" disabled>
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">SEÇ/SET/CL</label>
                                                     <select name="departament_id" id="departament_id" class="form-control"
-                                                        required disabled>
+                                                        disabled>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_departament as $departament)
                                                             <option @if ($user_data->departament_id == $departament->id) selected="selected" @endif
@@ -118,8 +118,7 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">CIA</label>
-                                                    <select name="company_id" id="company_id" class="form-control" required
-                                                        disabled>
+                                                    <select name="company_id" id="company_id" class="form-control" disabled>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_company as $company)
                                                             <option @if ($user_data->company_id == $company->id) selected="selected" @endif
@@ -136,14 +135,14 @@
                                                     <label for="name">Nome completo</label>
                                                     <input type="text" class="form-control" id="name" name="name"
                                                         placeholder="Digite seu nome completo"
-                                                        value="{{ $user_data->name }}" required disabled>
+                                                        value="{{ $user_data->name }}" disabled>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cpf">CPF</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['999.999.999-99']" data-mask=""
                                                         inputmode="text" name="cpf" id="cpf" placeholder="___.___.___-__"
-                                                        value="{{ $user_data->cpf }}" required disabled>
+                                                        value="{{ $user_data->cpf }}" disabled>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label>Data de nascimento</label>
@@ -151,7 +150,7 @@
                                                         <input type="text" class="form-control datetimepicker-input"
                                                             data-target="#born_at" id="born_at" name="born_at"
                                                             value="{{ date('d/m/Y', strtotime($user_data->born_at)) }}"
-                                                            required disabled>
+                                                            disabled>
                                                         <div class="input-group-append" data-target="#born_at"
                                                             data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i>
@@ -166,13 +165,13 @@
                                                     <label for="mother_name">Nome da mãe</label>
                                                     <input type="text" id="mother_name" name="mother_name"
                                                         class="form-control" placeholder="Nome da mãe"
-                                                        value="{{ $user_data->motherName }}" required disabled>
+                                                        value="{{ $user_data->motherName }}" disabled>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="father_name">Nome do pai</label>
                                                     <input type="text" id="father_name" name="father_name"
                                                         class="form-control" placeholder="Nome do pai"
-                                                        value="{{ $user_data->fatherName }}" required disabled>
+                                                        value="{{ $user_data->fatherName }}" disabled>
                                                 </div>
                                             </div>
 
@@ -185,32 +184,31 @@
                                                     <label for="street">Logradouro</label>
                                                     <input type="text" class="form-control" id="street" name="street"
                                                         placeholder="Logradouro" value="{{ $user_data->street }}"
-                                                        required disabled>
+                                                        disabled>
                                                 </div>
                                                 <div class="form-group col-md-1">
                                                     <label for="house_number">Nº</label>
                                                     <input type="text" class="form-control" id="house_number"
                                                         name="house_number" placeholder="Nº"
-                                                        value="{{ $user_data->house_number }}" required disabled>
+                                                        value="{{ $user_data->house_number }}" disabled>
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cpf">CEP</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['99999-999']" data-mask="" inputmode="text"
                                                         id="cep" name="cep" placeholder="_______-__"
-                                                        value="{{ $user_data->cep }}" required disabled>
+                                                        value="{{ $user_data->cep }}" disabled>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     <label for="district">Bairro</label>
                                                     <input type="text" id="district" name="district" class="form-control"
-                                                        placeholder="Bairro" value="{{ $user_data->district }}" required
-                                                        disabled>
+                                                        placeholder="Bairro" value="{{ $user_data->district }}" disabled>
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="city">CIA</label>
-                                                    <select name="city" id="city" class="form-control" required disabled>
+                                                    <select name="city" id="city" class="form-control" disabled>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_cities as $city)
                                                             <option @if ($user_data->city_id == $city->id) selected="selected" @endif
@@ -228,7 +226,7 @@
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['(99) 9 9999-9999']" inputmode="text"
                                                         data-mask="" id="phone1" name="phone1" placeholder="Telefone"
-                                                        value="{{ $user_data->phone1 }}" required disabled>
+                                                        value="{{ $user_data->phone1 }}" disabled>
                                                 </div>
                                                 <div class="form-group col">
                                                     <label for="phone2">Telefone 2</label>
@@ -243,8 +241,7 @@
                                                 <div class="form-group col">
                                                     <label for="email">E-mail</label>
                                                     <input type="text" class="form-control" id="email" name="email"
-                                                        placeholder="E-mail" value="{{ $user_data->email }}" required
-                                                        disabled>
+                                                        placeholder="E-mail" value="{{ $user_data->email }}" disabled>
                                                 </div>
                                             </div>
                                         </div>

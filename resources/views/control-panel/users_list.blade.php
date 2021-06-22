@@ -21,7 +21,7 @@
                         <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i
                                 class="fas fa-bars"></i></a>
                         <h1 class="d-inline-block m-0">
-                            Lista de usuários
+                            Lista de militares
                         </h1>
                     </div>
                 </div>

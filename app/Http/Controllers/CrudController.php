@@ -26,11 +26,14 @@ class CrudController extends Controller
         $request->validated();
         $data = $request->all();
 
-        $this->Tools->crud_user($data, 'create');
 
-        session()->flash('success', 'Perfil criado com sucesso.');
+        print_r($data);
 
-        return back();
+        // $this->Tools->crud_user($data, 'create');
+
+        // session()->flash('success', 'Perfil criado com sucesso.');
+
+        // return back();
     }
     //======={ SUBMIT ALT PERFIL }======//
     public function submit_alt_profile(EditProfileRequest $request)

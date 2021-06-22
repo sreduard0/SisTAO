@@ -49,7 +49,6 @@
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
 
-    <script src="js/request_frontend.js"></script>
     <script>
         setTimeout(function() {
             var Toast = Swal.mixin({
@@ -137,7 +136,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
                                         <i class="nav-icon fas fa-users"></i>
-                                        <p>Usuários</p>
+                                        <p>Militares</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
