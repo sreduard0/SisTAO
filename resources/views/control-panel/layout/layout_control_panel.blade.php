@@ -77,7 +77,6 @@
                 })
             }
         }, 1000);
-
     </script>
     {{-- scripts especificos --}}
     @yield('scripts')
@@ -140,7 +139,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link  @yield('logins')">
+                                    <a href="{{ route('logins') }}" class="nav-link  @yield('logins')">
                                         <i class="nav-icon fas fa-lock"></i>
                                         <p>Logins</p>
                                     </a>

@@ -1,10 +1,10 @@
 @extends('control-panel.layout.layout_control_panel')
-@section('title', 'Perfil')
+@section('title', 'Ediar perfil')
 @section('menu_profile_open', 'menu-open')
 @section('edit_profile', 'active')
 @section('scripts')
     <script src="js/croppie.js"></script>
-    <link rel="stylesheet" href="css/croppie.css" />
+    <link rel="stylesheet" href="/css/croppie.css" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="js/select-img-bg.js"></script>
     <script src="js/request_fronend_user.js"></script>

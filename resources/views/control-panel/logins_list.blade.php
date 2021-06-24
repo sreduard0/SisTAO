@@ -1,8 +1,8 @@
 @extends('control-panel.layout.layout_control_panel')
-@section('title', 'Militares')
+@section('title', 'Logins')
 @section('adm', 'active')
 @section('menu_adm_open', 'menu-open')
-@section('users', 'active')
+@section('logins', 'active')
 @section('scripts')
     <!-- DataTables -->
     <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -21,7 +21,7 @@
                         <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i
                                 class="fas fa-bars"></i></a>
                         <h1 class="d-inline-block m-0">
-                            Lista de militares
+                            LOGINS
                         </h1>
                     </div>
                 </div>

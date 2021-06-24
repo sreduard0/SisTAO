@@ -10,7 +10,16 @@ class Tools
     //=================[ Buscar dados do usuario ]=========================
     public function user_data($user_id)
     {
-        return UserModel::with('rank', 'departament', 'company', 'city')->find($user_id);
+        switch ($user_id) {
+            case 'all':
+                $eco =  UserModel::with('login', 'rank', 'departament', 'company', 'city')->get();
+                print_r($eco);
+                break;
+
+            default:
+                return UserModel::with('login', 'rank', 'departament', 'company', 'city')->find($user_id);
+                break;
+        }
     }
     //===============[Verificar se a usuario logado]=======================
     public function check_session()

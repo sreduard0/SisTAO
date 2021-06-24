@@ -20,20 +20,17 @@ class CrudController extends Controller
         $this->Tools = new Tools();
     }
     //####################################################//
-    //======={ SUBMIT ALT PERFIL }======//
+    //======={ SUBMIT CREATE PERFIL }======//
     public function submit_create_user(EditProfileRequest $request)
     {
         $request->validated();
         $data = $request->all();
 
+        $this->Tools->crud_user($data, 'create');
 
-        print_r($data);
+        session()->flash('success', 'Perfil criado com sucesso.');
 
-        // $this->Tools->crud_user($data, 'create');
-
-        // session()->flash('success', 'Perfil criado com sucesso.');
-
-        // return back();
+        return redirect()->route('users_list');
     }
     //======={ SUBMIT ALT PERFIL }======//
     public function submit_alt_profile(EditProfileRequest $request)

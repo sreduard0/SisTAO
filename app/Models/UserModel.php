@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends Model
 {
+    public function login()
+    {
+        return $this->hasOne('App\Models\LoginModel', 'users_id', 'id');
+    }
+
     public function rank()
     {
         return $this->hasOne('App\Models\RanksModel', 'id', 'rank_id');

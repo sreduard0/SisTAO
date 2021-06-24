@@ -113,6 +113,17 @@ class MainController extends Controller
 
         return view('control-panel.users_list', $data);
     }
+    //========================={ LISTA LOGINS }==============================//
+    public function logins_list()
+    {
+        $data = [
+            'user_data' => $this->Tools->user_data(session('user')['id']),
+            'users' => $this->Tools->user_data('all'),
+        ];
+
+
+        // return view('control-panel.logins_list', $data);
+    }
     //============{ CRIAR USUÁRIO }=============//
     public function create_user()
     {
