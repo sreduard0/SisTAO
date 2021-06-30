@@ -1,7 +1,8 @@
 @extends('control-panel.layout.layout_control_panel')
-@section('title', 'Ediar perfil')
-@section('menu_profile_open', 'menu-open')
-@section('edit_profile', 'active')
+@section('title', 'Editar informações do militar')
+@section('adm', 'active')
+@section('menu_adm_open', 'menu-open')
+@section('users', 'active')
 @section('scripts')
     <script src="{{ asset('js/croppie.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/croppie.css') }}" />
@@ -25,7 +26,7 @@
                         <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i
                                 class="fas fa-bars"></i></a>
                         <h1 class="d-inline-block m-0">
-                            Editar Perfil
+                            Editar informações de {{ $user_data->name }}
                         </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

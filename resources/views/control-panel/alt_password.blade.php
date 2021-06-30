@@ -4,7 +4,7 @@
 @section('menu_profile_open', 'menu-open')
 @section('alt_password', 'active')
 @section('scripts')
-    <script src="js/request_frontend_pwd.js"></script>
+    <script src="{{ asset('js/request_frontend_pwd.js') }}"></script>
 @endsection
 @section('content')
     @php

@@ -1,5 +1,5 @@
 @extends('control-panel.layout.layout_control_panel')
-@section('title', 'Home')
+@section('title', 'Início')
 @section('home', 'active')
 @section('content')
     <!-- Content Wrapper. Contains page content -->

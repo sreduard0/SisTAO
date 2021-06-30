@@ -2,7 +2,9 @@
 
 namespace App\Classes;
 
+use App\Models\LoginModel;
 use App\Models\UserModel;
+use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Stmt\Switch_;
 
 class Tools
@@ -12,8 +14,7 @@ class Tools
     {
         switch ($user_id) {
             case 'all':
-                $eco =  UserModel::with('login', 'rank', 'departament', 'company', 'city')->get();
-                print_r($eco);
+                return UserModel::with('login', 'rank', 'departament', 'company', 'city')->get();
                 break;
 
             default:
@@ -51,7 +52,9 @@ class Tools
                 break;
 
             case 'update':
-                $user_data = UserModel::with('rank', 'departament', 'company', 'city')->find(session('user')['id']);
+
+                $user_data = UserModel::with('rank', 'departament', 'company', 'city')->find($data['id']);
+                $user_data->updatedLatestBy = session('user_data')['professional_name'];
                 break;
         }
 
@@ -64,7 +67,7 @@ class Tools
         $user_data->motherName = $data['mother_name'];
         $user_data->fatherName = $data['father_name'];
         $user_data->militaryId = $data['military_id'];
-        $user_data->cpf = str_replace(['.', '-'], '', $data['cpf']);
+        $user_data->idt_mil = str_replace(['.', '-'], '', $data['idt_mil']);
         $user_data->street = $data['street'];
         $user_data->house_number = $data['house_number'];
         $user_data->district = $data['district'];
@@ -74,6 +77,21 @@ class Tools
         $user_data->rank_id = $data['rank_id'];
         $user_data->company_id = $data['company_id'];
         $user_data->save();
+
+        if (isset($data['login'])) {
+            $idt_mil = str_replace(['.', '-'], '', $data['idt_mil']);
+            $pass = rand(10000000, 99999999);
+            $login = new LoginModel;
+            $login->users_id = $user_data->id;
+            $login->status = 1;
+            $login->login = $idt_mil;
+            $login->password = Hash::make($pass);
+            $login->save();
+            session()->flash('new_login', [
+                'login' => $idt_mil,
+                'password' => $pass,
+            ]);
+        }
     }
     //=============================[]======================================
     //=============================[]======================================

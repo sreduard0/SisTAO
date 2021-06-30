@@ -5,8 +5,8 @@
 @section('users', 'active')
 @section('scripts')
     <!-- DataTables -->
-    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.cs') }}s">
 @endsection
 @section('content')
     @php
@@ -47,6 +47,7 @@
                                             <th>Nome de guerra</th>
                                             <th>CIA</th>
                                             <th>Seção</th>
+                                            <th>Login</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -57,18 +58,28 @@
                                                 <td>{{ $user->professionalName }}</td>
                                                 <td>{{ $user->company->name }}</td>
                                                 <td> {{ $user->departament->name }}</td>
+                                                <td>
+                                                    @if (isset($user->login->login))
+                                                        Sim
+                                                    @else
+                                                        Não
+                                                    @endif
+                                                </td>
                                                 <td width="120px">
 
-                                                    <a class="btn btn-success btn-sm" href="#">
+                                                    <a class="btn btn-success btn-sm"
+                                                        href="{{ route('profile', ['id' => $user->id]) }}" title="Perfil">
                                                         <i class="fas fa-user">
                                                         </i>
                                                     </a>
-                                                    <a class="btn btn-info btn-sm" href="#">
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('edit_profile', ['id' => $user->id]) }}"
+                                                        title="Editar perfil">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                     </a>
-                                                    <a class="btn btn-danger btn-sm" href="#">
-                                                        <i class="fas fa-trash">
+                                                    <a class="btn btn-warning btn-sm" href="#" title='Permissões'>
+                                                        <i class="fas fa-shield-alt">
                                                         </i>
                                                     </a>
                                                 </td>
@@ -88,14 +99,46 @@
 
     </div>
 @endsection
+@section('modal')
+    @if (!empty(session('new_login')))
+        <div class="modal fade show" id="info_user" aria-labelledby="modal" style="display: block;" aria-modal="true"
+            role="dialog">
+            <div class=" modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="info_user">USUÁRIO E SENHA DO NOVO USUÁRIO</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h1 class="fs-15">REPASSAR AS SEGUINTES INFORMAÇÕES AO USUÁRIO:</h1><br>
+                        <strong>- Usuário:</strong> {{ session('new_login')['login'] }} <br>
+                        <strong>- Senha provisória:</strong> {{ session('new_login')['password'] }}
+                        <ul class="mt-3">
+                            <li>Algumas questões importantes de segurança devem ser observadas:</li>
+                            <li>Para a troca da senha provisória basta acessar seu perfil . A alteração da senha ocorre
+                                de forma imediata;</li>
+                            <li>Atente para a forma da senha (deverá ser alfanumérica com no mínimo 8 caracteres -
+                                incluir letras maiúsculas, minúsculas e números)</li>
+                            <li>É recomendado que o usuário troque sua senha mensalmente;</li>
+                            <li>A senha é pessoal e intransferível, portanto não deve ser compartilhada;</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="hide()">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id='backdrop' class="modal-backdrop fade show"></div>
+    @endif
+@endsection
 @section('plugins')
     <!-- DataTables  & Plugins -->
-    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-    <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-    <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-    <script src="plugins/datatables/numeric-comma.js"></script>
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.j') }}s"></script>
+    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
     <script>
         $(function() {
             $("#table_users").DataTable({

@@ -1,7 +1,8 @@
 @extends('control-panel.layout.layout_control_panel')
 @section('title', 'Perfil')
-@section('profile', 'active')
-@section('menu_profile_open', 'menu-open')
+@section('adm', 'active')
+@section('menu_adm_open', 'menu-open')
+@section('users', 'active')
 @section('content')
     @php
     use App\Classes\Tools;
@@ -17,7 +18,7 @@
                         <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i
                                 class="fas fa-bars"></i></a>
                         <h1 class="d-inline-block m-0">
-                            {{ $user_data->name }}
+                            Informações de {{ $user_data->name }}
                         </h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -34,7 +35,7 @@
                         style="background: url('{{ asset($user_data->backgroundUrl) }}') center center;background-size:100%">
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle" src="{{ asset("$user_data->photoUrl") }}" alt="User Avatar">
+                        <img class="img-circle" src="{{ asset($user_data->photoUrl) }}" alt="User Avatar">
                     </div>
                     <div class="card-footer">
                         <div class="description-block">

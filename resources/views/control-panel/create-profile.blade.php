@@ -4,12 +4,12 @@
 @section('users', 'active')
 @section('adm', 'active')
 @section('scripts')
-    <script src="js/croppie.js"></script>
-    <link rel="stylesheet" href="css/croppie.css" />
+    <script src="{{ asset('js/croppie.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/croppie.css') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="js/select-img-bg.js"></script>
-    <script src="js/text-replace.js"></script>
-    <script src="js/request_fronend_user.js"></script>
+    <script src="{{ asset('js/select-img-bg.js') }}"></script>
+    <script src="{{ asset('js/text-replace.js') }}"></script>
+    <script src="{{ asset('js/request_fronend_user.js') }}"></script>
 @endsection
 
 @section('content')
@@ -45,8 +45,8 @@
                         id="img_bg">
                     </div>
                     <div class="widget-user-image">
-                        <img id="img_profile" class="img-circle" src="img/img_profiles/img_profile_padrao.png"
-                            alt="User Avatar">
+                        <img id="img_profile" class="img-circle"
+                            src="{{ asset('img/img_profiles/img_profile_padrao.png') }}" alt="User Avatar">
                     </div>
                     <div class="card-footer">
                         <div class="description-block">
@@ -135,11 +135,11 @@
                                                         placeholder="Digite seu nome completo" value="{{ old('name') }}">
                                                 </div>
                                                 <div class="form-group col-md-3">
-                                                    <label for="cpf">CPF</label>
+                                                    <label for="idt_mil">IDT Militar</label>
                                                     <input type="text" class="form-control"
-                                                        data-inputmask="'mask': ['999.999.999-99']" data-mask=""
-                                                        inputmode="text" name="cpf" id="cpf" placeholder="___.___.___-__"
-                                                        value="{{ old('cpf') }}">
+                                                        data-inputmask="'mask': ['999999999-9']" data-mask=""
+                                                        inputmode="text" name="idt_mil" id="idt_mil"
+                                                        placeholder="_________-_" value="{{ old('idt_mil') }}">
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label>Data de nascimento</label>
@@ -246,8 +246,8 @@
                                 <div class="text-center">
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="login" name="login"
-                                            checked="" value="y">
-                                        <label for="login" class="custom-control-label">Criar login</label>
+                                            checked="" value="1">
+                                        <label for="login" class="custom-control-label">Gerar login</label>
                                     </div>
 
                                     <a class="btn btn-default" href="{{ route('users_list') }}">Cancelar</a>
