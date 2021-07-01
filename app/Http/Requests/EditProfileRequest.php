@@ -24,7 +24,7 @@ class EditProfileRequest extends FormRequest
                 'house_number' => ['required'],
                 'district' => ['required'],
                 'city' => ['required'],
-                'cep' => ['required'],
+                'cep' => ['required', 'min:8'],
                 'departament_id' => ['required'],
                 'rank_id' => ['required'],
                 'company_id' => ['required']

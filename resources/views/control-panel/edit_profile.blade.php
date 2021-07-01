@@ -76,7 +76,7 @@
                             </div>
                             <form id="info_user" action="{{ route('submit_alt_profile') }}" method="POST">
                                 @csrf
-                                <input type="hidden" name='id' value="{{ $user_data->id }}">
+                                <input type="hidden" name='id' id="id" value="{{ $user_data->id }}">
                                 <div class="card-body">
                                     <div class="tab-content m-rl-80">
 

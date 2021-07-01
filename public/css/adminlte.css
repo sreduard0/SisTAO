@@ -45876,7 +45876,7 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
 }
 
 .img-size-64,
-.img-size-50,
+.img-size-35,
 .img-size-32 {
     height: auto;
 }
@@ -45889,8 +45889,8 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
     width: 100px;
 }
 
-.img-size-50 {
-    width: 50px;
+.img-size-35 {
+    width: 35px;
 }
 
 .img-size-32 {

@@ -54,7 +54,6 @@ class Tools
             case 'update':
 
                 $user_data = UserModel::with('rank', 'departament', 'company', 'city')->find($data['id']);
-                $user_data->updatedLatestBy = session('user_data')['professional_name'];
                 break;
         }
 

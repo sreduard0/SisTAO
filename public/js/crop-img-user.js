@@ -74,8 +74,7 @@ $(document).ready(function() {
                         icon: 'success',
                         title: '&nbsp&nbsp Imagem alterada com sucesso.'
                     });
-                    document.getElementById("img_profile").src = data;
-                    document.getElementById("image_profile").src = data;
+                    document.getElementById("img_profile").src = 'http://sistao.3bsup.eb.mil.br/' + data;
                 }
             });
         })

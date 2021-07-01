@@ -43,6 +43,7 @@
                                 <table id="table_users" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>Foto</th>
                                             <th>P/G</th>
                                             <th>Nome de guerra</th>
                                             <th>CIA</th>
@@ -54,6 +55,9 @@
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr>
+                                                <td data-order="{{ $user->rank->id }}" width="40px"><img
+                                                        class="img-circle img-size-35"
+                                                        src="{{ asset("$user->photoUrl") }}"></td>
                                                 <td data-order="{{ $user->rank->id }}">{{ $user->rank->rank }}</td>
                                                 <td>{{ $user->professionalName }}</td>
                                                 <td>{{ $user->company->name }}</td>
@@ -68,7 +72,8 @@
                                                 <td width="120px">
 
                                                     <a class="btn btn-success btn-sm"
-                                                        href="{{ route('profile', ['id' => $user->id]) }}" title="Perfil">
+                                                        href="{{ route('profile', ['id' => $user->id]) }}"
+                                                        title="Perfil">
                                                         <i class="fas fa-user">
                                                         </i>
                                                     </a>
@@ -150,7 +155,7 @@
                 },
                 columnDefs: [{
                     type: 'numeric-comma',
-                    targets: 0
+                    targets: [0, 1],
                 }],
             });
         });

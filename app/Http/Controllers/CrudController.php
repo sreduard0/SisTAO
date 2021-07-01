@@ -81,19 +81,19 @@ class CrudController extends Controller
     //===================={ UPLOADE IMG PERFIL }========================//
     public function upload_img_profile(Request $request)
     {
-        $data = $request->img_profile;
-        $image_array_1 = explode(";", $data);
+        $data = $request->all();
+        $image_array_1 = explode(";", $data['img_profile']);
         $image_array_2 = explode(",", $image_array_1[1]);
-        $data = base64_decode($image_array_2[1]);
-        $imageName = 'img_profile_user_' . session('user')['login'] . '-' . date('d-m-Y-H-m-s') . '.png';
-        $fileDir = 'img/img_profiles/' . session('user')['login'] . '/';
+        $img = base64_decode($image_array_2[1]);
+        $imageName = 'img_profile_user_' . $data['user_id'] . '-' . date('d-m-Y-H-m-s') . '.png';
+        $fileDir = 'img/img_profiles/' . $data['user_id'] . '/';
 
         if (!is_dir($fileDir)) {
             mkdir($fileDir, 0777, true); //444
         }
-        file_put_contents($fileDir . $imageName, $data);
+        file_put_contents($fileDir . $imageName, $img);
 
-        $user_data = $this->Tools->user_data(session('user')['id']);
+        $user_data = $this->Tools->user_data($data['user_id']);
         $user_data->photoUrl = $fileDir . $imageName;
         $user_data->save();
 
