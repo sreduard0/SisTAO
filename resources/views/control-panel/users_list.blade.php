@@ -83,10 +83,17 @@
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                     </a>
-                                                    <a class="btn btn-warning btn-sm" href="#" title='Permissões'>
-                                                        <i class="fas fa-shield-alt">
-                                                        </i>
-                                                    </a>
+                                                    @if (isset($user->login->login))
+                                                        <a class="btn btn-primary btn-sm" href="#" title='Resetar senha'>
+                                                            <img src="{{ asset('img/pwd-reset.png') }}" width="14">
+                                                        </a>
+                                                    @else
+                                                        <a class="btn btn-primary btn-sm" href="#"
+                                                            title='Criar login de acesso'>
+                                                            <i class="fa fa-user-lock"></i>
+                                                        </a>
+                                                    @endif
+
                                                 </td>
 
                                             </tr>

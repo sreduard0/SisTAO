@@ -11976,8 +11976,25 @@ a .icon {
 .btn-img-bg {
     float: right;
     border-radius: 50%;
+    height: 55px;
+    width: 55px;
+}
+
+.btn-edit-user {
+    float: right;
+    border-radius: 50%;
     height: 45px;
     width: 45px;
+    padding-top: 12px;
+}
+
+.btn-delete-user {
+    float: right;
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    padding-top: 12px;
+    bottom: 10em;
 }
 
 .radio-image label>input {

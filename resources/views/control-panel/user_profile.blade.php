@@ -33,6 +33,8 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
                         style="background: url('{{ asset($user_data->backgroundUrl) }}') center center;background-size:100%">
+                        <a class="btn btn-success btn-edit-user"
+                            href="{{ route('edit_profile', ['id' => $user_data->id]) }}"><i class="fa fa-pen"></i></a>
                     </div>
                     <div class="widget-user-image">
                         <img class="img-circle" src="{{ asset($user_data->photoUrl) }}" alt="User Avatar">

@@ -41,6 +41,8 @@
                     <div class="widget-user-header text-white"
                         style="background: url('{{ asset("$user_data->backgroundUrl") }}') center center;background-size:contain"
                         id="img_bg">
+                        <a class="btn btn-success btn-edit-user"
+                            href="{{ route('profile', ['id' => $user_data->id]) }}"><i class="fa fa-user"></i></a>
                     </div>
                     <div class="widget-user-image">
                         <img id="img_profile" class="img-circle" src="{{ asset("$user_data->photoUrl") }} "
@@ -255,10 +257,11 @@
                                 </div>
 
                             </form>
-
                         </div>
-
-
+                        <div class="float-r">
+                            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-confirm"><i
+                                    class="fa fa-trash"></i> Excluir </button>
+                        </div>
 
                     </div>
                     <div class="col-md-3">
@@ -374,6 +377,36 @@
     </div>
 @endsection
 @section('modal')
+    {{-- Confirmação de exclusão de usuario --}}
+    <div class="modal fade" id="delete-confirm">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Deseja mesmo excluir {{ $user_data->rank->rankAbbreviation }}
+                        {{ $user_data->professionalName }} ?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="modal-title" id="TituloModalCentralizado"><strong>Essa operação não pode ser
+                            desfeita!</strong></h5>
+                    <br>
+                    Confirmando a exclusão de <strong>{{ $user_data->rank->rankAbbreviation }}
+                        {{ $user_data->professionalName }}</strong>, todos os dados contidos neste
+                    usuário serão excluidos <strong>permanentementes</strong>, sem possibilidade de restaura-los.
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-danger"
+                        href="{{ route('delete_profile', ['id' => $user_data->id]) }}">Confirmar</a>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     {{-- Modal de envio de imagem --}}
     <div id="uploadimageModal" class="modal" role="dialog">
         <div class="modal-dialog">

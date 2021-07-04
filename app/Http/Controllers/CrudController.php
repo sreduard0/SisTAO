@@ -44,7 +44,43 @@ class CrudController extends Controller
 
         return back();
     }
-    //======={ SUBMIT ALT SENHA }======//
+    //========={ DELETE PERFIL }========//
+    public function delete_profile($id)
+    {
+        $user = $this->Tools->user_data($id);
+        $user->delete();
+        $login = LoginModel::where('users_id', $id)->get();
+        $login[0]->delete();
+        session()->flash('success', 'Perfil excluído com sucesso.');
+
+        return redirect()->route('users_list');
+    }
+    //========={ RESET PASSWORD }========//
+    public function reset_password($f, $d)
+    {
+        switch ($f) {
+            case 'create':
+                $login = new LoginModel;
+                $idt_mil = str_replace(['.', '-'], '', $d);
+                break;
+
+            case 'reset':
+                $login = LoginModel::where('users_id', $d)->get();
+                break;
+        }
+
+        $pass = rand(10000000, 99999999);
+        $login->users_id = $d->id;
+        $login->status = 1;
+        $login->login = $idt_mil;
+        $login->password = Hash::make($pass);
+        $login->save();
+        session()->flash('new_login', [
+            'login' => $idt_mil,
+            'password' => $pass,
+        ]);
+    }
+    //========{ SUBMIT ALT SENHA }======//
     public function submit_alt_pwd(AltPwdRequest $request)
     {
 
