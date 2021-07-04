@@ -7,7 +7,7 @@ function alt_img_bg() {
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: "alt_img_bg",
+        url: "http://sistao.3bsup.eb.mil.br/alt_img_bg",
         type: "POST",
         data: dados,
         dataType: 'text',
@@ -18,7 +18,7 @@ function alt_img_bg() {
                 icon: 'success',
                 title: '&nbsp&nbsp Imagem alterada com sucesso.'
             });
-            document.getElementById("img_bg").style = "background: url('" + dados.img_selected + "') center center;background-size:100%"
+            document.getElementById("img_bg").style = "background: url('http://sistao.3bsup.eb.mil.br/" + dados.img_selected + "') center center;background-size:100%"
         }
     });
 

@@ -82,7 +82,6 @@ class LoginController extends Controller
 
         ]);
 
-
         return redirect()->route('home');
     }
     //================================={  }===========================//

@@ -56,29 +56,30 @@ class CrudController extends Controller
         return redirect()->route('users_list');
     }
     //========={ RESET PASSWORD }========//
-    public function reset_password($f, $d)
+    public function reset_password($f, $id)
     {
+        $user = $this->Tools->user_data($id);
+        $pass = rand(10000000, 99999999);
         switch ($f) {
             case 'create':
                 $login = new LoginModel;
-                $idt_mil = str_replace(['.', '-'], '', $d);
+                $login->users_id = $user->id;
+                $login->login = $user->idt_mil;
+                $login->status = 1;
                 break;
 
             case 'reset':
-                $login = LoginModel::where('users_id', $d)->get();
+                $login = LoginModel::where('users_id', $user->id)->get();
                 break;
         }
 
-        $pass = rand(10000000, 99999999);
-        $login->users_id = $d->id;
-        $login->status = 1;
-        $login->login = $idt_mil;
         $login->password = Hash::make($pass);
         $login->save();
         session()->flash('new_login', [
-            'login' => $idt_mil,
+            'login' => $user->idt_mil,
             'password' => $pass,
         ]);
+        return redirect()->route('users_list');
     }
     //========{ SUBMIT ALT SENHA }======//
     public function submit_alt_pwd(AltPwdRequest $request)
@@ -88,7 +89,7 @@ class CrudController extends Controller
             return redirect()->route('login');
         }
 
-        $user_id = session('user')['id'];
+        $user_id = session('user')['users_id'];
         $old_pwd = trim($request->input('oldPwd'));
         $new_pwd = trim($request->input('newPwd'));
         $rep_new_pwd = trim($request->input('confNewPwd'));
@@ -139,7 +140,7 @@ class CrudController extends Controller
     public function alt_img_bg(Request $request)
     {
         $bg = $request->img_selected;
-        $user_data = $this->Tools->user_data(session('user')['id']);
+        $user_data = $this->Tools->user_data(session('user')['users_id']);
         $user_data->backgroundUrl = $bg;
         $user_data->save();
 

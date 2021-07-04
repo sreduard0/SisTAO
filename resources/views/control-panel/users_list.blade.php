@@ -88,7 +88,8 @@
                                                             <img src="{{ asset('img/pwd-reset.png') }}" width="14">
                                                         </a>
                                                     @else
-                                                        <a class="btn btn-primary btn-sm" href="#"
+                                                        <a class="btn btn-primary btn-sm"
+                                                            href="{{ route('reset_password', ['f' => 'create', 'id' => $user->id]) }}"
                                                             title='Criar login de acesso'>
                                                             <i class="fa fa-user-lock"></i>
                                                         </a>

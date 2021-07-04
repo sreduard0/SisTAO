@@ -35,10 +35,10 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
-                        style="background: url('{{ $user_data->backgroundUrl }}') center center;background-size:100%">
+                        style="background: url('{{ asset($user_data->backgroundUrl) }}') center center;background-size:100%">
                     </div>
                     <div class="widget-user-image">
-                        <img class="img-circle" src="{{ $user_data->photoUrl }}" alt="User Avatar">
+                        <img class="img-circle" src="{{ asset($user_data->photoUrl) }}" alt="User Avatar">
                     </div>
                     <div class="card-footer">
                         <div class="description-block">

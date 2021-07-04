@@ -42,7 +42,7 @@ class MainController extends Controller
             return view('control-panel.user_profile', $data);
         } else {
             $data = [
-                'user_data' => $this->Tools->user_data(session('user')['id']), //Buscando informações do usuário logado
+                'user_data' => $this->Tools->user_data(session('user')['users_id']), //Buscando informações do usuário logado
             ];
             return view('control-panel.profile', $data);
         };
@@ -78,7 +78,7 @@ class MainController extends Controller
                 'all_departament' => $all_departament,
                 'all_company' => $all_company,
                 'all_cities' => $all_cities,
-                'user_data' => $this->Tools->user_data(session('user')['id']), //Buscando informações do usuário logado
+                'user_data' => $this->Tools->user_data(session('user')['users_id']), //Buscando informações do usuário logado
             ];
             return view('control-panel.edit_profile', $data);
         };
@@ -91,7 +91,7 @@ class MainController extends Controller
             return redirect()->route('login');
         }
 
-        $user_data = $this->Tools->user_data(session('user')['id']);
+        $user_data = $this->Tools->user_data(session('user')['users_id']);
         $data = [
             'user_data' => $user_data,
         ];
@@ -122,12 +122,10 @@ class MainController extends Controller
         $all_company = CompanyModel::all();
         //Buscando companias
         $all_departament = DepartamentModel::all();
-        //Buscando informações do usuário
-        $user_data = $this->Tools->user_data(session('user')['id']);
+
 
 
         $data = [
-            'user_data' => $user_data,
             'all_ranks' => $all_ranks,
             'all_departament' => $all_departament,
             'all_company' => $all_company,

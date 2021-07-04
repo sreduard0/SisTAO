@@ -1,7 +1,7 @@
 @php
 use App\Classes\Tools;
 $tools = new Tools();
-$user_data = $tools->user_data(session('user')['id']);
+$user_data = $tools->user_data(session('user')['users_id']);
 @endphp
 <html lang="pt-br">
 
