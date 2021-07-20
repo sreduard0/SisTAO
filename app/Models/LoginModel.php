@@ -12,11 +12,14 @@ class LoginModel extends Model
     {
         return $this->hasOne('App\Models\UserModel', 'id', 'users_id');
     }
+    public function applications()
+    {
+        return $this->hasMany('App\Models\LoginApplicationModel', 'login_id', 'id');
+    }
+
 
     use HasFactory;
     use SoftDeletes;
     protected $table = 'login';
     protected $primarykey = 'id';
-
-
 }

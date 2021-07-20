@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Classes\Tools;
+use App\Models\ApplicationsModel;
 use App\Models\CitiesModel;
 use App\Models\CompanyModel;
 use App\Models\DepartamentModel;
+use App\Models\LoginApplicationModel;
 use App\Models\RanksModel;
 use App\Models\UserModel;
 
@@ -26,7 +28,11 @@ class MainController extends Controller
         if (!session()->has('user')) {
             return redirect()->route('login');
         }
-        return view('control-panel.home');
+
+        $data = [
+            'apps' => LoginApplicationModel::with('apps')->where('login_id', session('user')['users_id'])->get(),
+        ];
+        return view('control-panel.home', $data);
     }
     //==========={ PERFIL }===========//
     public function profile($id = '')
@@ -64,7 +70,9 @@ class MainController extends Controller
         $all_departament = DepartamentModel::all();
 
         if ($id) {
+            session()->flash('id', $id);
             $data = [
+                'apps' => ApplicationsModel::with('profiles')->get(),
                 'all_ranks' => $all_ranks,
                 'all_departament' => $all_departament,
                 'all_company' => $all_company,
@@ -91,9 +99,8 @@ class MainController extends Controller
             return redirect()->route('login');
         }
 
-        $user_data = $this->Tools->user_data(session('user')['users_id']);
         $data = [
-            'user_data' => $user_data,
+            'user_data' => $this->Tools->user_data(session('user')['users_id']),
         ];
 
         return view('control-panel.alt_password', $data);
@@ -101,6 +108,10 @@ class MainController extends Controller
     //========================={ LISTA USUÁRIOS }==============================//
     public function users_list()
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
+
         $data = [
             'users' => $this->Tools->user_data('all'),
         ];

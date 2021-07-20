@@ -2,6 +2,7 @@
 use App\Classes\Tools;
 $tools = new Tools();
 $user_data = $tools->user_data(session('user')['users_id']);
+$profileType = session('user')['profileType'];
 @endphp
 <html lang="pt-br">
 
@@ -127,23 +128,25 @@ $user_data = $tools->user_data(session('user')['users_id']);
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item @yield('menu_adm_open')">
-                            <a href="#" class="nav-link @yield('adm')">
-                                <i class="nav-icon fas fa-tools"></i>
-                                <p>
-                                    Administrador
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
-                                        <i class="nav-icon fas fa-users"></i>
-                                        <p>Militares</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if ($profileType == 1)
+                            <li class="nav-item @yield('menu_adm_open')">
+                                <a href="#" class="nav-link @yield('adm')">
+                                    <i class="nav-icon fas fa-tools"></i>
+                                    <p>
+                                        Administrador
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>Militares</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                         <li class="nav-item @yield('menu_profile_open')">
                             <a href="#" class="nav-link @yield('profile') @yield('edit_profile')">
                                 <i class="nav-icon fas fa-user-circle"></i>

@@ -6,6 +6,8 @@ use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AltPwdRequest;
 use App\Http\Requests\EditProfileRequest;
+use App\Models\ApplicationsModel;
+use App\Models\LoginApplicationModel;
 use App\Models\LoginModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
@@ -23,6 +25,9 @@ class CrudController extends Controller
     //======={ SUBMIT CREATE PERFIL }======//
     public function submit_create_user(EditProfileRequest $request)
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
         $request->validated();
         $data = $request->all();
 
@@ -35,6 +40,9 @@ class CrudController extends Controller
     //======={ SUBMIT ALT PERFIL }======//
     public function submit_alt_profile(EditProfileRequest $request)
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
         $request->validated();
         $data = $request->all();
 
@@ -47,6 +55,9 @@ class CrudController extends Controller
     //========={ DELETE PERFIL }========//
     public function delete_profile($id)
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
         $user = $this->Tools->user_data($id);
         $user->delete();
         $login = LoginModel::where('users_id', $id)->get();
@@ -58,6 +69,9 @@ class CrudController extends Controller
     //========={ RESET PASSWORD }========//
     public function reset_password($f, $id)
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
         $user = $this->Tools->user_data($id);
         $pass = rand(10000000, 99999999);
         switch ($f) {
@@ -89,13 +103,11 @@ class CrudController extends Controller
             return redirect()->route('login');
         }
 
-        $user_id = session('user')['users_id'];
         $old_pwd = trim($request->input('oldPwd'));
         $new_pwd = trim($request->input('newPwd'));
         $rep_new_pwd = trim($request->input('confNewPwd'));
 
-        $user = LoginModel::where('id', $user_id)->first();
-
+        $user = LoginModel::where('users_id', session('user')['users_id'])->first();
 
         //Verifica se a senha antiga ta correta
         if (!Hash::check($old_pwd, $user->password)) {
@@ -107,7 +119,7 @@ class CrudController extends Controller
             $user->password = Hash::make($new_pwd);
             $user->save();
             session()->flash('success', 'Sua senha foi alterada com sucesso.');
-            return back();
+            return redirect()->route('profile');
         } else {
 
             session()->flash('erro', 'Os campos "Nova senha" e "Confirmar senha" devem ser iguais.');
@@ -118,6 +130,9 @@ class CrudController extends Controller
     //===================={ UPLOADE IMG PERFIL }========================//
     public function upload_img_profile(Request $request)
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
         $data = $request->all();
         $image_array_1 = explode(";", $data['img_profile']);
         $image_array_2 = explode(",", $image_array_1[1]);
@@ -139,6 +154,9 @@ class CrudController extends Controller
     //============{ SUBMIT Alteração de imagem do background }=============//
     public function alt_img_bg(Request $request)
     {
+        if (!session()->has('user')) {
+            return redirect()->route('login');
+        }
         $bg = $request->img_selected;
         $user_data = $this->Tools->user_data(session('user')['users_id']);
         $user_data->backgroundUrl = $bg;
@@ -146,7 +164,17 @@ class CrudController extends Controller
 
         return true;
     }
-    //============{  }=============//
+    //============{ Alteração de permissaão de apps }=============//
+    public function alt_permissions(Request $request)
+    {
+        $permissions = $request->all();
+
+        foreach ($permissions as $permission) {
+            if ($permission) {
+                echo print_r($permission) . '<br><hr>';
+            }
+        }
+    }
     //============{  }=============//
     //============{  }=============//
     //============{  }=============//

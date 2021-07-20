@@ -14,94 +14,36 @@
                         <h1 class="d-inline-block m-0">
                             Painel de controle
                         </h1>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
 
 
-                <div class="row">
-
-                    <!-- ./col -->
-
-
-                    <!-- box -->
-                    <div class="col-lg-3 col-6">
-                        <a href="#" class="small-box bg-success">
-                            <div class="inner">
-                                <h3>SPED</h3>
-                                <p>Sistema de Protocolo Eletrônico de Documentos do Exército</p>
+                @if (empty($apps[0]))
+                    <div class="callout callout-info">
+                        <h5><i class="fas fa-info"></i> Aviso:</h5>
+                        No momento não há aplicações disponíveis, entre em contato com o administrador do sistema.
+                    </div>
+                @else
+                    <div class="row">
+                        @foreach ($apps as $app)
+                            <div class="col-lg-3 col-6">
+                                <a href={{ $app->apps[0]->link }} class="small-box bg-success">
+                                    <div class="inner">
+                                        <h3>{{ $app->apps[0]->name }}</h3>
+                                        <p>Clique e acesse</p>
+                                    </div>
+                                </a>
                             </div>
-                            {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-                        </a>
+                        @endforeach
+                    </div>
+                @endif
 
-                    </div>{{-- box --}}
 
-                    <!-- box -->
-                    <div class="col-lg-3 col-6">
-                        <a href="#" class="small-box bg-success">
-                            <div class="inner">
-                                <h3>SisBol</h3>
-                                <p>Sistema de Boletins</p>
-                            </div>
-                            {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-                        </a>
-
-                    </div>{{-- box --}}
-
-                    <!-- box -->
-                    <div class="col-lg-3 col-6">
-                        <a href="#" class="small-box bg-success">
-                            <div class="inner">
-                                <h3>Despacho</h3>
-                                <p>Gerenciamento da fila de despacho de documentos</p>
-                            </div>
-                            {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-                        </a>
-
-                    </div>{{-- box --}}
-
-                    <!-- box -->
-                    <div class="col-lg-3 col-6">
-                        <a href="#" class="small-box bg-success">
-                            <div class="inner">
-                                <h3>SCLE - SALC</h3>
-                                <p>Sistema de Controle de Licetações e Empenhos</p>
-                            </div>
-                            {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-                        </a>
-
-                    </div>{{-- box --}}
-
-                    <!-- box -->
-                    <div class="col-lg-3 col-6">
-                        <a href="#" class="small-box bg-success">
-                            <div class="inner">
-                                <h3>PARPS</h3>
-                                <p>Gerenciamento de entrada e saida de civis</p>
-                            </div>
-                            {{-- <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
-                </div> --}}
-                        </a>
-
-                    </div>{{-- box --}}
-                </div>
+            </div>
         </section>
-        <!-- /.content -->
     </div>
 @endsection

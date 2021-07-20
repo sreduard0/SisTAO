@@ -8,6 +8,52 @@
     <link rel="stylesheet" href="{{ asset('css/croppie.css') }}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('js/request_fronend_user.js') }}"></script>
+    <script src="{{ asset('js/check-permission.js') }}"></script>
+   <script>
+    @foreach ($apps as $app )
+    $(function() {
+        var check = $("#{{ $app->id }}"); //checkbox que ativara os restantes
+
+        check.on('click', function() {
+            if (check.prop('checked') == true) {
+                $(".{{ $app->name }}_permission").prop("disabled", false); //mostra os as permissoes
+
+            } else if (check.prop('checked') == false) {
+                $(".{{ $app->name }}_permission").prop("disabled", true); //oculta os as permissoes
+            }
+        })
+    })
+    @endforeach
+
+    function aplly() {
+        var dados = {
+        @foreach ($apps as $app)
+        {{ $app->name }}: {
+            check{{ $app->name }}: $('input[name=sts_{{ $app->name }}]:checked').attr('value'),
+            permission{{ $app->name }}: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
+        },
+        @endforeach
+        };
+
+        $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "http://sistao.3bsup.eb.mil.br/alt_permissions",
+        type: "POST",
+        data: dados,
+        dataType: 'text',
+         success: function(data) {
+            $('#uploadimageModal').modal('hide');
+            Toast.fire({
+                icon: 'success',
+                title: '&nbsp&nbsp Permissões alteradas com sucesso.'
+            });
+        }
+        });
+
+    }
+</script>
 @endsection
 
 @section('content')
@@ -16,7 +62,7 @@
     $tools = new Tools();
     @endphp
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="min-height: 1450px;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -257,6 +303,46 @@
                                 </div>
 
                             </form>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title card-title-background "> <i class="fas fa-th-list mr-1"></i>
+                                    Aplicações</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-body">
+                                    <form>
+                                    @foreach ( $apps as $app)
+                                    <div class="row justify-content-between m-b-30">
+                                        {{-- Ativar app --}}
+                                        <div class="custom-control custom-switch ">
+                                            <input type="checkbox" class="custom-control-input" name="sts_{{ $app->name }}" id={{ $app->id }} value='1' @if($app->profiles) checked @endif>
+                                            <label class="custom-control-label" for={{ $app->id}}>{{ $app->name }}</label>
+                                        </div>
+
+                                        <div class="row">
+                                            {{-- permissao adm --}}
+                                            <div class="custom-control custom-checkbox m-r-10">
+                                                <input class="{{ $app->name }}_permission custom-control-input" type="radio"
+                                                    id="adm-{{ $app->id }}" name='{{ $app->name }}_permission' value="1"   @if($app->profiles && $app->profiles->profileType == 1) checked @elseif(!$app->profiles) disabled @endif >
+                                                <label for="adm-{{ $app->id }}"
+                                                    class="custom-control-label">Administrador</label>
+                                            </div>
+                                            {{-- permissao conv --}}
+                                            <div class="custom-control custom-checkbox m-r-30">
+                                                <input class="{{ $app->name }}_permission custom-control-input" type="radio"
+                                                    id="conv-{{ $app->id }}" name='{{ $app->name }}_permission' value="0"  @if($app->profiles && $app->profiles->profileType == 0) checked @elseif(!$app->profiles) disabled @endif>
+                                                <label for="conv-{{ $app->id }}"
+                                                    class="custom-control-label">Convencional</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @endforeach
+                                    </form>
+                                    <button onclick="return aplly()" class="btn btn-success" >Aplicar</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="float-r">
                             <button class="btn btn-danger" data-toggle="modal" data-target="#delete-confirm"><i
