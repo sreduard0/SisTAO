@@ -25,10 +25,6 @@ class MainController extends Controller
     //======={ HOME }===============//
     public function home()
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
-
         $data = [
             'apps' => LoginApplicationModel::with('apps')->where('login_id', session('user')['users_id'])->get(),
         ];
@@ -37,9 +33,7 @@ class MainController extends Controller
     //==========={ PERFIL }===========//
     public function profile($id = '')
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
+
 
         if ($id) {
             $data = [
@@ -56,9 +50,7 @@ class MainController extends Controller
     //======={  EDITAR PERFIL }========//
     public function edit_profile($id = '')
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
+
 
         //Buscando todas cidades
         $all_cities = CitiesModel::all();
@@ -95,9 +87,6 @@ class MainController extends Controller
     //======={ ALTERAR SENHA }========//
     public function alt_password()
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
 
         $data = [
             'user_data' => $this->Tools->user_data(session('user')['users_id']),
@@ -108,10 +97,6 @@ class MainController extends Controller
     //========================={ LISTA USUÁRIOS }==============================//
     public function users_list()
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
-
         $data = [
             'users' => $this->Tools->user_data('all'),
         ];
@@ -121,10 +106,6 @@ class MainController extends Controller
     //==========={ CRIAR USUÁRIO }=============//
     public function create_user()
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
-
         //Buscando todas cidades
         $all_cities = CitiesModel::all();
         //Buscando toda tabela hierárquica

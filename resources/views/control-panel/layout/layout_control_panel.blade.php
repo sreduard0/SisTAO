@@ -5,7 +5,6 @@ $user_data = $tools->user_data(session('user')['users_id']);
 $profileType = session('user')['profileType'];
 @endphp
 <html lang="pt-br">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

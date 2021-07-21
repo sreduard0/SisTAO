@@ -150,7 +150,6 @@
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.j') }}s"></script>
     <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
     <script>
         $(function() {
@@ -159,7 +158,7 @@
                 "lengthChange": true,
                 "autoWidth": false,
                 "language": {
-                    "url": "plugins/datatables/Portuguese.json"
+                    "url": "http://sistao.3bsup.eb.mil.br/plugins/datatables/Portuguese.json"
                 },
                 columnDefs: [{
                     type: 'numeric-comma',

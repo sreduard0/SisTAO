@@ -19,15 +19,6 @@ class LoginController extends Controller
         $this->Tools = new Tools();
     }
     //####################################################//
-    //==============================={ INDEX }=================================//
-    public function index()
-    {
-        if (session()->has('user')) {
-            return redirect()->route('home');
-        } else {
-            return redirect()->route('login');
-        }
-    }
     //=============================={ LOGIN/LOGOUT }==================================//
     //======={ VIEW / LOGIN }=============//
     public function login()

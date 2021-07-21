@@ -26,11 +26,32 @@
     @endforeach
 
     function aplly() {
+
+        @foreach ($apps as $app)
+        if($('input[name=sts_{{ $app->name }}]').is(':checked')){
+			 check{{ $app->id}} = 1;
+
+             if(!$('input[name={{ $app->name }}_permission]').is(':checked')){
+             Toast.fire({
+                icon: 'error',
+                title: '&nbsp&nbsp Selecione uma permissão para {{ $app->name }}.'
+            });
+            return false;
+        }
+		}else{
+			 check{{ $app->id }} = null;
+		}
+        @endforeach
+
         var dados = {
         @foreach ($apps as $app)
-        {{ $app->name }}: {
-            check{{ $app->name }}: $('input[name=sts_{{ $app->name }}]:checked').attr('value'),
-            permission{{ $app->name }}: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
+
+        {{ $app->name }}:
+        {
+            userID: {{ $user_data->id }},
+            appID: {{ $app->id }},
+            check: check{{ $app->id }},
+            permission: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
         },
         @endforeach
         };
@@ -44,10 +65,15 @@
         data: dados,
         dataType: 'text',
          success: function(data) {
-            $('#uploadimageModal').modal('hide');
             Toast.fire({
                 icon: 'success',
                 title: '&nbsp&nbsp Permissões alteradas com sucesso.'
+            });
+        },
+        error: function(data) {
+            Toast.fire({
+                icon: 'error',
+                title: '&nbsp&nbsp Falha ao alterar permissões do usuário.'
             });
         }
         });

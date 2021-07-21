@@ -25,9 +25,6 @@ class CrudController extends Controller
     //======={ SUBMIT CREATE PERFIL }======//
     public function submit_create_user(EditProfileRequest $request)
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
         $request->validated();
         $data = $request->all();
 
@@ -40,9 +37,6 @@ class CrudController extends Controller
     //======={ SUBMIT ALT PERFIL }======//
     public function submit_alt_profile(EditProfileRequest $request)
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
         $request->validated();
         $data = $request->all();
 
@@ -55,9 +49,6 @@ class CrudController extends Controller
     //========={ DELETE PERFIL }========//
     public function delete_profile($id)
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
         $user = $this->Tools->user_data($id);
         $user->delete();
         $login = LoginModel::where('users_id', $id)->get();
@@ -69,9 +60,6 @@ class CrudController extends Controller
     //========={ RESET PASSWORD }========//
     public function reset_password($f, $id)
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
         $user = $this->Tools->user_data($id);
         $pass = rand(10000000, 99999999);
         switch ($f) {
@@ -98,10 +86,6 @@ class CrudController extends Controller
     //========{ SUBMIT ALT SENHA }======//
     public function submit_alt_pwd(AltPwdRequest $request)
     {
-
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
 
         $old_pwd = trim($request->input('oldPwd'));
         $new_pwd = trim($request->input('newPwd'));
@@ -130,9 +114,6 @@ class CrudController extends Controller
     //===================={ UPLOADE IMG PERFIL }========================//
     public function upload_img_profile(Request $request)
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
         $data = $request->all();
         $image_array_1 = explode(";", $data['img_profile']);
         $image_array_2 = explode(",", $image_array_1[1]);
@@ -154,9 +135,6 @@ class CrudController extends Controller
     //============{ SUBMIT Alteração de imagem do background }=============//
     public function alt_img_bg(Request $request)
     {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
         $bg = $request->img_selected;
         $user_data = $this->Tools->user_data(session('user')['users_id']);
         $user_data->backgroundUrl = $bg;
@@ -167,11 +145,30 @@ class CrudController extends Controller
     //============{ Alteração de permissaão de apps }=============//
     public function alt_permissions(Request $request)
     {
+        // (`applications_id`, `profileType`, `notification`, `login_id`) VALUES ('2', '1', '1', '6')
         $permissions = $request->all();
-
         foreach ($permissions as $permission) {
-            if ($permission) {
-                echo print_r($permission) . '<br><hr>';
+            $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->get();
+            if (isset($permission['check']) && isset($permission['permission'])) {
+                if (empty($loginApp[0])) {
+                    $loginApp = new LoginApplicationModel();
+                    $loginApp->applications_id = $permission['appID'];
+                    $loginApp->profileType = $permission['permission'];
+                    $loginApp->notification = 1;
+                    $loginApp->login_id = $permission['userID'];
+                    $loginApp->save();
+                } else {
+                    $loginApp[0]->applications_id = $permission['appID'];
+                    $loginApp[0]->profileType = $permission['permission'];
+                    $loginApp[0]->notification = 1;
+                    $loginApp[0]->login_id = $permission['userID'];
+                    $loginApp[0]->save();
+                }
+            } else {
+                $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->get();
+                if (isset($loginApp[0]) && !isset($permission['check'])) {
+                    $loginApp[0]->delete();
+                }
             }
         }
     }
