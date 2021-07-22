@@ -30,6 +30,10 @@
                 @else
                     <div class="row">
                         @foreach ($apps as $app)
+                        @if ($app->apps[0]->id == 6)
+                            {{-- Ignora o sistão --}}
+                            @continue
+                        @endif
                             <div class="col-lg-3 col-6">
                                 <a href={{ $app->apps[0]->link }} class="small-box bg-success">
                                     <div class="inner">

@@ -12,9 +12,9 @@ class LoginModel extends Model
     {
         return $this->hasOne('App\Models\UserModel', 'id', 'users_id');
     }
-    public function applications()
+    public function permissions()
     {
-        return $this->hasMany('App\Models\LoginApplicationModel', 'login_id', 'id');
+        return $this->hasMany('App\Models\LoginApplicationModel', 'login_id', 'users_id');
     }
 
 

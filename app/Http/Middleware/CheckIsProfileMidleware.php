@@ -9,6 +9,10 @@ class CheckIsProfileMidleware
 {
     public function handle(Request $request, Closure $next)
     {
-        dd(session('user_data'));
+        if (session('SisTAO')['profileType'] == 1) {
+            return $next($request);
+        }
+
+        return redirect()->route('home');
     }
 }

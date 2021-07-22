@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Models\ApplicationsModel;
 use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +54,6 @@ class LoginController extends Controller
         $password = trim($request->input('password'));
 
         $user = LoginModel::where('login', $login)->first();
-
         //Retorna mensagem de erro
         if (!$user) {
             session()->flash('erro', 'Este usuário não existe.');
@@ -66,12 +66,28 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
 
-        //Inicia uma sessao
+        session()->flash('id', $user->users_id);
+        $permissions = ApplicationsModel::with('profiles')->get();
+        foreach ($permissions as $permission) {
+            session()->put([
+                $permission->name => $permission->profiles
+            ]);
+        }
+
         session()->put([
             'user' => $user,
-            'user_data' => $this->Tools->user_data($user->id)
-
         ]);
+
+        if (session('SisTAO') == null) {
+            session()->flush();
+            session()->flash('erro', 'Este usuário não tem permissão para acessar esta aplicação.');
+            return redirect()->route('login');
+        }
+
+        //Inicia uma sessao
+
+
+
 
         return redirect()->route('home');
     }

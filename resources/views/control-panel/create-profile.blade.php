@@ -41,7 +41,7 @@
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
-                        style="background: url('img/img_background/bg3.jpg') center center;background-size:contain"
+                        style="background: url('/img/img_background/bg3.jpg') center center;background-size:contain"
                         id="img_bg">
                     </div>
                     <div class="widget-user-image">
@@ -247,7 +247,7 @@
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="login" name="login"
                                             checked="" value="1">
-                                        <label for="login" class="custom-control-label">Gerar login</label>
+                                        <label for="login" class="custom-control-label m-b-10">Gerar login</label>
                                     </div>
 
                                     <a class="btn btn-default" href="{{ route('users_list') }}">Cancelar</a>

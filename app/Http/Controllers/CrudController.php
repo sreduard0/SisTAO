@@ -58,7 +58,7 @@ class CrudController extends Controller
         return redirect()->route('users_list');
     }
     //========={ RESET PASSWORD }========//
-    public function reset_password($f, $id)
+    public function password($f, $id)
     {
         $user = $this->Tools->user_data($id);
         $pass = rand(10000000, 99999999);
@@ -68,15 +68,24 @@ class CrudController extends Controller
                 $login->users_id = $user->id;
                 $login->login = $user->idt_mil;
                 $login->status = 1;
+                $login->password = Hash::make($pass);
+                $login->save();
+
+                $permission = new LoginApplicationModel();
+                $permission->applications_id = 6;
+                $permission->profileType = 0;
+                $permission->notification = 1;
+                $permission->login_id = $user->id;
+                $permission->save();
+
                 break;
 
             case 'reset':
-                $login = LoginModel::where('users_id', $user->id)->get();
+                $login = LoginModel::where('users_id', $id)->get();
+                $login[0]->password = Hash::make($pass);
+                $login[0]->save();
                 break;
         }
-
-        $login->password = Hash::make($pass);
-        $login->save();
         session()->flash('new_login', [
             'login' => $user->idt_mil,
             'password' => $pass,

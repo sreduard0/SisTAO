@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Models\LoginApplicationModel;
 use App\Models\LoginModel;
 use App\Models\UserModel;
 use Illuminate\Support\Facades\Hash;
@@ -60,8 +61,8 @@ class Tools
         $user_data->name = $data['name'];
         $user_data->professionalName = $data['professional_name'];
         $user_data->email = $data['email'];
-        $user_data->phone1 = str_replace(['(', ')', '-', ' '], '', $data['phone1']);
-        $user_data->phone2 = str_replace(['(', ')', '-', ' '], '', $data['phone2']);
+        $user_data->phone1 = str_replace(['(', ')', '-', ' ', '_'], '', $data['phone1']);
+        $user_data->phone2 = str_replace(['(', ')', '-', ' ', '_'], '', $data['phone2']);
         $user_data->born_at = substr($data['born_at'], 6, 4) . "-" . substr($data['born_at'], 3, 2) . "-" . substr($data['born_at'], 0, 2);
         $user_data->motherName = $data['mother_name'];
         $user_data->fatherName = $data['father_name'];
@@ -86,6 +87,14 @@ class Tools
             $login->login = $idt_mil;
             $login->password = Hash::make($pass);
             $login->save();
+
+            $permission = new LoginApplicationModel();
+            $permission->applications_id = 6;
+            $permission->profileType = 0;
+            $permission->notification = 1;
+            $permission->login_id = $data['id'];
+            $permission->save();
+
             session()->flash('new_login', [
                 'login' => $idt_mil,
                 'password' => $pass,

@@ -2,7 +2,7 @@
 use App\Classes\Tools;
 $tools = new Tools();
 $user_data = $tools->user_data(session('user')['users_id']);
-$profileType = session('user')['profileType'];
+$profileType = session('SisTAO')['profileType'];
 @endphp
 <html lang="pt-br">
 <head>

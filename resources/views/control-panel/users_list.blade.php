@@ -78,18 +78,18 @@
                                                         </i>
                                                     </a>
                                                     <a class="btn btn-info btn-sm"
-                                                        href="{{ route('edit_profile', ['id' => $user->id]) }}"
+                                                        href="{{ route('edit_user_profile', ['id' => $user->id]) }}"
                                                         title="Editar perfil">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                     </a>
                                                     @if (isset($user->login->login))
-                                                        <a class="btn btn-primary btn-sm" href="#" title='Resetar senha'>
+                                                        <a class="btn btn-primary btn-sm"  href="{{ route('password', ['f' => 'reset', 'id' => $user->id]) }}" title='Resetar senha'>
                                                             <img src="{{ asset('img/pwd-reset.png') }}" width="14">
                                                         </a>
                                                     @else
                                                         <a class="btn btn-primary btn-sm"
-                                                            href="{{ route('reset_password', ['f' => 'create', 'id' => $user->id]) }}"
+                                                            href="{{ route('password', ['f' => 'create', 'id' => $user->id]) }}"
                                                             title='Criar login de acesso'>
                                                             <i class="fa fa-user-lock"></i>
                                                         </a>

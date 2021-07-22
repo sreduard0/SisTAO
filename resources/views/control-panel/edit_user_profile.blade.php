@@ -139,7 +139,7 @@
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#info"
-                                            data-toggle="tab">Informações basicas</a></li>
+                                            data-toggle="tab">Informações básicas</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#address" data-toggle="tab">Endereço</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link" href="#contact" data-toggle="tab">Contato</a>
@@ -282,7 +282,7 @@
                                                         placeholder="Bairro" value="{{ $user_data->district }}" disabled>
                                                 </div>
                                                 <div class="form-group col">
-                                                    <label for="city">CIA</label>
+                                                    <label for="city">Cidade</label>
                                                     <select name="city" id="city" class="form-control" disabled>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_cities as $city)
@@ -385,7 +385,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <strong><i class="fas fa-user mr-1"></i> Informações basicas</strong>
+                                <strong><i class="fas fa-user mr-1"></i> Informações básicas</strong>
 
                                 <ul class="text-muted">
                                     <li class="row">NOME: {{ $user_data->name }}</li>
