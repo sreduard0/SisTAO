@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class LoginModel extends Model
 {
-    public function user_info()
+    public function data()
     {
         return $this->hasOne('App\Models\UserModel', 'id', 'users_id');
     }

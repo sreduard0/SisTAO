@@ -9,10 +9,11 @@ use App\Models\CitiesModel;
 use App\Models\CompanyModel;
 use App\Models\DepartamentModel;
 use App\Models\LoginApplicationModel;
+use App\Models\LoginModel;
 use App\Models\RanksModel;
 use App\Models\UserModel;
 
-class MainController extends Controller
+class ViewController extends Controller
 {
     //###################{Classe Tools}###################//
     private $Tools;
@@ -26,7 +27,7 @@ class MainController extends Controller
     public function home()
     {
         $data = [
-            'apps' => LoginApplicationModel::with('apps')->where('login_id', session('user')['users_id'])->get(),
+            'apps' => LoginApplicationModel::with('apps')->where('login_id', session('user')['id'])->get(),
         ];
         return view('control-panel.home', $data);
     }
@@ -42,7 +43,7 @@ class MainController extends Controller
             return view('control-panel.user_profile', $data);
         } else {
             $data = [
-                'user_data' => $this->Tools->user_data(session('user')['users_id']), //Buscando informações do usuário logado
+                'user_data' => $this->Tools->user_data(session('user')['id']), //Buscando informações do usuário logado
             ];
             return view('control-panel.profile', $data);
         };
@@ -78,7 +79,7 @@ class MainController extends Controller
                 'all_departament' => $all_departament,
                 'all_company' => $all_company,
                 'all_cities' => $all_cities,
-                'user_data' => $this->Tools->user_data(session('user')['users_id']), //Buscando informações do usuário logado
+                'user_data' => $this->Tools->user_data(session('user')['id']), //Buscando informações do usuário logado
             ];
             return view('control-panel.edit_profile', $data);
         };
@@ -89,7 +90,7 @@ class MainController extends Controller
     {
 
         $data = [
-            'user_data' => $this->Tools->user_data(session('user')['users_id']),
+            'user_data' => $this->Tools->user_data(session('user')['id']),
         ];
 
         return view('control-panel.alt_password', $data);

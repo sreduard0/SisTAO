@@ -3,7 +3,7 @@
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Cookie;
 
 //========================================================================//
@@ -16,15 +16,15 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     //======== INDEX
-    Route::get('/', [MainController::class, 'home'])->name('index');
+    Route::get('/', [ViewController::class, 'home'])->name('index');
     //======== PAINEL DE CONTROLE
-    Route::get('panel', [MainController::class, 'home'])->name('home');
-    Route::get('profile/view/{id?}', [MainController::class, 'profile'])->name('profile');
-    Route::get('profile/edit/', [MainController::class, 'edit_profile'])->name('edit_profile');
-    Route::get('profile/edit/{id}', [MainController::class, 'edit_profile'])->middleware('CheckProfile')->name('edit_user_profile');
-    Route::get('profile/password', [MainController::class, 'alt_password'])->name('alt_password');
-    Route::get('users/list', [MainController::class, 'users_list'])->middleware('CheckProfile')->name('users_list');
-    Route::get('profile/create', [MainController::class, 'create_user'])->middleware('CheckProfile')->name('create_user');
+    Route::get('panel', [ViewController::class, 'home'])->name('home');
+    Route::get('profile/view/{id?}', [ViewController::class, 'profile'])->name('profile');
+    Route::get('profile/edit/', [ViewController::class, 'edit_profile'])->name('edit_profile');
+    Route::get('profile/edit/{id}', [ViewController::class, 'edit_profile'])->middleware('CheckProfile')->name('edit_user_profile');
+    Route::get('profile/password', [ViewController::class, 'alt_password'])->name('alt_password');
+    Route::get('users/list', [ViewController::class, 'users_list'])->middleware('CheckProfile')->name('users_list');
+    Route::get('profile/create', [ViewController::class, 'create_user'])->middleware('CheckProfile')->name('create_user');
 
     //======== ações
     Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->middleware('CheckProfile')->name('delete_profile');

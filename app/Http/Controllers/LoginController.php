@@ -53,7 +53,7 @@ class LoginController extends Controller
         $login = trim($request->input('login'));
         $password = trim($request->input('password'));
 
-        $user = LoginModel::where('login', $login)->first();
+        $user = LoginModel::with('data')->where('login', $login)->first();
         //Retorna mensagem de erro
         if (!$user) {
             session()->flash('erro', 'Este usuário não existe.');
@@ -66,16 +66,28 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
 
-        session()->flash('id', $user->users_id);
-        $permissions = ApplicationsModel::with('profiles')->get();
+        session()->flash('id', $user->users_id); //Insere ID na session para ApplicationsModel filtar permissoes
+        $permissions = ApplicationsModel::with('profiles')->get(); // buscando permissoes do usuario
+
+        //Inserindo permissoes na session
         foreach ($permissions as $permission) {
             session()->put([
-                $permission->name => $permission->profiles
+                $permission->name => [
+                    'profileType' => $permission->profiles->profileType,
+                    'notification' => $permission->profiles->notification,
+                    'loginID' => $permission->profiles->login_id,
+                ],
             ]);
         }
-
+        //Inicia uma sessao
         session()->put([
-            'user' => $user,
+            'user' => [
+                'id' => $user->data->id,
+                'name' => $user->data->name,
+                'professionalName' => $user->data->professionalName,
+                'email' => $user->data->email,
+                'rank_id' => $user->data->rank_id,
+            ],
         ]);
 
         if (session('SisTAO') == null) {
@@ -83,11 +95,6 @@ class LoginController extends Controller
             session()->flash('erro', 'Este usuário não tem permissão para acessar esta aplicação.');
             return redirect()->route('login');
         }
-
-        //Inicia uma sessao
-
-
-
 
         return redirect()->route('home');
     }
