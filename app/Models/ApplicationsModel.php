@@ -9,7 +9,12 @@ class ApplicationsModel extends Model
 {
     public function profiles()
     {
-        return $this->hasOne('App\Models\LoginApplicationModel', 'applications_id', 'id')->where('login_id', session('id'));
+        if (!session('id')) {
+            $id = session('user')['id'];
+        } else {
+            $id = session('id');
+        }
+        return $this->hasOne('App\Models\LoginApplicationModel', 'applications_id', 'id')->where('login_id', $id);
     }
 
     use HasFactory;

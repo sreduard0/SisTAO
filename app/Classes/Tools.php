@@ -92,7 +92,7 @@ class Tools
             $permission->applications_id = 6;
             $permission->profileType = 0;
             $permission->notification = 1;
-            $permission->login_id = $data['id'];
+            $permission->login_id = $user_data->id;
             $permission->save();
 
             session()->flash('new_login', [

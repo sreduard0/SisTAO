@@ -195,7 +195,7 @@ $profileType = session('SisTAO')['profileType'];
                 <div class="text-center">
 
                     &copy;SisTAO 2021 (v1.0) <br>
-                    Desenvolvido por: Sgt Souza Lima e Cb Eduardo
+                    Desenvolvido por: Eduardo Martins
                 </div>
             </footer>
         </footer>

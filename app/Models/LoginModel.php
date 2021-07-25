@@ -19,7 +19,6 @@ class LoginModel extends Model
 
 
     use HasFactory;
-    use SoftDeletes;
     protected $table = 'login';
     protected $primarykey = 'id';
 }

@@ -6,6 +6,7 @@ use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Models\ApplicationsModel;
+use App\Models\LoginApplicationModel;
 use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +25,11 @@ class LoginController extends Controller
     //======={ VIEW / LOGIN }=============//
     public function login()
     {
+        //Verifica se o usuário esta logado
+        if (session()->has('user')) {
+            return redirect()->route('home');
+        }
+
         $erro = session('erro');
         $data = [];
         if (!empty($erro)) {
@@ -46,6 +52,11 @@ class LoginController extends Controller
     public function login_submit(LoginRequest $request)
     {
 
+        //Verifica se o usuário esta logado
+        if (session()->has('user')) {
+            return redirect()->route('home');
+        }
+
         //Validação
         $request->validated();
 
@@ -67,20 +78,16 @@ class LoginController extends Controller
         }
 
         session()->flash('id', $user->users_id); //Insere ID na session para ApplicationsModel filtar permissoes
-        $permissions = ApplicationsModel::with('profiles')->get(); // buscando permissoes do usuario
+        $permission = LoginApplicationModel::where('applications_id', 6)->where('login_id', $user->users_id)->first();; // buscando permissoes do usuario
 
         //Inserindo permissoes na session
-        foreach ($permissions as $permission) {
-            session()->put([
-                $permission->name => [
-                    'profileType' => $permission->profiles->profileType,
-                    'notification' => $permission->profiles->notification,
-                    'loginID' => $permission->profiles->login_id,
-                ],
-            ]);
-        }
-        //Inicia uma sessao
         session()->put([
+            'SisTAO' => [
+                'profileType' => $permission->profileType,
+                'notification' => $permission->notification,
+                'loginID' => $permission->login_id,
+            ],
+
             'user' => [
                 'id' => $user->data->id,
                 'name' => $user->data->name,

@@ -12,7 +12,7 @@
                         <a class=" d-inline-block nav-link " data-widget="pushmenu" href="#" role="button"><i
                                 class="fas fa-bars"></i></a>
                         <h1 class="d-inline-block m-0">
-                            Painel de controle
+                            Aplicativos
                         </h1>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
             <div class="container-fluid">
 
 
-                @if (empty($apps[0]))
+                @if (count($apps) == 1)
                     <div class="callout callout-info">
                         <h5><i class="fas fa-info"></i> Aviso:</h5>
                         No momento não há aplicações disponíveis, entre em contato com o administrador do sistema.
@@ -35,7 +35,7 @@
                             @continue
                         @endif
                             <div class="col-lg-3 col-6">
-                                <a href={{ $app->apps[0]->link }} class="small-box bg-success">
+                                <a href="{{ route('login_apps',['id' => $app->apps[0]->id])}}" target="_blank" class="small-box bg-success">
                                     <div class="inner">
                                         <h3>{{ $app->apps[0]->name }}</h3>
                                         <p>Clique e acesse</p>

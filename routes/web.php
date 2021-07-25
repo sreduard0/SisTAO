@@ -1,5 +1,7 @@
 <?php
 //C:\Windows\System32\drivers\etc\hosts
+
+use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\CrudController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +19,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     //======== INDEX
     Route::get('/', [ViewController::class, 'home'])->name('index');
-    //======== PAINEL DE CONTROLE
+    //======== VIEWs
     Route::get('panel', [ViewController::class, 'home'])->name('home');
     Route::get('profile/view/{id?}', [ViewController::class, 'profile'])->name('profile');
     Route::get('profile/edit/', [ViewController::class, 'edit_profile'])->name('edit_profile');
@@ -29,6 +31,7 @@ Route::middleware('auth')->group(function () {
     //======== ações
     Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->middleware('CheckProfile')->name('delete_profile');
     Route::get('profile/login/{f}/{id}', [CrudController::class, 'password'])->middleware('CheckProfile')->name('password');
+    Route::get('login/apps/{id}', [ApplicationsController::class, 'login_apps'])->name('login_apps');
 
     //========Rotas de envio de formularios
     Route::post('submit_create_user', [CrudController::class, 'submit_create_user'])->middleware('CheckProfile')->name('submit_create_user');
@@ -38,13 +41,3 @@ Route::middleware('auth')->group(function () {
     Route::post('alt_img_bg', [CrudController::class, 'alt_img_bg'])->name('alt_img_bg');
     Route::post('alt_permissions', [CrudController::class, 'alt_permissions'])->middleware('CheckProfile')->name('alt_permissions');
 });
-
-
-//========================================================================//
-//========{                      APLICAÇÕES                      }========//
-//========================================================================//
-
-//============================[Rota de teste]====================================
-// Route::get('/cookie', function () {
-//     return Cookie::get();
-// });

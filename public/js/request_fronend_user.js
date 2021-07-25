@@ -35,8 +35,6 @@ function check_info_user() {
             title: '&nbsp&nbsp É necessário preencher todos os campos. '
         });
 
-
-
         info_user.name.focus();
         info_user.professional_name.focus();
         info_user.email.focus();
