@@ -127,9 +127,33 @@ class ViewController extends Controller
 
         return view('control-panel.create-profile', $data);
     }
-    //================================={  }====================================//
-    //================================={  }====================================//
-    //================================={  }====================================//
+    //================================={ Salvar alteraçao de tema }====================================//
+    public function theme($sts)
+    {
+        $user = LoginModel::where('users_id',session('user')['id'])->first();
+
+        switch ($sts) {
+            case '1':
+                $user->theme = 1;
+                $user->save();
+                session(['theme' => 1]);
+                break;
+
+            default:
+                $user->theme = 0;
+                $user->save();
+                session(['theme' => 0]);
+                break;
+        }
+
+    }
+    //================================={ Lista de aplicativos }====================================//
+    public function app_list()
+    {
+        $apps = ApplicationsModel::all();
+
+        return view('control-panel.app_list', ['apps' => $apps]);
+    }
     //================================={  }====================================//
     //================================={  }====================================//
     //================================={  }====================================//

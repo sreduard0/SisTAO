@@ -154,23 +154,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="mother_name">Nome da mãe</label>
+                                                        <input type="text" id="mother_name" name="mother_name"
+                                                            class="form-control" placeholder="Nome da mãe"
+                                                            value="{{ old('mother_name') }}">
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="father_name">Nome do pai</label>
+                                                        <input type="text" id="father_name" name="father_name"
+                                                            class="form-control" placeholder="Nome do pai"
+                                                            value="{{ old('father_name') }}">
+                                                    </div>
+                                                </div>
+
 
                                             </div>
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label for="mother_name">Nome da mãe</label>
-                                                    <input type="text" id="mother_name" name="mother_name"
-                                                        class="form-control" placeholder="Nome da mãe"
-                                                        value="{{ old('mother_name') }}">
-                                                </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="father_name">Nome do pai</label>
-                                                    <input type="text" id="father_name" name="father_name"
-                                                        class="form-control" placeholder="Nome do pai"
-                                                        value="{{ old('father_name') }}">
-                                                </div>
-                                            </div>
-
                                         </div>
 
                                         <!-- /.tab-pane -->

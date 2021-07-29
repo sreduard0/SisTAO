@@ -160,9 +160,9 @@ class CrudController extends Controller
         // (`applications_id`, `profileType`, `notification`, `login_id`) VALUES ('2', '1', '1', '6')
         $permissions = $request->all();
         foreach ($permissions as $permission) {
-            $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->first();;
+            $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->first();
             if (isset($permission['check']) && isset($permission['permission'])) {
-                if (empty($loginAp)) {
+                if (empty($loginApp)) {
                     $loginApp = new LoginApplicationModel();
                     $loginApp->applications_id = $permission['appID'];
                     $loginApp->profileType = $permission['permission'];
@@ -177,8 +177,8 @@ class CrudController extends Controller
                     $loginApp->save();
                 }
             } else {
-                $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->get();
-                if (isset($loginAp) && !isset($permission['check'])) {
+                $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->first();
+                if (isset($loginApp) && !isset($permission['check'])) {
                     $loginApp->delete();
                 }
             }

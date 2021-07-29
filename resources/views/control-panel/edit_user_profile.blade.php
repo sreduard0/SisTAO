@@ -9,77 +9,77 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('js/request_fronend_user.js') }}"></script>
     <script src="{{ asset('js/check-permission.js') }}"></script>
-   <script>
-    @foreach ($apps as $app )
-    $(function() {
-        var check = $("#{{ $app->id }}"); //checkbox que ativara os restantes
+    <script>
+        @foreach ($apps as $app)
+            $(function() {
+            var check = $("#{{ $app->id }}"); //checkbox que ativara os restantes
 
-        check.on('click', function() {
+            check.on('click', function() {
             if (check.prop('checked') == true) {
-                $(".{{ $app->name }}_permission").prop("disabled", false); //mostra os as permissoes
+            $(".{{ $app->name }}_permission").prop("disabled", false); //mostra os as permissoes
 
             } else if (check.prop('checked') == false) {
-                $(".{{ $app->name }}_permission").prop("disabled", true); //oculta os as permissoes
+            $(".{{ $app->name }}_permission").prop("disabled", true); //oculta os as permissoes
             }
-        })
-    })
-    @endforeach
+            })
+            })
+        @endforeach
 
-    function aplly() {
+        function aplly() {
 
-        @foreach ($apps as $app)
-        if($('input[name=sts_{{ $app->name }}]').is(':checked')){
-			 check{{ $app->id}} = 1;
+            @foreach ($apps as $app)
+                if($('input[name=sts_{{ $app->name }}]').is(':checked')){
+                check{{ $app->id }} = 1;
 
-             if(!$('input[name={{ $app->name }}_permission]').is(':checked')){
-             Toast.fire({
+                if(!$('input[name={{ $app->name }}_permission]').is(':checked')){
+                Toast.fire({
                 icon: 'error',
                 title: '&nbsp&nbsp Selecione uma permissão para {{ $app->name }}.'
+                });
+                return false;
+                }
+                }else{
+                check{{ $app->id }} = null;
+                }
+            @endforeach
+
+            var dados = {
+                @foreach ($apps as $app)
+
+                    {{ $app->name }}:
+                    {
+                    userID: {{ $user_data->id }},
+                    appID: {{ $app->id }},
+                    check: check{{ $app->id }},
+                    permission: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
+                    },
+                @endforeach
+            };
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "http://sistao.3bsup.eb.mil.br/alt_permissions",
+                type: "POST",
+                data: dados,
+                dataType: 'text',
+                success: function(data) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp&nbsp Permissões alteradas com sucesso.'
+                    });
+                },
+                error: function(data) {
+                    Toast.fire({
+                        icon: 'error',
+                        title: '&nbsp&nbsp Falha ao alterar permissões do usuário.'
+                    });
+                }
             });
-            return false;
+
         }
-		}else{
-			 check{{ $app->id }} = null;
-		}
-        @endforeach
-
-        var dados = {
-        @foreach ($apps as $app)
-
-        {{ $app->name }}:
-        {
-            userID: {{ $user_data->id }},
-            appID: {{ $app->id }},
-            check: check{{ $app->id }},
-            permission: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
-        },
-        @endforeach
-        };
-
-        $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "http://sistao.3bsup.eb.mil.br/alt_permissions",
-        type: "POST",
-        data: dados,
-        dataType: 'text',
-         success: function(data) {
-            Toast.fire({
-                icon: 'success',
-                title: '&nbsp&nbsp Permissões alteradas com sucesso.'
-            });
-        },
-        error: function(data) {
-            Toast.fire({
-                icon: 'error',
-                title: '&nbsp&nbsp Falha ao alterar permissões do usuário.'
-            });
-        }
-        });
-
-    }
-</script>
+    </script>
 @endsection
 
 @section('content')
@@ -87,8 +87,8 @@
     use App\Classes\Tools;
     $tools = new Tools();
     @endphp
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 1450px;">
+    <!-- Content Wrapper. Contains page content  style="min-height: 1450px;" -->
+    <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -114,7 +114,8 @@
                         style="background: url('{{ asset("$user_data->backgroundUrl") }}') center center;background-size:contain"
                         id="img_bg">
                         <a class="btn btn-success btn-edit-user"
-                            href="{{ route('profile', ['id' => $user_data->id]) }}"><i class="fa fa-user"></i></a>
+                            href="{{ route('profile', ['id' => $user_data->id]) }}"><i
+                                class="fa fa-user m-r-10"></i>Visualizar perfil</a>
                     </div>
                     <div class="widget-user-image">
                         <img id="img_profile" class="img-circle" src="{{ asset("$user_data->photoUrl") }} "
@@ -315,7 +316,7 @@
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="email">E-mail</label>
-                                                    <input type="text" class="form-control" id="email" name="email"
+                                                    <input type="email" class="form-control" id="email" name="email"
                                                         placeholder="E-mail" value="{{ $user_data->email }}" disabled>
                                                 </div>
                                             </div>
@@ -338,35 +339,66 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <form>
-                                    @foreach ( $apps as $app)
-                                    <div class="row justify-content-between m-b-30">
-                                        {{-- Ativar app --}}
-                                        <div class="custom-control custom-switch ">
-                                            <input type="checkbox" class="custom-control-input" name="sts_{{ $app->name }}" id={{ $app->id }} value='1' @if($app->profiles) checked @endif>
-                                            <label class="custom-control-label" for={{ $app->id}}>{{ $app->name }}</label>
-                                        </div>
+                                        @foreach ($apps as $app)
+                                            <div class="row justify-content-between m-b-30">
+                                                {{-- Ativar app --}}
+                                                <div class="custom-control custom-switch ">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                        name="sts_{{ $app->name }}" id={{ $app->id }} value='1'
+                                                        @if ($app->profiles) checked @endif>
+                                                    <label class="custom-control-label"
+                                                        for={{ $app->id }}>{{ $app->name }}</label>
+                                                </div>
 
-                                        <div class="row">
-                                            {{-- permissao adm --}}
-                                            <div class="custom-control custom-checkbox m-r-10">
-                                                <input class="{{ $app->name }}_permission custom-control-input" type="radio"
-                                                    id="adm-{{ $app->id }}" name='{{ $app->name }}_permission' value="1"   @if($app->profiles && $app->profiles->profileType == 1) checked @elseif(!$app->profiles) disabled @endif >
-                                                <label for="adm-{{ $app->id }}"
-                                                    class="custom-control-label">Administrador</label>
+                                                {{-- bloco Permissoes --}}
+                                                <div class="row">
+                                                    @if (!$app->special || $app->special == 1)
+                                                        {{-- permissao adm --}}
+                                                        <div class="custom-control custom-checkbox m-r-10">
+                                                            <input
+                                                                class="{{ $app->name }}_permission custom-control-input"
+                                                                type="radio" id="adm-{{ $app->id }}"
+                                                                name='{{ $app->name }}_permission' value="1" @if ($app->profiles && $app->profiles->profileType == 1) checked @elseif(!$app->profiles) disabled @endif>
+                                                            <label for="adm-{{ $app->id }}"
+                                                                class="custom-control-label">Administrador</label>
+                                                        </div>
+                                                        {{-- permissao conv --}}
+                                                        <div class="custom-control custom-checkbox m-r-30">
+                                                            <input
+                                                                class="{{ $app->name }}_permission custom-control-input"
+                                                                type="radio" id="conv-{{ $app->id }}"
+                                                                name='{{ $app->name }}_permission' value="0" @if ($app->profiles && $app->profiles->profileType == 0) checked @elseif(!$app->profiles) disabled @endif>
+                                                            <label for="conv-{{ $app->id }}"
+                                                                class="custom-control-label">Convencional</label>
+                                                        </div>
+                                                        @if ($app->special == 1)
+                                                            {{-- permissao especial --}}
+                                                            <div class="custom-control custom-checkbox m-r-30">
+                                                                <input
+                                                                    class="{{ $app->name }}_permission custom-control-input"
+                                                                    type="radio" id="spc-{{ $app->id }}"
+                                                                    name='{{ $app->name }}_permission' value="2" @if ($app->profiles && $app->profiles->profileType == 2) checked @elseif(!$app->profiles) disabled @endif>
+                                                                <label for="spc-{{ $app->id }}"
+                                                                    class="custom-control-label">Especial (SGTTE)</label>
+                                                            </div>
+                                                        @endif
+                                                    @else
+                                                        {{-- app link --}}
+                                                        <div class="custom-control custom-checkbox m-r-30">
+                                                            <input
+                                                                class="{{ $app->name }}_permission custom-control-input"
+                                                                type="radio" id="link-{{ $app->id }}"
+                                                                name='{{ $app->name }}_permission' value="0" @if ($app->profiles && $app->profiles->profileType == 0) checked @elseif(!$app->profiles) disabled @endif>
+                                                            <label for="link-{{ $app->id }}"
+                                                                class="custom-control-label">Link</label>
+                                                        </div>
+                                                    @endif
+                                                </div>
                                             </div>
-                                            {{-- permissao conv --}}
-                                            <div class="custom-control custom-checkbox m-r-30">
-                                                <input class="{{ $app->name }}_permission custom-control-input" type="radio"
-                                                    id="conv-{{ $app->id }}" name='{{ $app->name }}_permission' value="0"  @if($app->profiles && $app->profiles->profileType == 0) checked @elseif(!$app->profiles) disabled @endif>
-                                                <label for="conv-{{ $app->id }}"
-                                                    class="custom-control-label">Convencional</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    @endforeach
+                                            <hr>
+                                        @endforeach
                                     </form>
-                                    <button onclick="return aplly()" class="btn btn-success" >Aplicar</button>
+                                    <button onclick="return aplly()" class="btn btn-success float-r">Aplicar</button>
                                 </div>
                             </div>
                         </div>

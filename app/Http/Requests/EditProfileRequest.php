@@ -10,14 +10,13 @@ class EditProfileRequest extends FormRequest
     {
         return
             [
+                'mother_name' => ['required', 'min:3'],
                 'name' => ['required', 'min:3'],
                 'professional_name' => ['required'],
                 'email' => ['required', 'email'],
                 'phone1' => ['required', 'min:16', 'max:16'],
                 'phone2' => ['required', 'min:16', 'max:16'],
                 'born_at' => ['required'],
-                'mother_name' => ['required', 'min:3'],
-                'father_name' => ['required', 'min:3'],
                 'military_id' => ['required', 'min:3'],
                 'idt_mil' => ['required', 'min:11', 'max:11'],
                 'street' => ['required'],
@@ -35,6 +34,7 @@ class EditProfileRequest extends FormRequest
     {
         return
             [
+                'mother_name.required' => 'É nescessaário preencher o campo NOME DA MÃE',
                 'name.required' => 'É nescessaário preencher o campo NOME COMPLETO',
                 'name.min' => 'O campo NOME COMPLETO é nescessaário no minimo :min caracteres!',
                 'professional_name.required' => 'É nescessaário preencher o campo NOME COMPLETO',
@@ -42,8 +42,6 @@ class EditProfileRequest extends FormRequest
                 'phone1.required' => 'É nescessaário preencher o campo TELEFONE 1',
                 'phone2.required' => 'É nescessaário preencher o campo TELEFONE 2',
                 'born_at.required' => 'É nescessaário preencher o campo DATA DE NASCIMENTO',
-                'mother_name.required' => 'É nescessaário preencher o campo NOME DA MÃE',
-                'father_name.required' => 'É nescessaário preencher o campo NOME CDO PAI',
                 'military_id.required' => 'É nescessaário preencher o campo N°',
                 'idt_mil.required' => 'É nescessaário preencher o campo IDT Militar',
                 'street.required' => 'É nescessaário preencher o campo LOGRADOURO',

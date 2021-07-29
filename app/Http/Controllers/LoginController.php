@@ -78,14 +78,19 @@ class LoginController extends Controller
         }
 
         session()->flash('id', $user->users_id); //Insere ID na session para ApplicationsModel filtar permissoes
-        $permission = LoginApplicationModel::where('applications_id', 6)->where('login_id', $user->users_id)->first();; // buscando permissoes do usuario
+        $login = LoginApplicationModel::where('applications_id', 6)->where('login_id', $user->users_id)->first();; // buscando permissoes do usuario
+        if (!$login)
+        {
+            session()->flash('erro', 'Este usuário não tem permissão para acessar esta aplicação.');
+            return redirect()->route('login');
+        }
 
-        //Inserindo permissoes na session
+        //Inserindo permissoes na sessionecho $login;
         session()->put([
             'SisTAO' => [
-                'profileType' => $permission->profileType,
-                'notification' => $permission->notification,
-                'loginID' => $permission->login_id,
+                'profileType' => $login->profileType,
+                'notification' => $login->notification,
+                'loginID' => $login->login_id,
             ],
 
             'user' => [
@@ -93,15 +98,15 @@ class LoginController extends Controller
                 'name' => $user->data->name,
                 'professionalName' => $user->data->professionalName,
                 'email' => $user->data->email,
-                'rank_id' => $user->data->rank_id,
+                'rank' => $user->data->rank->rankAbbreviation,
             ],
+
+            'theme' => $user->theme,
+
         ]);
 
-        if (session('SisTAO') == null) {
-            session()->flush();
-            session()->flash('erro', 'Este usuário não tem permissão para acessar esta aplicação.');
-            return redirect()->route('login');
-        }
+
+
 
         return redirect()->route('home');
     }

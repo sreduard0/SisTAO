@@ -182,7 +182,7 @@ a {
 }
 
 a:hover {
-    color: #ffffff;
+    color: #00664d;
     text-decoration: none;
 }
 
@@ -11532,7 +11532,8 @@ body,
 }
 
 .wrapper .content-wrapper {
-    min-height: calc(100% + calc(18em + 1px));
+     min-height: calc(100vh - calc(3.5rem + 1px) - calc(3.5rem + 1px));
+    /* min-height: calc(100% + calc(20em + 1px)); */
 }
 
 .layout-boxed .wrapper {
@@ -13917,13 +13918,13 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
 .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
-    background-color: #007bff;
+    background-color: #e7ec00;
     color: #fff;
 }
 
 .sidebar-dark-primary .nav-sidebar.nav-legacy>.nav-item>.nav-link.active,
 .sidebar-light-primary .nav-sidebar.nav-legacy>.nav-item>.nav-link.active {
-    border-color: #007bff;
+    border-color: #008362;
 }
 
 .sidebar-dark-secondary .nav-sidebar>.nav-item>.nav-link.active,
@@ -13939,13 +13940,13 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .sidebar-dark-success .nav-sidebar>.nav-item>.nav-link.active,
 .sidebar-light-success .nav-sidebar>.nav-item>.nav-link.active {
-    background-color: #28a745;
+    background-color: #008362;
     color: #fff;
 }
 
 .sidebar-dark-success .nav-sidebar.nav-legacy>.nav-item>.nav-link.active,
 .sidebar-light-success .nav-sidebar.nav-legacy>.nav-item>.nav-link.active {
-    border-color: #28a745;
+    border-color: #008362;
 }
 
 .sidebar-dark-info .nav-sidebar>.nav-item>.nav-link.active,
@@ -27841,7 +27842,7 @@ body.text-sm .input-group-text {
 }
 
 .card-primary:not(.card-outline)>.card-header {
-    background-color: #007bff;
+    background-color:  #00664d;
 }
 
 .card-primary:not(.card-outline)>.card-header,
@@ -27854,7 +27855,7 @@ body.text-sm .input-group-text {
 }
 
 .card-primary.card-outline {
-    border-top: 3px solid #007bff;
+    border-top: 3px solid  #00664d;
 }
 
 .card-primary.card-outline-tabs>.card-header a:hover {
@@ -27862,7 +27863,7 @@ body.text-sm .input-group-text {
 }
 
 .card-primary.card-outline-tabs>.card-header a.active {
-    border-top: 3px solid #007bff;
+    border-top: 3px solid  #00664d;
 }
 
 .bg-primary>.card-header .btn-tool,
@@ -28054,7 +28055,7 @@ body.text-sm .input-group-text {
 }
 
 .card-info:not(.card-outline)>.card-header {
-    background-color: #17a2b8;
+    background-color: #00664d;
 }
 
 .card-info:not(.card-outline)>.card-header,
@@ -29982,6 +29983,7 @@ html.maximized-card {
     padding: 0.5em 1em;
     border-radius: 5px;
     background-color: #00664d;
+    color: #fff;
 }
 
 .text-sm .nav-link {
@@ -32191,7 +32193,7 @@ html.maximized-card {
 }
 
 .dark-mode .card .card-footer {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #343a40;
 }
 
 .dark-mode .card.card-outline-tabs .card-header a:hover {

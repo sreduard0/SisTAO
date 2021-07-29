@@ -11982,10 +11982,10 @@ a .icon {
 
 .btn-edit-user {
     float: right;
-    border-radius: 50%;
-    height: 45px;
-    width: 45px;
-    padding-top: 12px;
+    border-radius: 5px;
+    height: 40px;
+    width: auto;
+    padding-top: 5px;
 }
 
 .btn-delete-user {

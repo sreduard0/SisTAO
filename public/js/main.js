@@ -73,3 +73,49 @@ function hide() {
     $("#backdrop").detach();
 }
 //
+
+
+//===========Tema escuro=======
+$(function () {
+    var AltTheme = $("#theme"); //checkbox que ativara
+
+    AltTheme.on('click', function () {
+        if (AltTheme.prop('checked') == true) {
+            $("body").addClass('dark-mode'); //mostra os as permissoes
+            return save(1);
+
+        } else if (AltTheme.prop('checked') == false) {
+            $("body").removeClass('dark-mode'); //oculta os as permissoes
+             return save(0);
+        }
+    });
+});
+function save(sts) {
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+    });
+    $.ajax({
+
+
+
+        url: "http://sistao.3bsup.eb.mil.br/theme/"+sts,
+        type: "GET",
+        success: function(data) {
+            Toast.fire({
+                icon: 'success',
+                title: '&nbsp&nbsp Tema alterado com sucesso. '
+            });
+        },
+          error: function(data) {
+            Toast.fire({
+                icon: 'error',
+                title: '&nbsp&nbsp Falha ao alterar tema. '
+            });
+        }
+    });
+}
+
+

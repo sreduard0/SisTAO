@@ -3,8 +3,10 @@ use App\Classes\Tools;
 $tools = new Tools();
 $user_data = $tools->user_data(session('user')['id']);
 $profileType = session('SisTAO')['profileType'];
+$theme = session('theme');
 @endphp
 <html lang="pt-br">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,8 +53,6 @@ $profileType = session('SisTAO')['profileType'];
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-
-
     <script>
         setTimeout(function() {
             var Toast = Swal.mixin({
@@ -86,7 +86,8 @@ $profileType = session('SisTAO')['profileType'];
     @yield('scripts')
 </head>
 
-<body class="dark-mode hold-transition sidebar-mini layout-fixed">
+<body class="@if ($theme==1) dark-mode @endif sidebar-mini
+    layout-fixed">
     <div class="wrapper">
 
 
@@ -127,6 +128,49 @@ $profileType = session('SisTAO')['profileType'];
                                 </p>
                             </a>
                         </li>
+                        @if ($profileType == 2)
+                            <li class="nav-item @yield('menu_adm_open')">
+                                <a href="#" class="nav-link @yield('adm')">
+                                    <i class="nav-icon fas fa-address-card"></i>
+                                    <p>
+                                        Plano de chamada
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>EM</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>CCSv</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>1º Cia </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>2º Cia</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                            <i class="nav-icon fas fa-users"></i>
+                                            <p>3º Cia</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                         @if ($profileType == 1)
                             <li class="nav-item @yield('menu_adm_open')">
                                 <a href="#" class="nav-link @yield('adm')">
@@ -141,6 +185,14 @@ $profileType = session('SisTAO')['profileType'];
                                         <a href="{{ route('users_list') }}" class="nav-link  @yield('users')">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>Militares</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('app_list') }}" class="nav-link  @yield('apps')">
+                                            <i class="nav-icon fas fa-th-list"></i>
+                                            <p>Aplicações</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -238,10 +290,6 @@ $profileType = session('SisTAO')['profileType'];
     <!-- SCRIPT MANUAIS -->
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/toast.js') }}"></script>
-
-
-
-
 </body>
 
 </html>

@@ -101,14 +101,12 @@
                                             </p>
 
                                             <hr>
-
                                             <strong>Filiação</strong>
 
                                             <p class="text-muted">
                                                 <strong>MÃE:</strong> {{ $user_data->motherName }} <br>
                                                 <strong>PAI:</strong> {{ $user_data->fatherName }}
                                             </p>
-
 
                                         </div>
 

@@ -33,4 +33,22 @@ $(document).ready(function() {
     });
 
 
+
+
+    //===================== Tela add aplicação =============================
+
+
+    //    PREENCHE SEÇÃO NO CABEÇALHO
+    var select = document.querySelector('#appName');
+    select.addEventListener('change', function() {
+        var option = this.selectedOptions[0];
+        var currentText = option.textContent;
+
+
+        // Setting the Div content
+        $("#nameApp").slideUp(0).fadeIn(400).text(currentText);
+    });
+
+
+
 });

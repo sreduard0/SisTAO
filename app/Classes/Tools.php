@@ -23,14 +23,6 @@ class Tools
                 break;
         }
     }
-    //===============[Verificar se a usuario logado]=======================
-    public function check_session()
-    {
-        if (!session()->has('user')) {
-            return redirect()->route('login');
-        }
-    }
-
     //====================[Mascara para strings]===========================
     function mask($mask, $str)
     {

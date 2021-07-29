@@ -84,7 +84,9 @@
                                                         </i>
                                                     </a>
                                                     @if (isset($user->login->login))
-                                                        <a class="btn btn-primary btn-sm"  href="{{ route('password', ['f' => 'reset', 'id' => $user->id]) }}" title='Resetar senha'>
+                                                        <a class="btn btn-primary btn-sm"
+                                                            href="{{ route('password', ['f' => 'reset', 'id' => $user->id]) }}"
+                                                            title='Resetar senha'>
                                                             <img src="{{ asset('img/pwd-reset.png') }}" width="14">
                                                         </a>
                                                     @else
@@ -103,7 +105,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.card-body -->
                         </div>
                     </div>
                 </div>

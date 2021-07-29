@@ -176,6 +176,8 @@
                                                         class="form-control" placeholder="Nome do pai"
                                                         value="{{ $user_data->fatherName }}" disabled>
                                                 </div>
+
+
                                             </div>
 
                                         </div>
@@ -243,7 +245,7 @@
                                             <div class="row">
                                                 <div class="form-group col">
                                                     <label for="email">E-mail</label>
-                                                    <input type="text" class="form-control" id="email" name="email"
+                                                    <input type="email" class="form-control" id="email" name="email"
                                                         placeholder="E-mail" value="{{ $user_data->email }}" disabled>
                                                 </div>
                                             </div>

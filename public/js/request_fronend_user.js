@@ -14,9 +14,8 @@ function check_info_user() {
     var Phone1 = info_user.phone1.value;
     var Phone2 = info_user.phone2.value;
     var BornAt = info_user.born_at.value;
-    var MotherName = info_user.mother_name.value;
-    var FatherName = info_user.father_name.value;
     var MilitaryId = info_user.military_id.value;
+    var MotherName = info_user.mother_name.value;
     var IdtMil = info_user.idt_mil.value;
     var Street = info_user.street.value;
     var HouseNumber = info_user.house_number.value;
@@ -28,7 +27,7 @@ function check_info_user() {
     var CompanyId = info_user.company_id.value;
 
 
-    if (Name == "" || ProfessionalName == "" || Email == "" || Phone1 == "" || Phone2 == "" || BornAt == "" || MotherName == "" || FatherName == "" || MilitaryId == "" || IdtMil == "" || Street == "" || HouseNumber == "" || District == "" || CityId == "" || Cep == "" || DepartamentId == "" || RankId == "" || CompanyId == "") {
+    if (Name == "" || ProfessionalName == "" || Email == "" || Phone1 == "" || Phone2 == "" || BornAt == "" || MilitaryId == "" || IdtMil == "" || Street == "" || HouseNumber == "" || District == "" || CityId == "" || Cep == "" || MotherName == "" || DepartamentId == "" || RankId == "" || CompanyId == "") {
 
         Toast.fire({
             icon: 'error',
@@ -41,8 +40,6 @@ function check_info_user() {
         info_user.phone1.focus();
         info_user.phone2.focus();
         info_user.born_at.focus();
-        info_user.mother_name.focus();
-        info_user.father_name.focus();
         info_user.military_id.focus();
         info_user.idt_mil.focus();
         info_user.street.focus();
