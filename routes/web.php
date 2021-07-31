@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile/login/{f}/{id}', [CrudController::class, 'password'])->middleware('CheckProfile')->name('password');
     Route::get('login/apps/{id}', [ApplicationsController::class, 'login_apps'])->name('login_apps');
     Route::get('theme/{id}', [ViewController::class, 'theme'])->name('theme');
+    Route::get('apps/delete/{id}',[ApplicationsController::class, 'del_application'])->middleware('CheckProfile')->name('del_application');
 
     //========Rotas de envio de formularios
     Route::post('submit_create_user', [CrudController::class, 'submit_create_user'])->middleware('CheckProfile')->name('submit_create_user');
@@ -43,4 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::post('alt_img_bg', [CrudController::class, 'alt_img_bg'])->name('alt_img_bg');
     Route::post('alt_permissions', [CrudController::class, 'alt_permissions'])->middleware('CheckProfile')->name('alt_permissions');
     Route::post('apps_add',[ApplicationsController::class, 'add_application'])->middleware('CheckProfile')->name('add_application');
+    Route::post('apps/search',[ApplicationsController::class, 'get_apps'])->middleware('CheckProfile')->name('get_application');
 });
+
+
+

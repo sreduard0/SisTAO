@@ -4,9 +4,12 @@
 @section('menu_adm_open', 'menu-open')
 @section('apps', 'active')
 @section('scripts')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.cs') }}s">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <script src="{{ asset('js/bootbox.min.js') }}"></script>
+    <script src="{{ asset('js/confirm-delete.js') }}"></script>
 @endsection
 @section('content')
     @php
@@ -32,8 +35,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col">
-                        <button class="btn btn-success float-r" type="button" data-toggle="modal"
-                            data-target="#exampleModal">
+                        <button class="btn btn-success float-r" type="button" data-toggle="modal" data-target="#add_app">
                             NOVO APP <i class="fa fa-plus-circle"></i> </button>
                     </div>
                 </div>
@@ -41,40 +43,17 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <table id="table_users" class="table table-bordered table-striped">
+                                <table id="table_apps" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th width="10px">#</th>
                                             <th>Sigla</th>
                                             <th>Nome</th>
                                             <th>Link</th>
-                                            <th width="20px">Ação</th>
+                                            <th width="50px">Permissão</th>
+                                            <th width="100px">Ação</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <?php $i = 1; ?>
-                                        @foreach ($apps as $app)
-                                            <tr>
-                                                <td data-order="{{ $app->id }}" width="40px"> {{ $i++ }} </td>
-                                                <td>{{ $app->name }}</td>
-                                                <td>{{ $app->fullName }}</td>
-                                                <td>
-                                                    @if ($app->link)
-                                                        {{ $app->link }}
-                                                    @else
-                                                        # Sem link
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a class="btn btn-success btn-md" href="#" title="Editar">
-                                                        <i class="fas fa-pen">
-                                                        </i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-
-                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -95,29 +74,34 @@
     <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
     <script>
         $(function() {
-            $("#table_users").DataTable({
+            $("#table_apps").DataTable({
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
                 "language": {
-                    "url": "http://sistao.3bsup.eb.mil.br/plugins/datatables/Portuguese.json"
+                    "url": "{{ asset('plugins/datatables/Portuguese2.json') }}"
                 },
-                columnDefs: [{
-                    type: 'numeric-comma',
-                    targets: [0, 1],
-                }],
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('get_application') }}",
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+
+                }
             });
         });
     </script>
 @endsection
 @section('modal')
     {{-- Modal criar app --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="add_app" tabindex="-1" role="dialog" aria-labelledby="add_app" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Adicionar aplicação</h5>
+                    <h5 class="modal-title" id="add_appLabel">Adicionar aplicação</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
