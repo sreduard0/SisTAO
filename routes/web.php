@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('login/apps/{id}', [ApplicationsController::class, 'login_apps'])->name('login_apps');
     Route::get('theme/{id}', [ViewController::class, 'theme'])->name('theme');
     Route::get('apps/delete/{id}',[ApplicationsController::class, 'del_application'])->middleware('CheckProfile')->name('del_application');
+    Route::get('apps/info/{id}',[ApplicationsController::class, 'find_app_info'])->middleware('CheckProfile')->name('find_app_info');
 
     //========Rotas de envio de formularios
     Route::post('submit_create_user', [CrudController::class, 'submit_create_user'])->middleware('CheckProfile')->name('submit_create_user');

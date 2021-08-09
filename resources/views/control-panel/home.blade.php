@@ -65,15 +65,9 @@
                                         </a>
                                     </div>
                             @endswitch
-
-
-
-
                         @endforeach
                     </div>
                 @endif
-
-
             </div>
         </section>
     </div>

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <script src="{{ asset('js/bootbox.min.js') }}"></script>
-    <script src="{{ asset('js/confirm-delete.js') }}"></script>
+    <script src="{{ asset('js/actions-apps.js') }}"></script>
 @endsection
 @section('content')
     @php
@@ -51,7 +51,7 @@
                                             <th>Nome</th>
                                             <th>Link</th>
                                             <th width="50px">Permissão</th>
-                                            <th width="100px">Ação</th>
+                                            <th width="80px">Ação</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -62,7 +62,6 @@
                 </div>
             </div>
         </section>
-
     </div>
 @endsection
 @section('plugins')
@@ -94,8 +93,71 @@
             });
         });
     </script>
+    <script>
+        $('#edit_app').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id');
+            var modal = $(this)
+            var url = 'http://sistao.3bsup.eb.mil.br/apps/info/' + id
+            $.get(url, function(result) {
+                modal.find('.modal-title').text('Editar ' + result.name)
+                modal.find('#id').val(result.id)
+                modal.find('#abbreviationApp').val(result.name)
+                modal.find('#fullname').val(result.fullName)
+                modal.find('#applink').val(result.link)
+                modal.find('#appspecial').val(result.special)
+            })
+        });
+    </script>
 @endsection
 @section('modal')
+    {{-- Editar APP --}}
+    <div class="modal fade" id="edit_app" tabindex="-1" role="dialog" aria-labelledby="add_app" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit_userLabel">Editar aplicação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group col">
+                            <label for="abbreviationApp">Sigla *</label>
+                            <input type="text" class="form-control" id="abbreviationApp" name="abbreviation_app"
+                                placeholder="Ex: SisTAO" value="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="fullname">Nome *</label>
+                            <input type="text" class="form-control" id="fullname" name="full_name"
+                                placeholder="Ex: Sistema Tático de Apoio Operacional" value="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="applink">Link</label>
+                            <input type="text" class="form-control" id="applink" name="link"
+                                placeholder="Ex: sistao.3bsup.eb.mil.br" value="">
+                        </div>
+                        <div class="row">
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="pspecial1" name='special' value="1">
+                                <label for="pspecial1" class="custom-control-label">Especial (SGTTE)</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="pspecial2" name='special' value="2">
+                                <label for="pspecial2" class="custom-control-label">Link</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button onclick="return edit_app()" class="btn btn-success">Adicionar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Modal criar app --}}
     <div class="modal fade" id="add_app" tabindex="-1" role="dialog" aria-labelledby="add_app" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -107,15 +169,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('add_application') }}">
-                        @csrf
+                    <form>
                         <div class="form-group col">
-                            <label for="abbreviation_app">Sigla</label>
+                            <label for="abbreviation_app">Sigla *</label>
                             <input type="text" class="form-control" id="abbreviation_app" name="abbreviation_app"
                                 placeholder="Ex: SisTAO" value="">
                         </div>
                         <div class="form-group col">
-                            <label for="full_name">Nome</label>
+                            <label for="full_name">Nome *</label>
                             <input type="text" class="form-control" id="full_name" name="full_name"
                                 placeholder="Ex: Sistema Tático de Apoio Operacional" value="">
                         </div>
@@ -134,12 +195,12 @@
                                 <label for="special2" class="custom-control-label">Link</label>
                             </div>
                         </div>
-
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-success">Adicionar</button>
-                    </form>
+                    <button onclick="return create_app()" class="btn btn-success">Adicionar</button>
+
                 </div>
             </div>
         </div>

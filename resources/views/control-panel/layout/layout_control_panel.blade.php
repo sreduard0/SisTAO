@@ -254,7 +254,7 @@ $theme = session('theme');
 
 
     </div>
-
+    @yield('modal')
     @yield('plugins')
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -293,4 +293,3 @@ $theme = session('theme');
 </body>
 
 </html>
-@yield('modal')

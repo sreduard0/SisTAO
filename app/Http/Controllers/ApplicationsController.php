@@ -30,9 +30,10 @@ class ApplicationsController extends Controller
         return redirect($app->link);
     }
 //======================={ Adicionar app no DB }==========================//
-    public function add_application(ApplicationAddRequest $request)
+    public function add_application(Request $request)
     {
         $newApp = $request->all();
+
         if (empty($newApp['special']))
         {
             $newApp['special'] = null;
@@ -43,7 +44,7 @@ class ApplicationsController extends Controller
         $app->link = 'http://' . str_replace('http://', '', $newApp['link']);
         $app->special = $newApp['special'] ;
         $app->save();
-        return back();
+
     }
 //===================={ Apagar aplicativo  do DB }=========================//
     public function del_application($id)
@@ -108,9 +109,10 @@ class ApplicationsController extends Controller
                             $dado[] = 'Simples';
                         break;
             }
-            $dado[] = " <a class='btn btn-success btn-md' href='#' title='Editar'>
-                            <i class='fas fa-pen'></i>
-                        </a>
+            $dado[] = "
+                        <button type='button'  class='btn btn-success btn-md' data-toggle='modal' data-target='#edit_app'
+                         data-id='".$app->id."'><i class='fas fa-pen'></i></button>
+
                         <button class='btn btn-danger btn-md'
                             onclick='return confirm_delete_app(".$app->id.",".'"'.$app->name.'"'.")'
                             title='Editar'>
@@ -128,9 +130,14 @@ class ApplicationsController extends Controller
             "data" => $dados   //Array de dados completo dos dados retornados da tabela
         );
 
-        echo json_encode($json_data);  //enviar dados como formato json
+        return json_encode($json_data);  //enviar dados como formato json
     }
-//================================={  }====================================//
+//================================={ find app info }====================================//
+public function find_app_info($id){
+    $app = ApplicationsModel::find($id);
+    return $app;
+
+}
 //================================={  }====================================//
 //================================={  }====================================//
 //================================={  }====================================//
