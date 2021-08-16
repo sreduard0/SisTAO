@@ -1,4 +1,12 @@
 function alt_img_bg() {
+    // var do toast de sucesso
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 4000
+});
+// fim
 
     var dados = {
         img_selected: $('input[name=bg]:checked').attr('value'),

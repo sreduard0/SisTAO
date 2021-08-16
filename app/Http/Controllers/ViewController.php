@@ -12,6 +12,7 @@ use App\Models\LoginApplicationModel;
 use App\Models\LoginModel;
 use App\Models\RanksModel;
 use App\Models\UserModel;
+use Illuminate\Http\Request;
 
 class ViewController extends Controller
 {
@@ -127,6 +128,24 @@ class ViewController extends Controller
 
         return view('control-panel.create-profile', $data);
     }
+    //================================={ CADASTRO }====================================//
+    public function register()
+    {
+        //Verifica se o usuário esta logado
+        // if (session()->has('user')) {
+        //     return redirect()->route('home');
+        // }
+        $data = [
+            'erro' => session('erro'),
+            'apps' => ApplicationsModel::all(),
+            'all_ranks' => RanksModel::all(),
+            'all_departament' => DepartamentModel::all(),
+            'all_company' => CompanyModel::all(),
+            'all_cities' => CitiesModel::all(),
+        ];
+        return view('register', $data);
+    }
+    //====AÇÕES NA VIEW
     //================================={ Salvar alteraçao de tema }====================================//
     public function theme($sts)
     {
@@ -150,12 +169,87 @@ class ViewController extends Controller
     //================================={ Lista de aplicativos }====================================//
     public function app_list()
     {
-        $apps = ApplicationsModel::all();
-
-        return view('control-panel.app_list', ['apps' => $apps]);
+        return view('control-panel.app_list');
     }
-    //================================={  }====================================//
-    //================================={  }====================================//
+    //============{ Registers }=()============//
+    public function get_register(Request $request)
+    {
+       //Receber a requisão da pesquisa
+       $requestData = $request->all();
+
+        //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
+        $columns = array(
+            0=> 'rank_id',
+            1=> 'rank_id',
+            2 =>'professionalName',
+            3 => 'name',
+            4 => 'company_id',
+            5 => 'departament_id',
+            6=> 'email',
+            7=> 'created_at',
+        );
+
+       //Obtendo registros de número total sem qualquer pesquisa
+       $rows = count(UserModel::onlyTrashed()->get());
+
+       //Se há pesquisa ou não
+        if( $requestData['search']['value'] )
+        {
+           $requests = UserModel::orWhere('name', 'LIKE', '%'.$requestData['search']['value'] .'%')
+            ->onlyTrashed()->orWhere('professionalName', 'LIKE', '%'.$requestData['search']['value'].'%')
+            ->onlyTrashed()->orWhere('email', 'LIKE', '%' .$requestData['search']['value'] . '%')->onlyTrashed()->get();
+            $filtered = count($requests);
+        }
+        else
+        {
+            $requests = UserModel::onlyTrashed()->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] ) ->offset( $requestData['start'])->take($requestData['length'])->get();
+            $filtered = count($requests);
+        }
+
+        // Ler e criar o array de dados
+        $dados = array();
+        $i = 1;
+        foreach ($requests as $request){
+            $dado = array();
+            $dado[] = $i++;
+            $dado[] = $request->rank->rankAbbreviation;
+            $dado[] = $request->professionalName;
+            $dado[] = $request->name;
+            $dado[] = $request->departament->name;
+            $dado[] = $request->company->name;
+               if ($request->email == '') {
+                   $dado[] = '-';
+               }else{
+                   $dado[] = $request->email;
+               }
+            $dado[] = "
+                        <button type='button'  class='btn btn-success btn-md' data-toggle='modal' data-target='#edit_app'
+                         data-id='".$request->id."'><i class='fas fa-check'></i></button>
+
+                        <button class='btn btn-danger btn-md'
+                            onclick='return confirm_request(".$request->id.",".'"'.$request->professionalName.'"'.")'
+                            title='Editar'>
+                            <i class='fas fa-times'></i>
+                        </button>";
+            $dados[] = $dado;
+        }
+
+
+        //Cria o array de informações a serem retornadas para o Javascript
+        $json_data = array(
+            "draw" => intval( $requestData['draw'] ),//para cada requisição é enviado um número como parâmetro
+            "recordsTotal" => intval( $rows ),  //Quantidade de registros que há no banco de dados
+            "recordsFiltered" => intval( $filtered ), //Total de registros quando houver pesquisa
+            "data" => $dados   //Array de dados completo dos dados retornados da tabela
+        );
+
+        return json_encode($json_data);  //enviar dados como formato json
+    }
+    //================================{ lista registe }====================================//
+    public function register_list()
+    {
+        return view('control-panel.register-list');
+    }
     //================================={  }====================================//
     //================================={  }====================================//
     //================================={  }====================================//

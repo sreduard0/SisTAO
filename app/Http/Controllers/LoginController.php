@@ -71,6 +71,11 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
 
+         if ($user->status == 3) {
+            session()->flash('erro', 'Aguarde até que um administrador aceite seu cadastro.');
+            return redirect()->route('login');
+        }
+
         // //Verifica se a senha ta correta
         if (!Hash::check($password, $user->password)) {
             session()->flash('erro', 'Usuário ou senha incorreto.');

@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Cookie;
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('login_submit', [LoginController::class, 'login_submit'])->name('login_submit');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('register', [ViewController::class, 'register'])->name('register');
+
+Route::post('register/user', [CrudController::class, 'request_login'])->name('req_login');
 
 Route::middleware('auth')->group(function () {
     //======== INDEX
@@ -28,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('users/list', [ViewController::class, 'users_list'])->middleware('CheckProfile')->name('users_list');
     Route::get('profile/create', [ViewController::class, 'create_user'])->middleware('CheckProfile')->name('create_user');
     Route::get('/apps/list',[ViewController::class, 'app_list'])->middleware('CheckProfile')->name('app_list');
+    Route::get('/register/list',[ViewController::class, 'register_list'])->middleware('CheckProfile')->name('register_list');
 
     //======== ações
     Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->middleware('CheckProfile')->name('delete_profile');
@@ -44,8 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::post('upload_img_profile', [CrudController::class, 'upload_img_profile'])->name('upload_img_profile');
     Route::post('alt_img_bg', [CrudController::class, 'alt_img_bg'])->name('alt_img_bg');
     Route::post('alt_permissions', [CrudController::class, 'alt_permissions'])->middleware('CheckProfile')->name('alt_permissions');
-    Route::post('apps_add',[ApplicationsController::class, 'add_application'])->middleware('CheckProfile')->name('add_application');
+    Route::post('app_add',[ApplicationsController::class, 'add_application'])->middleware('CheckProfile')->name('add_application');
+    Route::post('app_edit',[ApplicationsController::class, 'edit_application'])->middleware('CheckProfile')->name('edit_application');
     Route::post('apps/search',[ApplicationsController::class, 'get_apps'])->middleware('CheckProfile')->name('get_application');
+    Route::post('registers_list',[ViewController::class, 'get_register'])->middleware('CheckProfile')->name('get_register');
 });
 
 

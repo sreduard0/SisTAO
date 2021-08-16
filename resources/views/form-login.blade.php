@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>Login</title>
+    <title>SisTAO - Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -32,7 +32,7 @@
 
                     <div class="wrap-input100">
                         <input class="input100" type="text" name="login" id="login">
-                        <span class="focus-input100" data-placeholder="Usuário"></span>
+                        <span class="focus-input100" data-placeholder="IDT Militar"></span>
                     </div>
 
                     <div class="wrap-input100">
@@ -76,10 +76,10 @@
 
                     <div class="text-center">
                         <span class="txt1">
-                            Necessita de um login?
-                        </span>
-                        <a class="txt2" href="#">
-                            Link
+                            Ainda não tem login?
+                        </span><br>
+                        <a class="txt2" href="{{ route('register') }}">
+                            ACESSE
                         </a>
                     </div>
                 </form>

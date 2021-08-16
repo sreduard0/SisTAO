@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ApplicationAddRequest;
 use App\Models\ApplicationsModel;
+use App\Models\LoginApplicationModel;
 use Illuminate\Http\Request;
 
 class ApplicationsController extends Controller
@@ -29,28 +30,7 @@ class ApplicationsController extends Controller
 
         return redirect($app->link);
     }
-//======================={ Adicionar app no DB }==========================//
-    public function add_application(Request $request)
-    {
-        $newApp = $request->all();
 
-        if (empty($newApp['special']))
-        {
-            $newApp['special'] = null;
-        }
-        $app = new ApplicationsModel();
-        $app->name = $newApp['abbreviation_app'];
-        $app->fullName = $newApp['full_name'];
-        $app->link = 'http://' . str_replace('http://', '', $newApp['link']);
-        $app->special = $newApp['special'] ;
-        $app->save();
-
-    }
-//===================={ Apagar aplicativo  do DB }=========================//
-    public function del_application($id)
-    {
-        ApplicationsModel::find($id)->delete();
-    }
 //================================={ DataTables }====================================//
     public function get_apps(Request $request){
         //Receber a requisão da pesquisa
@@ -132,13 +112,62 @@ class ApplicationsController extends Controller
 
         return json_encode($json_data);  //enviar dados como formato json
     }
+
 //================================={ find app info }====================================//
 public function find_app_info($id){
     $app = ApplicationsModel::find($id);
     return $app;
 
 }
-//================================={  }====================================//
+
+
+// =======================================================================//
+//                             CRUD APPS                                  //
+//======================={ Adicionar app no DB }==========================//
+    public function add_application(Request $request)
+    {
+        $newApp = $request->all();
+
+        if (empty($newApp['special']))
+        {
+            $newApp['special'] = null;
+        }
+        $app = new ApplicationsModel();
+        $app->name = $newApp['abbreviation_app'];
+        $app->fullName = $newApp['full_name'];
+        $app->link = 'http://' . str_replace('http://', '', $newApp['link']);
+        $app->special = $newApp['special'] ;
+        $app->save();
+
+    }
+//===================={ Apagar aplicativo  do DB }=========================//
+    public function del_application($id)
+    {
+        ApplicationsModel::find($id)->delete();
+        LoginApplicationModel::where('applications_id', $id)->delete();
+    }
+//================================={ Editar app no DB }====================================//
+public function edit_application(Request $request)
+{
+    $infoApp = $request->all();
+
+    if ($infoApp['special'] == 0)
+    {
+        $infoApp['special'] = null;
+    }
+    $app = ApplicationsModel::find($infoApp['id']);
+    $app->name = $infoApp['abbreviation_app'];
+    $app->fullName = $infoApp['full_name'];
+    $app->link = 'http://' . str_replace('http://', '', $infoApp['link']);
+    $app->special = $infoApp['special'] ;
+    $app->save();
+
+}
+// =======================================================================//
+//                            / CRUD APPS                                  //
+// =======================================================================//
+
+
 //================================={  }====================================//
 //================================={  }====================================//
 //================================={  }====================================//

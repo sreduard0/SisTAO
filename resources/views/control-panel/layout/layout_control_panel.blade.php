@@ -2,6 +2,7 @@
 use App\Classes\Tools;
 $tools = new Tools();
 $user_data = $tools->user_data(session('user')['id']);
+$login_requests = $tools->login_requests();
 $profileType = session('SisTAO')['profileType'];
 $theme = session('theme');
 @endphp
@@ -13,15 +14,11 @@ $theme = session('theme');
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" type="image/x-icon">
     {{-- Posto/Graduação          Nome de Guerra --}}
     <title>SisTAO - @yield('title')</title>
-    <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.cs') }}s">
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
-    <!-- BS Stepper -->
-    <link rel="stylesheet" href="{{ asset('plugins/bs-stepper/css/bs-stepper.min.css') }}">
     <!-- dropzonejs -->
     <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -36,8 +33,6 @@ $theme = session('theme');
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
     {{-- sweetalert2 --}}
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
@@ -186,6 +181,16 @@ $theme = session('theme');
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>Militares</p>
                                         </a>
+
+                                    </li>
+                                </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('register_list') }}" class="nav-link  @yield('register')">
+                                            <i class="nav-icon fas fa-user-plus"></i>
+                                            <p>Solicitações de login</p>
+                                            <span class="badge badge-success right">{{ $login_requests }}</span>
+                                        </a>
                                     </li>
                                 </ul>
                                 <ul class="nav nav-treeview">
@@ -233,14 +238,10 @@ $theme = session('theme');
             </div>
 
         </aside>
-
         @yield('content')
-
-
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
-
 
         <footer class=" align-items-center main-footer">
             <footer>
@@ -252,16 +253,18 @@ $theme = session('theme');
             </footer>
         </footer>
 
-
     </div>
     @yield('modal')
     @yield('plugins')
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Select2 -->
-    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <!-- Bootstrap Switch -->
+    <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
     <!-- Bootstrap4 Duallistbox -->
     <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+
     <!-- InputMask -->
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
@@ -271,8 +274,7 @@ $theme = session('theme');
     <script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-    <!-- Bootstrap Switch -->
-    <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+
     <!-- BS-Stepper -->
     <script src="{{ asset('plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
     <!-- SweetAlert2 -->

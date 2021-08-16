@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Classes\Tools;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AltPwdRequest;
+use App\Http\Requests\CreateProfileRequest;
 use App\Http\Requests\EditProfileRequest;
 use App\Models\ApplicationsModel;
 use App\Models\LoginApplicationModel;
@@ -23,7 +24,7 @@ class CrudController extends Controller
     }
     //####################################################//
     //======={ SUBMIT CREATE PERFIL }======//
-    public function submit_create_user(EditProfileRequest $request)
+    public function submit_create_user(CreateProfileRequest $request)
     {
         $request->validated();
         $data = $request->all();
@@ -122,7 +123,6 @@ class CrudController extends Controller
             return back();
         }
     }
-
     //===================={ UPLOADE IMG PERFIL }========================//
     public function upload_img_profile(Request $request)
     {
@@ -184,8 +184,63 @@ class CrudController extends Controller
             }
         }
     }
-    //============{  }=============//
-    //============{  }=============//
+    //============{ Solicitação de login }=============//
+    public function request_login(CreateProfileRequest $request)
+    {
+        $data = $request->all();
+
+        print_r($data);
+
+        // $checkIdtMil = UserModel::withTrashed()->where('idt_mil', str_replace(['.', '-'], '', $data['idt_mil']))->first();
+        // if (!empty($checkIdtMil)) {
+        //     session()->flash('erro', 'Um perfil com essa IDT militar já existe.');
+        //     return back();
+        // }
+
+        // if($data['conf_password'] != $data['password'])
+        // {
+        //     session()->flash('erro', 'As senhas não coincidem.');
+        //     return back();
+        // }
+
+        // $idt_mil = str_replace(['.', '-'], '', $data['idt_mil']);
+
+        // // Criando dados do usuario
+        // $user_data = new UserModel();
+        // $user_data->photoUrl = 'img/img_profiles/img_profile_padrao.png';
+        // $user_data->backgroundUrl = 'img/img_background/bg3.jpg';
+        // $user_data->name = $data['name'];
+        // $user_data->professionalName = $data['professional_name'];
+        // $user_data->email = $data['email'];
+        // $user_data->idt_mil = $idt_mil;
+        // $user_data->departament_id = $data['departament_id'];
+        // $user_data->rank_id = $data['rank_id'];
+        // $user_data->company_id = $data['company_id'];
+        // $user_data->deleted_at = date('d-m-Y');
+        // $user_data->save();
+
+
+        // // Criando login
+        // $pass = $data['password'];
+        // $login = new LoginModel;
+        // $login->users_id = $user_data->id;
+        // $login->status = 3;
+        // $login->login = $idt_mil;
+        // $login->password = Hash::make($pass);
+        // $login->save();
+        // // Adicionando permissoes
+        // $permission = new LoginApplicationModel();
+        // $permission->applications_id = 6;
+        // $permission->profileType = 0;
+        // $permission->notification = 1;
+        // $permission->login_id = $user_data->id;
+        // $permission->save();
+
+        // session()->flash('erro', 'Pronto! Só aguardar um administrador aceitar sua solicitação.');
+        // return redirect()->route('login');
+
+    }
+
     //============{  }=============//
     //============{  }=============//
     //============{  }=============//

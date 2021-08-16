@@ -4375,7 +4375,7 @@ input[type="button"].btn-block {
     left: calc(-2.25rem + 2px);
     width: calc(1rem - 4px);
     height: calc(1rem - 4px);
-    background-color: #adb5bd;
+    background-color: #5e5e5e;
     border-radius: 0.5rem;
     transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
     transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -5798,7 +5798,7 @@ a.badge-secondary.focus {
 
 .badge-success {
     color: #fff;
-    background-color: #28a745;
+    background-color: #008362;
 }
 
 a.badge-success:hover,

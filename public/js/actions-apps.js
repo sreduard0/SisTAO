@@ -1,4 +1,4 @@
- //----Funçoes----------
+// ===================== CRUD APPS
 function confirm_delete_app(id, name) {
        var Toast = Swal.mixin({
         toast: true,
@@ -113,6 +113,7 @@ function edit_app() {
 
 
     var data = {
+        id: $('input[name=id]').val(),
         abbreviation_app: $('input[name=abbreviationApp]').val(),
         full_name: $('input[name=fullname]').val(),
         link: $('input[name=applink]').val(),
@@ -133,7 +134,7 @@ function edit_app() {
 
     $.ajax({
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        url: 'http://sistao.3bsup.eb.mil.br/apps_edit',
+        url: 'http://sistao.3bsup.eb.mil.br/app_edit',
         type: 'POST',
         data: data,
         dataType: 'text',
@@ -146,7 +147,6 @@ function edit_app() {
                         icon: 'success',
                         title: '&nbsp&nbsp Deu bom'
             });
-            $(":input").val("");
         },
 
         error: function (data) {
@@ -156,6 +156,8 @@ function edit_app() {
                     });
         }
     });
+
+    // ===================== CRUD APPS
 }
 
 

@@ -17,7 +17,7 @@
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.5;
-  color: #6c757d;
+  color: #b3b3b3;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
@@ -43,7 +43,7 @@
 }
 
 .bs-stepper .step-trigger:focus {
-  color: #007bff;
+  color: #00664d;
   outline: none;
 }
 
@@ -86,7 +86,7 @@
   min-width: 1px;
   min-height: 1px;
   margin: auto;
-  background-color: rgba(0, 0, 0, .12);
+  background-color: rgb(136, 136, 136);
 }
 
 @media (max-width: 400px) {
@@ -115,7 +115,7 @@
 }
 
 .active .bs-stepper-circle {
-  background-color: #007bff;
+  background-color: #00664d;
 }
 
 .bs-stepper-content {
@@ -142,22 +142,22 @@
 }
 
 .bs-stepper.vertical .bs-stepper-pane,
-.bs-stepper.vertical .content {
+.bs-stepper.vertical .content-request {
   display: block;
 }
 
 .bs-stepper.vertical .bs-stepper-pane:not(.fade),
-.bs-stepper.vertical .content:not(.fade) {
+.bs-stepper.vertical .content-request:not(.fade) {
   display: block;
   visibility: hidden;
 }
 
 .bs-stepper-pane:not(.fade),
-.bs-stepper .content:not(.fade) {
+.bs-stepper .content-request:not(.fade) {
   display: none;
 }
 
-.bs-stepper .content.fade,
+.bs-stepper .content-request.fade,
 .bs-stepper-pane.fade {
   visibility: hidden;
   transition-duration: .3s;
@@ -165,29 +165,29 @@
 }
 
 .bs-stepper-pane.fade.active,
-.bs-stepper .content.fade.active {
+.bs-stepper .content-request.fade.active {
   visibility: visible;
   opacity: 1;
 }
 
 .bs-stepper-pane.active:not(.fade),
-.bs-stepper .content.active:not(.fade) {
+.bs-stepper .content-request.active:not(.fade) {
   display: block;
   visibility: visible;
 }
 
 .bs-stepper-pane.dstepper-block,
-.bs-stepper .content.dstepper-block {
+.bs-stepper .content-request.dstepper-block {
   display: block;
 }
 
 .bs-stepper:not(.vertical) .bs-stepper-pane.dstepper-none,
-.bs-stepper:not(.vertical) .content.dstepper-none {
+.bs-stepper:not(.vertical) .content-request.dstepper-none {
   display: none;
 }
 
 .vertical .bs-stepper-pane.fade.dstepper-none,
-.vertical .content.fade.dstepper-none {
+.vertical .content-request.fade.dstepper-none {
   visibility: hidden;
 }
 

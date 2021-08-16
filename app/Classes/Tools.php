@@ -49,13 +49,35 @@ class Tools
                 $user_data = UserModel::with('rank', 'departament', 'company', 'city')->find($data['id']);
                 break;
         }
+        $phone1 = str_replace(['(', ')', '-', ' ', '_'], '', $data['phone1']);
+        if(empty($data['phone1']))
+        {
+            $phone1 = null;
+        }
 
+        $phone2 = str_replace(['(', ')', '-', ' ', '_'], '', $data['phone2']);
+        if(empty($data['phone1']))
+        {
+            $phone2 = null;
+        }
+
+        $bornAt = substr($data['born_at'], 6, 4) . "-" . substr($data['born_at'], 3, 2) . "-" . substr($data['born_at'], 0, 2);
+        if(empty($data['born_at']))
+        {
+            $bornAt = null;
+        }
+
+        $cep = str_replace('-', '', $data['cep']);
+        if(empty($data['cep']))
+        {
+            $cep = null;
+        }
         $user_data->name = $data['name'];
         $user_data->professionalName = $data['professional_name'];
         $user_data->email = $data['email'];
-        $user_data->phone1 = str_replace(['(', ')', '-', ' ', '_'], '', $data['phone1']);
-        $user_data->phone2 = str_replace(['(', ')', '-', ' ', '_'], '', $data['phone2']);
-        $user_data->born_at = substr($data['born_at'], 6, 4) . "-" . substr($data['born_at'], 3, 2) . "-" . substr($data['born_at'], 0, 2);
+        $user_data->phone1 = $phone1;
+        $user_data->phone2 = $phone2;
+        $user_data->born_at = $bornAt;
         $user_data->motherName = $data['mother_name'];
         $user_data->fatherName = $data['father_name'];
         $user_data->militaryId = $data['military_id'];
@@ -64,7 +86,7 @@ class Tools
         $user_data->house_number = $data['house_number'];
         $user_data->district = $data['district'];
         $user_data->city_id = $data['city'];
-        $user_data->cep = str_replace('-', '', $data['cep']);
+        $user_data->cep = $cep;
         $user_data->departament_id = $data['departament_id'];
         $user_data->rank_id = $data['rank_id'];
         $user_data->company_id = $data['company_id'];
@@ -93,7 +115,11 @@ class Tools
             ]);
         }
     }
-    //=============================[]======================================
+    //===============[ Contar solicitaçoes de login]=======================
+    public function login_requests()
+    {
+        return count(UserModel::onlyTrashed()->get());
+    }
     //=============================[]======================================
     //=============================[]======================================
     //=============================[]======================================

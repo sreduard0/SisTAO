@@ -56,3 +56,43 @@ function check_info_user() {
 
     return true;
 }
+
+
+function check_create_user() {
+
+    // JavaScript Document
+    var Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+    });
+
+    var Name = info_user.name.value;
+    var ProfessionalName = info_user.professional_name.value;
+    var IdtMil = info_user.idt_mil.value;
+    var DepartamentId = info_user.departament_id.value;
+    var RankId = info_user.rank_id.value;
+    var CompanyId = info_user.company_id.value;
+
+
+    if (Name == "" || ProfessionalName == "" || IdtMil == "" || DepartamentId == "" || RankId == "" || CompanyId == "") {
+
+        Toast.fire({
+            icon: 'error',
+            title: '&nbsp&nbsp É necessário preencher todos os campos. '
+        });
+
+        info_user.name.focus();
+        info_user.professional_name.focus();
+        info_user.idt_mil.focus();
+        info_user.departament_id.focus();
+        info_user.rank_id.focus();
+        info_user.company_id.focus();
+
+        return false;
+    }
+
+    return true;
+}
+

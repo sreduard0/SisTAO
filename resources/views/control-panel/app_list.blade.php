@@ -105,7 +105,13 @@
                 modal.find('#abbreviationApp').val(result.name)
                 modal.find('#fullname').val(result.fullName)
                 modal.find('#applink').val(result.link)
-                modal.find('#appspecial').val(result.special)
+                if (result.special == 1) {
+                    $("#pspecial1").prop("checked", true);
+                } else if (result.special == 2) {
+                    $("#pspecial2").prop("checked", true);
+                } else if (result.special == null) {
+                    $("#pspecial3").prop("checked", true);
+                }
             })
         });
     </script>
@@ -123,29 +129,34 @@
                 </div>
                 <div class="modal-body">
                     <form>
+                        <input type="hidden" id="id" name="id" value="">
                         <div class="form-group col">
                             <label for="abbreviationApp">Sigla *</label>
-                            <input type="text" class="form-control" id="abbreviationApp" name="abbreviation_app"
+                            <input type="text" class="form-control" id="abbreviationApp" name="abbreviationApp"
                                 placeholder="Ex: SisTAO" value="">
                         </div>
                         <div class="form-group col">
                             <label for="fullname">Nome *</label>
-                            <input type="text" class="form-control" id="fullname" name="full_name"
+                            <input type="text" class="form-control" id="fullname" name="fullname"
                                 placeholder="Ex: Sistema Tático de Apoio Operacional" value="">
                         </div>
                         <div class="form-group col">
                             <label for="applink">Link</label>
-                            <input type="text" class="form-control" id="applink" name="link"
+                            <input type="text" class="form-control" id="applink" name="applink"
                                 placeholder="Ex: sistao.3bsup.eb.mil.br" value="">
                         </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial1" name='special' value="1">
+                                <input class="custom-control-input" type="radio" id="pspecial1" name='appspecial' value="1">
                                 <label for="pspecial1" class="custom-control-label">Especial (SGTTE)</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial2" name='special' value="2">
+                                <input class="custom-control-input" type="radio" id="pspecial2" name='appspecial' value="2">
                                 <label for="pspecial2" class="custom-control-label">Link</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="pspecial3" name='appspecial' value="0">
+                                <label for="pspecial3" class="custom-control-label">Simples</label>
                             </div>
                         </div>
                     </form>
@@ -187,7 +198,7 @@
                         </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="special1" name='special' value="1">
+                                <input class="custom-control-input" type="radio" id="special1" name=' special' value="1">
                                 <label for="special1" class="custom-control-label">Especial (SGTTE)</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">

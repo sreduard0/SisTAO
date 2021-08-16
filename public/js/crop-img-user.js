@@ -1,4 +1,6 @@
-// var do toast de sucesso
+
+function checkExt($input) {
+    // var do toast de sucesso
 var Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -6,7 +8,6 @@ var Toast = Swal.mixin({
     timer: 4000
 });
 // fim
-function checkExt($input) {
     var extTrue = ['jpg', 'png', 'jpeg'];
     var extFile = $input.value.split('.').pop();
 
@@ -51,7 +52,15 @@ $(document).ready(function() {
         $('#uploadimageModal').modal('show');
     });
 
-    $('.crop_image').click(function(event) {
+    $('.crop_image').click(function (event) {
+        // var do toast de sucesso
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 4000
+});
+// fim
         $image_crop.croppie('result', {
             type: 'canvas',
             size: 'viewport'
