@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class LoginApplicationModel extends Model
 {
-    public function apps()
+    public function app()
+    {
+        return $this->hasOne('App\Models\ApplicationsModel', 'id', 'applications_id');
+    }
+      public function apps()
     {
         return $this->hasMany('App\Models\ApplicationsModel', 'id', 'applications_id');
     }

@@ -5,8 +5,9 @@
 @section('users', 'active')
 @section('scripts')
     <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.cs') }}s">
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 @endsection
 @section('content')
     @php
@@ -49,6 +50,7 @@
                                             <th>CIA</th>
                                             <th>Seção</th>
                                             <th>Login</th>
+                                            <th>Última atualização</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -69,6 +71,8 @@
                                                         Não
                                                     @endif
                                                 </td>
+                                                <td width="180px">{{ date('d/m/Y', strtotime($user->updated_at)) }}</td>
+
                                                 <td width="120px">
 
                                                     <a class="btn btn-success btn-sm"
@@ -148,10 +152,18 @@
 @section('plugins')
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.js') }}"></script>
+    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script>
         $(function() {
             $("#table_users").DataTable({
@@ -161,11 +173,26 @@
                 "language": {
                     "url": "http://sistao.3bsup.eb.mil.br/plugins/datatables/Portuguese.json"
                 },
-                columnDefs: [{
-                    type: 'numeric-comma',
-                    targets: [0, 1],
-                }],
-            });
+                "buttons": ["copy", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#table_users_wrapper .col-md-6:eq(0)');
+
+
+
+
+            // $("#table_users").DataTable({
+            //     "language": {
+            //         "url": "http://sistao.3bsup.eb.mil.br/plugins/datatables/Portuguese.json"
+            //     },
+            //     "responsive": true,
+            //     "lengthChange": true,
+            //     "autoWidth": false,
+            //     columnDefs: [{
+            //         type: 'numeric-comma',
+            //         targets: [0, 1],
+
+            //     }],
+            //     "buttons": ["copy", "excel", "pdf", "print"],
+            // }).buttons().container().appendTo('#table_users_wrapper .col-md-6:eq(0)');
         });
     </script>
 @endsection

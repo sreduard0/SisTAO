@@ -11811,6 +11811,46 @@
     color: rgb(211, 208, 208)
 }
 
+
+
+/* LOADER*/
+#loading {
+     position: absolute;
+    z-index:999;
+     display: block;
+}
+.load-block {
+    background-color:#2b2b2bfb;
+    width: 500px;
+    height: 180px;
+    border-radius: 25px;
+    text-align: center;
+    border: 1px solid #00664d;
+}
+
+.c-loader {
+  margin:20px;
+  margin-left:210px;
+  animation: is-rotating 1s infinite;
+  border: 6px solid #e5e5e5;
+  border-radius: 50%;
+  border-top-color:  #00664d;
+  height: 80px;
+  width: 80px;
+}
+
+@keyframes is-rotating {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* LOADER */
+
+
+
+
+
 /*[ Absolute ]
 -----------------------------------------------------------
 */

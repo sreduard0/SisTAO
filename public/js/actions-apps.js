@@ -145,14 +145,14 @@ function edit_app() {
             $("#table_apps").DataTable().clear().draw(6);
             Toast.fire({
                         icon: 'success',
-                        title: '&nbsp&nbsp Deu bom'
+                        title: '&nbsp&nbsp Aplicativo atualizado.'
             });
         },
 
         error: function (data) {
              Toast.fire({
                         icon: 'error',
-                        title: '&nbsp&nbsp Deu ruim'
+                        title: '&nbsp&nbsp Erro ao atualizar.'
                     });
         }
     });

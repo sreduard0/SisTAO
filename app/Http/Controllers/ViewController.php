@@ -131,10 +131,10 @@ class ViewController extends Controller
     //================================={ CADASTRO }====================================//
     public function register()
     {
-        //Verifica se o usuário esta logado
-        // if (session()->has('user')) {
-        //     return redirect()->route('home');
-        // }
+        // Verifica se o usuário esta logado
+        if (session()->has('user')) {
+            return redirect()->route('home');
+        }
         $data = [
             'erro' => session('erro'),
             'apps' => ApplicationsModel::all(),
@@ -223,12 +223,12 @@ class ViewController extends Controller
                    $dado[] = $request->email;
                }
             $dado[] = "
-                        <button type='button'  class='btn btn-success btn-md' data-toggle='modal' data-target='#edit_app'
-                         data-id='".$request->id."'><i class='fas fa-check'></i></button>
+                        <button class='btn btn-success btn-md' title='Aceitar' data-toggle='modal' data-target='#confirm_request'
+                         data-id='".$request->id."'>
+                            <i class='fas fa-check'></i>
+                        </button>
 
-                        <button class='btn btn-danger btn-md'
-                            onclick='return confirm_request(".$request->id.",".'"'.$request->professionalName.'"'.")'
-                            title='Editar'>
+                        <button class='btn btn-danger btn-md' title='Excluir' onclick='return cancel_request(".$request->id.",".'"'.$request->professionalName.'"'.")'>
                             <i class='fas fa-times'></i>
                         </button>";
             $dados[] = $dado;
@@ -248,9 +248,23 @@ class ViewController extends Controller
     //================================{ lista registe }====================================//
     public function register_list()
     {
-        return view('control-panel.register-list');
+        $data = [
+              'apps' => ApplicationsModel::all(),
+        ];
+        return view('control-panel.register-list',$data);
     }
-    //================================={  }====================================//
+    //================================={ Mostrar info das solicitções }====================================//
+    public function register_info($id)
+    {
+    $permission = LoginApplicationModel::with('app')->where('login_id',$id)->get();
+    $permissions = null;
+    foreach ($permission as $value)
+    {
+        $permissions[$value->app->name] = $value;
+    }
+
+    return $permissions;
+    }
     //================================={  }====================================//
     //================================={  }====================================//
     //=========================================================================//

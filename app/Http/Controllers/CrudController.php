@@ -54,9 +54,12 @@ class CrudController extends Controller
     //========={ DELETE PERFIL }========//
     public function delete_profile($id)
     {
-        UserModel::find($id)->delete();
-        LoginModel::where('users_id', $id)->delete();
-        LoginApplicationModel::where('login_id', $id)->delete();
+        UserModel::find($id)->forceDelete();
+        LoginModel::where('users_id', $id)->forceDelete();
+        $loginApp = LoginApplicationModel::where('login_id', $id)->get();
+        foreach ($loginApp as $permission){
+            $permission->delete();
+        }
 
         session()->flash('success', 'Perfil excluído com sucesso.');
         return redirect()->route('users_list');
@@ -85,7 +88,7 @@ class CrudController extends Controller
                 break;
 
             case 'reset':
-                $login = LoginModel::where('users_id', $id)->first();;
+                $login = LoginModel::where('users_id', $id)->first();
                 $login->password = Hash::make($pass);
                 $login->save();
                 break;
@@ -185,64 +188,121 @@ class CrudController extends Controller
         }
     }
     //============{ Solicitação de login }=============//
-    public function request_login(CreateProfileRequest $request)
+    public function request_login(Request $request)
     {
         $data = $request->all();
 
-        print_r($data);
+        $checkIdtMil = UserModel::withTrashed()->where('idt_mil', str_replace(['.', '-'], '', $data['data']['idt_mil']))->first();
+        if (!empty($checkIdtMil)) {
+            session()->flash('erro', 'Um perfil com essa IDT militar já existe.');
+            return back();
+        }
 
-        // $checkIdtMil = UserModel::withTrashed()->where('idt_mil', str_replace(['.', '-'], '', $data['idt_mil']))->first();
-        // if (!empty($checkIdtMil)) {
-        //     session()->flash('erro', 'Um perfil com essa IDT militar já existe.');
-        //     return back();
-        // }
+        if($data['data']['conf_password'] != $data['data']['password'])
+        {
+            session()->flash('erro', 'As senhas não coincidem.');
+            return back();
+        }
 
-        // if($data['conf_password'] != $data['password'])
-        // {
-        //     session()->flash('erro', 'As senhas não coincidem.');
-        //     return back();
-        // }
+        $idt_mil = str_replace(['.', '-'], '', $data['data']['idt_mil']);
 
-        // $idt_mil = str_replace(['.', '-'], '', $data['idt_mil']);
-
-        // // Criando dados do usuario
-        // $user_data = new UserModel();
-        // $user_data->photoUrl = 'img/img_profiles/img_profile_padrao.png';
-        // $user_data->backgroundUrl = 'img/img_background/bg3.jpg';
-        // $user_data->name = $data['name'];
-        // $user_data->professionalName = $data['professional_name'];
-        // $user_data->email = $data['email'];
-        // $user_data->idt_mil = $idt_mil;
-        // $user_data->departament_id = $data['departament_id'];
-        // $user_data->rank_id = $data['rank_id'];
-        // $user_data->company_id = $data['company_id'];
-        // $user_data->deleted_at = date('d-m-Y');
-        // $user_data->save();
+        // Criando dados do usuario
+        $user_data = new UserModel();
+        $user_data->photoUrl = 'img/img_profiles/img_profile_padrao.png';
+        $user_data->backgroundUrl = 'img/img_background/bg3.jpg';
+        $user_data->name = $data['data']['name'];
+        $user_data->professionalName = $data['data']['professional_name'];
+        $user_data->email = $data['data']['email'];
+        $user_data->idt_mil = $idt_mil;
+        $user_data->departament_id = $data['data']['departament_id'];
+        $user_data->rank_id = $data['data']['rank_id'];
+        $user_data->company_id = $data['data']['company_id'];
+        $user_data->deleted_at = date('d-m-Y');
+        $user_data->save();
 
 
-        // // Criando login
-        // $pass = $data['password'];
-        // $login = new LoginModel;
-        // $login->users_id = $user_data->id;
-        // $login->status = 3;
-        // $login->login = $idt_mil;
-        // $login->password = Hash::make($pass);
-        // $login->save();
-        // // Adicionando permissoes
-        // $permission = new LoginApplicationModel();
-        // $permission->applications_id = 6;
-        // $permission->profileType = 0;
-        // $permission->notification = 1;
-        // $permission->login_id = $user_data->id;
-        // $permission->save();
+        // Criando login
+        $pass = $data['data']['password'];
+        $login = new LoginModel;
+        $login->users_id = $user_data->id;
+        $login->status = 3;
+        $login->login = $idt_mil;
+        $login->password = Hash::make($pass);
+        $login->save();
 
-        // session()->flash('erro', 'Pronto! Só aguardar um administrador aceitar sua solicitação.');
-        // return redirect()->route('login');
 
+        //tornando sistao acessivel caso não tenha escolhido permissao
+        if($data['permission']['SisTAO']['check'] == null)
+        {
+        $permission = new LoginApplicationModel();
+        $permission->applications_id = 6;
+        $permission->profileType = 0;
+        $permission->notification = 1;
+        $permission->login_id = $user_data->id;
+        $permission->save();
+        }
+
+        // Adicionando permissoes
+        foreach ($data['permission'] as $permission) {
+            $loginApp = LoginApplicationModel::where('login_id', $user_data->id)->where('applications_id', $permission['appID'])->first();
+            if (isset($permission['check']) && isset($permission['permission'])) {
+                if (empty($loginApp)) {
+                    $loginApp = new LoginApplicationModel();
+                    $loginApp->applications_id = $permission['appID'];
+                    $loginApp->profileType = $permission['permission'];
+                    $loginApp->notification = 1;
+                    $loginApp->login_id = $user_data->id;
+                    $loginApp->save();
+                }
+            }
+        }
+
+        session()->flash('erro', 'Pronto! Só aguardar um administrador aceitar sua solicitação.');
     }
-
-    //============{  }=============//
-    //============{  }=============//
+    //============{ Ações de aceitar e recusar solicitação }=============//
+    public function confirm_request(Request $request)
+    {
+        // (`applications_id`, `profileType`, `notification`, `login_id`) VALUES ('2', '1', '1', '6')
+        $permissions = $request->all();
+        foreach ($permissions as $permission) {
+            $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->first();
+            if (isset($permission['check']) && isset($permission['permission'])) {
+                if (empty($loginApp)) {
+                    $loginApp = new LoginApplicationModel();
+                    $loginApp->applications_id = $permission['appID'];
+                    $loginApp->profileType = $permission['permission'];
+                    $loginApp->notification = 1;
+                    $loginApp->login_id = $permission['userID'];
+                    $loginApp->save();
+                } else {
+                    $loginApp->applications_id = $permission['appID'];
+                    $loginApp->profileType = $permission['permission'];
+                    $loginApp->notification = 1;
+                    $loginApp->login_id = $permission['userID'];
+                    $loginApp->save();
+                }
+            } else {
+                $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->first();
+                if (isset($loginApp) && !isset($permission['check'])) {
+                    $loginApp->delete();
+                }
+            }
+        }
+        UserModel::onlyTrashed()->find($permission['userID'])->restore();
+        $login = LoginModel::where('users_id', $permission['userID'])->first();
+        $login->status = 1;
+        $login->save();
+    }
+    //============{ Deletar requisição }=============//
+    public function delete_request($id)
+    {
+        LoginModel::where('users_id', $id)->first()->forceDelete();
+        $loginApp = LoginApplicationModel::where('login_id', $id)->get();
+        foreach ($loginApp as $permission){
+            $permission->delete();
+        }
+        UserModel::onlyTrashed()->find($id)->forceDelete();
+    }
     //============{  }=============//
     //============{  }=============//
     //============{  }=============//

@@ -32,7 +32,8 @@ class ApplicationsController extends Controller
     }
 
 //================================={ DataTables }====================================//
-    public function get_apps(Request $request){
+    public function get_apps(Request $request)
+    {
         //Receber a requisão da pesquisa
        $requestData = $request->all();
 

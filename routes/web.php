@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::get('theme/{id}', [ViewController::class, 'theme'])->name('theme');
     Route::get('apps/delete/{id}',[ApplicationsController::class, 'del_application'])->middleware('CheckProfile')->name('del_application');
     Route::get('apps/info/{id}',[ApplicationsController::class, 'find_app_info'])->middleware('CheckProfile')->name('find_app_info');
+    Route::get('register/info/{id}',[ViewController::class, 'register_info'])->middleware('CheckProfile')->name('register_info');
+    Route::get('request/delete/{id}',[CrudController::class , 'delete_request'])->middleware('CheckProfile')->name('delete_request');
 
     //========Rotas de envio de formularios
     Route::post('submit_create_user', [CrudController::class, 'submit_create_user'])->middleware('CheckProfile')->name('submit_create_user');
@@ -52,7 +54,13 @@ Route::middleware('auth')->group(function () {
     Route::post('app_edit',[ApplicationsController::class, 'edit_application'])->middleware('CheckProfile')->name('edit_application');
     Route::post('apps/search',[ApplicationsController::class, 'get_apps'])->middleware('CheckProfile')->name('get_application');
     Route::post('registers_list',[ViewController::class, 'get_register'])->middleware('CheckProfile')->name('get_register');
+    Route::post('register/confirm',[CrudController::class, 'confirm_request'])->middleware('CheckProfile')->name('confirm_request');
+
 });
+
+
+
+
 
 
 

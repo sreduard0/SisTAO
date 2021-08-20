@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5ubuntu0.5
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Tempo de geração: 11/08/2021 às 15:16
--- Versão do servidor: 5.7.35-0ubuntu0.18.04.1
--- Versão do PHP: 7.4.21
+-- Host: 127.0.0.1
+-- Tempo de geração: 18-Ago-2021 às 21:25
+-- Versão do servidor: 10.4.18-MariaDB
+-- versão do PHP: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `applications`
+-- Estrutura da tabela `applications`
 --
 
 CREATE TABLE `applications` (
@@ -32,12 +33,12 @@ CREATE TABLE `applications` (
   `fullName` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
   `special` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `applications`
+-- Extraindo dados da tabela `applications`
 --
 
 INSERT INTO `applications` (`id`, `name`, `fullName`, `link`, `special`, `created_at`, `updated_at`) VALUES
@@ -50,7 +51,7 @@ INSERT INTO `applications` (`id`, `name`, `fullName`, `link`, `special`, `create
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `cities`
+-- Estrutura da tabela `cities`
 --
 
 CREATE TABLE `cities` (
@@ -62,7 +63,7 @@ CREATE TABLE `cities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `cities`
+-- Extraindo dados da tabela `cities`
 --
 
 INSERT INTO `cities` (`id`, `name`, `state`, `updated_at`, `created_at`) VALUES
@@ -263,7 +264,7 @@ INSERT INTO `cities` (`id`, `name`, `state`, `updated_at`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `company`
+-- Estrutura da tabela `company`
 --
 
 CREATE TABLE `company` (
@@ -272,7 +273,7 @@ CREATE TABLE `company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `company`
+-- Extraindo dados da tabela `company`
 --
 
 INSERT INTO `company` (`id`, `name`) VALUES
@@ -285,7 +286,7 @@ INSERT INTO `company` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `departament`
+-- Estrutura da tabela `departament`
 --
 
 CREATE TABLE `departament` (
@@ -294,7 +295,7 @@ CREATE TABLE `departament` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `departament`
+-- Extraindo dados da tabela `departament`
 --
 
 INSERT INTO `departament` (`id`, `name`) VALUES
@@ -302,7 +303,7 @@ INSERT INTO `departament` (`id`, `name`) VALUES
 (5, 'Cmt Cia - 1ª Cia'),
 (6, 'Arrecadação - 1ª Cia'),
 (7, 'Sargenteação - 1ª Cia'),
-(8, 'Cmt Cia - 2ª Cia\">Cmt Cia - 2ª Cia'),
+(8, 'Cmt Cia - 2ª Cia'),
 (9, 'Arrecadação - 2ª Cia'),
 (10, 'Sargenteação - 2ª Cia'),
 (11, 'LQR/3'),
@@ -349,56 +350,64 @@ INSERT INTO `departament` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `login`
+-- Estrutura da tabela `login`
 --
 
 CREATE TABLE `login` (
   `id` int(11) NOT NULL,
   `login` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(4) NOT NULL,
-  `theme` int(11) DEFAULT '0',
+  `theme` int(11) DEFAULT 0,
   `users_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `login`
+-- Extraindo dados da tabela `login`
 --
 
 INSERT INTO `login` (`id`, `login`, `password`, `created_at`, `updated_at`, `deleted_at`, `status`, `theme`, `users_id`) VALUES
-(3, 'eduardo', '$2y$10$eKA62oD1vmOLZnLiERk4.uC7I3nqd1DSql2ZFAMjPd0PmeAiTaN/K', '2021-08-10 18:48:09', '2021-08-10 21:48:09', NULL, 1, 1, 1);
+(3, 'eduardo', '$2y$10$eKA62oD1vmOLZnLiERk4.uC7I3nqd1DSql2ZFAMjPd0PmeAiTaN/K', '2021-08-10 18:48:09', '2021-08-10 21:48:09', NULL, 1, 1, 1),
+(46, '5151515151', '$2y$10$N4Ujq76umd9j.QH/MoC6nuQktDh3clsgeWnSyLsWismuhtIsx3LQq', '2021-08-18 04:12:31', '2021-08-18 07:12:31', NULL, 1, 1, 46);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `login_application`
+-- Estrutura da tabela `login_application`
 --
 
 CREATE TABLE `login_application` (
   `id` int(11) NOT NULL,
   `applications_id` int(11) NOT NULL,
-  `profileType` int(2) DEFAULT '0',
-  `notification` int(2) DEFAULT '0',
+  `profileType` int(2) DEFAULT 0,
+  `notification` int(2) DEFAULT 0,
   `login_id` int(11) NOT NULL,
   `updated_at` timestamp(6) NULL DEFAULT NULL,
   `created_at` timestamp(6) NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `login_application`
+-- Extraindo dados da tabela `login_application`
 --
 
 INSERT INTO `login_application` (`id`, `applications_id`, `profileType`, `notification`, `login_id`, `updated_at`, `created_at`) VALUES
 (106, 6, 1, 1, 1, '2021-08-11 12:18:03.000000', '2021-08-11 12:18:03.000000'),
-(107, 6, 0, 1, 20, '2021-08-11 15:14:57.000000', '2021-08-11 15:14:57.000000');
+(152, 1, 0, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
+(153, 2, 3, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
+(154, 4, 0, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
+(155, 6, 0, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
+(157, 1, 1, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000'),
+(158, 2, 3, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000'),
+(159, 4, 0, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000'),
+(160, 9, 3, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `migrations`
+-- Estrutura da tabela `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -408,7 +417,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Fazendo dump de dados para tabela `migrations`
+-- Extraindo dados da tabela `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -417,7 +426,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `permissions`
+-- Estrutura da tabela `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -431,7 +440,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `permissions`
+-- Extraindo dados da tabela `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `read`, `write`, `edit`, `update`, `login_id`, `login_users_id`) VALUES
@@ -441,7 +450,7 @@ INSERT INTO `permissions` (`id`, `read`, `write`, `edit`, `update`, `login_id`, 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `ranks`
+-- Estrutura da tabela `ranks`
 --
 
 CREATE TABLE `ranks` (
@@ -452,7 +461,7 @@ CREATE TABLE `ranks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `ranks`
+-- Extraindo dados da tabela `ranks`
 --
 
 INSERT INTO `ranks` (`id`, `rank`, `rankAbbreviation`, `rank_groups_id`) VALUES
@@ -474,7 +483,7 @@ INSERT INTO `ranks` (`id`, `rank`, `rankAbbreviation`, `rank_groups_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `rank_groups`
+-- Estrutura da tabela `rank_groups`
 --
 
 CREATE TABLE `rank_groups` (
@@ -483,7 +492,7 @@ CREATE TABLE `rank_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `rank_groups`
+-- Extraindo dados da tabela `rank_groups`
 --
 
 INSERT INTO `rank_groups` (`id`, `name`) VALUES
@@ -493,29 +502,36 @@ INSERT INTO `rank_groups` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `sessions`
+-- Estrutura da tabela `sessions`
 --
 
 CREATE TABLE `sessions` (
   `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Fazendo dump de dados para tabela `sessions`
+-- Extraindo dados da tabela `sessions`
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('sSA7ceCPLlqqoWv6GV7sP59iqQsSqGHhsQp9HvCx', NULL, '10.26.197.0', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiUmd5cm5tejNOMHZGb2RERmh6YjJWb1c0S0h1YlEzOENaVTVGeXpZTSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9zaXN0YW8uM2JzdXAuZWIubWlsLmJyL3Byb2ZpbGUvZWRpdC8yMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjE6e2k6MDtzOjI6ImlkIjt9czozOiJuZXciO2E6MDp7fX1zOjY6IlNpc1RBTyI7YTozOntzOjExOiJwcm9maWxlVHlwZSI7aToxO3M6MTI6Im5vdGlmaWNhdGlvbiI7aToxO3M6NzoibG9naW5JRCI7aToxO31zOjQ6InVzZXIiO2E6NTp7czoyOiJpZCI7aToxO3M6NDoibmFtZSI7czoxNToiRWR1YXJkbyBNYXJ0aW5zIjtzOjE2OiJwcm9mZXNzaW9uYWxOYW1lIjtzOjc6IkVkdWFyZG8iO3M6NToiZW1haWwiO3M6OToiZWR1QGdtYWlsIjtzOjQ6InJhbmsiO3M6MjoiQ2IiO31zOjU6InRoZW1lIjtpOjE7czoyOiJpZCI7czoyOiIyMCI7fQ==', 1628694920);
+('ecEJQ2PwfNCi6sQ8XafoAx3rpSBfW9k4ChRCvhTF', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibzNJV1BBTThqcWcwV2REOUVueWtuY2hUb3YwYWh2WkpGM01NZnI2YSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTg6Imh0dHA6Ly8xMC4yNi4xOTcuMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313016),
+('Fp0dy7XNfOggAjfkRbfg8UHTa9sH9WFO7c2VTL03', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiT0VaTndEcDBjc0JaYTRoMDNmOGFycnpnNGlWdDVxc2l0NHpaTDNDbiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMC4yNi4xOTcuMC9yZWdpc3RlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313026),
+('FZGl02Hkve6S3zVHAgNLXwajQAqFT4Qw6LBnrawh', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoibnJ3WWF1MjF5WW5Yc3lSdXo1MktYWElPQVdyNzBMRlZSMktLZ0s3bSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1629313093),
+('i6vMlNe3FGGsM1UsXUGqLdCpKOoOAbT7j7r5Hgyy', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidmRsalA0SWhPOUprVFFtT1QxVlBHRjZ0S3Aza1hyanhPTmhjZUxYUCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTg6Imh0dHA6Ly8xMC4yNi4xOTcuMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313005),
+('IFmTKPiIPxMvDfgap6C8ZM1U0S9BfmtGQmUsTLCJ', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNWNORlJtSkxxMWtOd2VxekVxWE0zTThMczh4VGRXazdheG5sc1U5aSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjQ6Imh0dHA6Ly8xMC4yNi4xOTcuMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313005),
+('jZCQBRKPw8RH71iZieWaIRsJgoVW0TFMvGrLLFL0', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVDFmZ1R0SzZTbUttVDlqekhNV1pZMFZ2M2lxU1RhTXpEQmZXWFc1SCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjQ6Imh0dHA6Ly8xMC4yNi4xOTcuMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313016),
+('tQzX6YEG2sFZCELZ5f4wviUEXttoc3pA6uK1SkMw', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36', 'YTo2OntzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MzoiaHR0cDovL3Npc3Rhby4zYnN1cC5lYi5taWwuYnIvcmVnaXN0ZXIvbGlzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NjoiX3Rva2VuIjtzOjQwOiJVQTd3M3V5Y2thVDgxdldhUDByeHo0bjRrN2FPTDFrRkM0bkJjY2FMIjtzOjY6IlNpc1RBTyI7YTozOntzOjExOiJwcm9maWxlVHlwZSI7aToxO3M6MTI6Im5vdGlmaWNhdGlvbiI7aToxO3M6NzoibG9naW5JRCI7aToxO31zOjQ6InVzZXIiO2E6NTp7czoyOiJpZCI7aToxO3M6NDoibmFtZSI7czoxNToiRWR1YXJkbyBNYXJ0aW5zIjtzOjE2OiJwcm9mZXNzaW9uYWxOYW1lIjtzOjc6IkVkdWFyZG8iO3M6NToiZW1haWwiO3M6OToiZWR1QGdtYWlsIjtzOjQ6InJhbmsiO3M6MjoiQ2IiO31zOjU6InRoZW1lIjtpOjE7fQ==', 1629314675),
+('X0OiRqTwm2NU8aCua7cFX32BYHYhoPJ0A7yn5Mwd', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZXZzdGVVbHBtc205dG8wQzlRdUtPNzVBUUZtekI5ekhLRThLZ3ZIUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjQ6Imh0dHA6Ly8xMC4yNi4xOTcuMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313075);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Estrutura da tabela `users`
 --
 
 CREATE TABLE `users` (
@@ -537,7 +553,7 @@ CREATE TABLE `users` (
   `district` varchar(100) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
   `cep` int(9) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` date DEFAULT NULL,
   `departament_id` int(11) NOT NULL,
@@ -547,79 +563,79 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Fazendo dump de dados para tabela `users`
+-- Extraindo dados da tabela `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `professionalName`, `motherName`, `fatherName`, `email`, `phone1`, `phone2`, `born_at`, `militaryId`, `idt_mil`, `photoUrl`, `backgroundUrl`, `street`, `house_number`, `district`, `city_id`, `cep`, `created_at`, `updated_at`, `deleted_at`, `departament_id`, `rank_id`, `rank_group_id`, `company_id`) VALUES
 (1, 'Eduardo Martins', 'Eduardo', 'teste', NULL, 'edu@gmail', 51980204595, 51980423365, '2021-06-23', '159', 6666666666, 'img/img_profiles/1/img_profile_user_1-11-08-2021-13-08-18.png', 'img/img_background/bg6.png', 'av caju', 52, 'caju', 194, 92480000, '2021-08-11 13:19:55', '2021-08-11 16:19:55', NULL, 5, 13, 1, 2),
-(20, 'Anderson Barros', 'Anderson Barros', NULL, NULL, NULL, NULL, NULL, NULL, '000', 8779287755, 'img/img_profiles/img_profile_padrao.png', 'img/img_background/bg3.jpg', NULL, NULL, NULL, NULL, NULL, '2021-08-11 15:14:56', '2021-08-11 15:14:56', NULL, 27, 7, NULL, 4);
+(46, 'Predro Pedroso', 'Pedro', NULL, NULL, 'pedro@pedro.com', NULL, NULL, NULL, NULL, 5151515151, 'img/img_profiles/img_profile_padrao.png', 'img/img_background/bg3.jpg', NULL, NULL, NULL, NULL, NULL, '2021-08-18 04:00:10', '2021-08-18 07:00:10', NULL, 22, 13, NULL, 2);
 
 --
--- Índices de tabelas apagadas
+-- Índices para tabelas despejadas
 --
 
 --
--- Índices de tabela `applications`
+-- Índices para tabela `applications`
 --
 ALTER TABLE `applications`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `cities`
+-- Índices para tabela `cities`
 --
 ALTER TABLE `cities`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `company`
+-- Índices para tabela `company`
 --
 ALTER TABLE `company`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `departament`
+-- Índices para tabela `departament`
 --
 ALTER TABLE `departament`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `login`
+-- Índices para tabela `login`
 --
 ALTER TABLE `login`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `login_application`
+-- Índices para tabela `login_application`
 --
 ALTER TABLE `login_application`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `migrations`
+-- Índices para tabela `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `permissions`
+-- Índices para tabela `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `ranks`
+-- Índices para tabela `ranks`
 --
 ALTER TABLE `ranks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `rank_groups`
+-- Índices para tabela `rank_groups`
 --
 ALTER TABLE `rank_groups`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `sessions`
+-- Índices para tabela `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
@@ -627,13 +643,13 @@ ALTER TABLE `sessions`
   ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
--- Índices de tabela `users`
+-- Índices para tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas apagadas
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
@@ -641,56 +657,68 @@ ALTER TABLE `users`
 --
 ALTER TABLE `applications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
 --
 -- AUTO_INCREMENT de tabela `cities`
 --
 ALTER TABLE `cities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
+
 --
 -- AUTO_INCREMENT de tabela `company`
 --
 ALTER TABLE `company`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT de tabela `departament`
 --
 ALTER TABLE `departament`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
 --
 -- AUTO_INCREMENT de tabela `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
 --
 -- AUTO_INCREMENT de tabela `login_application`
 --
 ALTER TABLE `login_application`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+
 --
 -- AUTO_INCREMENT de tabela `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de tabela `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de tabela `ranks`
 --
 ALTER TABLE `ranks`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT de tabela `rank_groups`
 --
 ALTER TABLE `rank_groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

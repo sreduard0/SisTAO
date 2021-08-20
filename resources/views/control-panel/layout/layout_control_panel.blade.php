@@ -19,8 +19,6 @@ $theme = session('theme');
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.cs') }}s">
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
-    <!-- dropzonejs -->
-    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -46,8 +44,6 @@ $theme = session('theme');
     <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
     <script>
         setTimeout(function() {
             var Toast = Swal.mixin({
@@ -274,9 +270,6 @@ $theme = session('theme');
     <script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-
-    <!-- BS-Stepper -->
-    <script src="{{ asset('plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
     <!-- SweetAlert2 -->
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
