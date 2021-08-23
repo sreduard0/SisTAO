@@ -146,8 +146,12 @@
                                 <ul class="text-muted">
                                     <li class="row">LOGRADOURO: {{ $user_data->street }}</li>
                                     <li class="row">BAIRRO: {{ $user_data->district }}</li>
-                                    <li class="row">CIDADE: {{ $user_data->city->name }}</li>
-                                    <li class="row">ESTADO: {{ $user_data->city->state }}</li>
+                                    <li class="row">CIDADE: @if (isset($user_data->city->name)){{ $user_data->city->name }}
+                                        @endif
+                                    </li>
+                                    <li class="row">ESTADO: @if (isset($user_data->city->state)){{ $user_data->city->state }}
+                                        @endif
+                                    </li>
                                 </ul>
 
                                 <hr>

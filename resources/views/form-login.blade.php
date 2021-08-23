@@ -76,10 +76,10 @@
 
                     <div class="text-center">
                         <span class="txt1">
-                            Ainda não tem login?
+                            Primeiro acesso?
                         </span><br>
                         <a class="txt2" href="{{ route('register') }}">
-                            ACESSE
+                           Clique aqui
                         </a>
                     </div>
                 </form>

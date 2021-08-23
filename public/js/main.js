@@ -72,6 +72,11 @@ function hide() {
     })
     $("#backdrop").detach();
 }
+
+function hide2() {
+    $("#info_login").detach();
+    $("#backdrop").detach();
+}
 //
 
 

@@ -77,7 +77,7 @@ $theme = session('theme');
     @yield('scripts')
 </head>
 
-<body class="@if ($theme==1) dark-mode @endif sidebar-mini
+<body class="@if ($theme == 1) dark-mode @endif sidebar-mini
     layout-fixed">
     <div class="wrapper">
 
@@ -104,7 +104,7 @@ $theme = session('theme');
                     </div>
                     <div class="info">
                         {{-- Posto/Graduação          Nome de Guerra --}}
-                        <a href="{{ route('profile') }}">{{ $user_data->rank->rankAbbreviation }}
+                        <a href="{{ route('my_profile') }}">{{ $user_data->rank->rankAbbreviation }}
                             {{ $user_data->professionalName }}</a>
                     </div>
                 </div>
@@ -120,8 +120,8 @@ $theme = session('theme');
                             </a>
                         </li>
                         @if ($profileType == 2)
-                            <li class="nav-item @yield('menu_adm_open')">
-                                <a href="#" class="nav-link @yield('adm')">
+                            <li class="nav-item @yield('menu_cp_open')">
+                                <a href="#" class="nav-link @yield('cp')">
                                     <i class="nav-icon fas fa-address-card"></i>
                                     <p>
                                         Plano de chamada
@@ -130,31 +130,36 @@ $theme = session('theme');
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                        <a href="{{ route('callplan', ['company' => 1]) }}"
+                                            class="nav-link @if (!empty($active) && $active == 1) active @endif">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>EM</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                        <a href="{{ route('callplan', ['company' => 2]) }}"
+                                            class="nav-link  @if (!empty($active) && $active == 2) active @endif">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>CCSv</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                        <a href="{{ route('callplan', ['company' => 3]) }}"
+                                            class="nav-link  @if (!empty($active) && $active == 3) active @endif">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>1º Cia </p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                        <a href="{{ route('callplan', ['company' => 4]) }}"
+                                            class="nav-link  @if (!empty($active) && $active == 4) active @endif">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>2º Cia</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('users_list') }}" class="nav-link @yield('users')">
+                                        <a href="{{ route('callplan', ['company' => 5]) }}"
+                                            class="nav-link  @if (!empty($active) && $active == 5) active @endif">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>3º Cia</p>
                                         </a>
@@ -209,7 +214,8 @@ $theme = session('theme');
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('edit_profile') }}" class="nav-link  @yield('edit_profile')">
+                                    <a href="{{ route('edit_my_profile') }}"
+                                        class="nav-link  @yield('edit_profile')">
                                         <i class="nav-icon fas fa-user-edit"></i>
                                         <p>Editar perfil</p>
                                     </a>

@@ -223,7 +223,8 @@
                                     <div class="wrap-input100">
                                         <input class="input100" type="text" name="idt_mil" id="idt_mil"
                                             data-inputmask="'mask': ['999999999-9']" data-mask="" inputmode="text">
-                                        <span class="focus-input100" data-placeholder="IDT Militar"></span>
+                                        <span class="focus-input100"
+                                            data-placeholder="IDT Militar (Ex: 031234567-8)"></span>
                                     </div>
                                 </div>
                             </div>

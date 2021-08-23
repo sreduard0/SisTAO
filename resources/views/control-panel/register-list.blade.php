@@ -17,10 +17,10 @@
 
             check.on('click', function() {
             if (check.prop('checked') == true) {
-            $(".{{ $app->name }}_permission").prop("disabled", false); //mostra os as permissoes
+            $(".{{ $app->id }}_permission").prop("disabled", false); //mostra os as permissoes
 
             } else if (check.prop('checked') == false) {
-            $(".{{ $app->name }}_permission").prop("disabled", true); //oculta os as permissoes
+            $(".{{ $app->id }}_permission").prop("disabled", true); //oculta os as permissoes
             }
             })
             })
@@ -34,10 +34,10 @@
                 timer: 4000
             });
             @foreach ($apps as $app)
-                if($('input[name=sts_{{ $app->name }}]').is(':checked')){
+                if($('input[name=sts_{{ $app->id }}]').is(':checked')){
                 check{{ $app->id }} = 1;
 
-                if(!$('input[name={{ $app->name }}_permission]').is(':checked')){
+                if(!$('input[name={{ $app->id }}_permission]').is(':checked')){
                 Toast.fire({
                 icon: 'error',
                 title: '&nbsp&nbsp Selecione uma permissão para {{ $app->name }}.'
@@ -52,12 +52,12 @@
             var dados = {
                 @foreach ($apps as $app)
 
-                    {{ $app->name }}:
+                    {{ $app->id }}:
                     {
                     userID: $('input[name=user_id]').val(),
                     appID: {{ $app->id }},
                     check: check{{ $app->id }},
-                    permission: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
+                    permission: $('input[name={{ $app->id }}_permission]:checked').attr('value'),
                     },
                 @endforeach
             };
@@ -170,40 +170,40 @@
             var modal = $(this)
             var url = 'http://sistao.3bsup.eb.mil.br/register/info/' + id
             $.get(url, function(result) {
-                document.getElementById('user_id').value = result.SisTAO.login_id;
+                document.getElementById('user_id').value = result.id6.login_id;
 
                 @foreach ($apps as $app)
 
                     $("#{{ $app->id }}").prop("checked", false);
-                    $(".{{ $app->name }}_permission").prop("disabled", true)
+                    $(".{{ $app->id }}_permission").prop("disabled", true)
                     $("#adm-{{ $app->id }}").prop("checked", false);
                     $("#conv-{{ $app->id }}").prop("checked", false);
                     $("#spc-{{ $app->id }}").prop("checked", false);
                     $("#link-{{ $app->id }}").prop("checked", false);
 
-                    if (typeof result.{{ $app->name }} !== "undefined")
+                    if (typeof result.id{{ $app->id }} !== "undefined")
                     {
 
                     $("#{{ $app->id }}").prop("checked", true);
 
-                    if (result.{{ $app->name }}.profileType == 1)
+                    if (result.id{{ $app->id }}.profileType == 1)
                     {
-                    $(".{{ $app->name }}_permission").prop("disabled", false)
+                    $(".{{ $app->id }}_permission").prop("disabled", false)
                     $("#adm-{{ $app->id }}").prop("checked", true);
                     }
-                    else if (result.{{ $app->name }}.profileType == 0)
+                    else if (result.id{{ $app->id }}.profileType == 0)
                     {
-                    $(".{{ $app->name }}_permission").prop("disabled", false)
+                    $(".{{ $app->id }}_permission").prop("disabled", false)
                     $("#conv-{{ $app->id }}").prop("checked", true);
                     }
-                    else if (result.{{ $app->name }}.profileType == 2)
+                    else if (result.id{{ $app->id }}.profileType == 2)
                     {
-                    $(".{{ $app->name }}_permission").prop("disabled", false)
+                    $(".{{ $app->id }}_permission").prop("disabled", false)
                     $("#spc-{{ $app->id }}").prop("checked", true);
                     }
-                    else if (result.{{ $app->name }}.profileType == 3)
+                    else if (result.id{{ $app->id }}.profileType == 3)
                     {
-                    $(".{{ $app->name }}_permission").prop("disabled", false)
+                    $(".{{ $app->id }}_permission").prop("disabled", false)
                     $("#link-{{ $app->id }}").prop("checked", true);
                     }
                     }
@@ -233,7 +233,7 @@
                                 <div class="row justify-content-between m-b-30">
                                     {{-- Ativar app --}}
                                     <div class="custom-control custom-switch ">
-                                        <input type="checkbox" class="custom-control-input" name="sts_{{ $app->name }}"
+                                        <input type="checkbox" class="custom-control-input" name="sts_{{ $app->id }}"
                                             id={{ $app->id }} value='1'>
                                         <label class="custom-control-label"
                                             for={{ $app->id }}>{{ $app->name }}</label>
@@ -244,26 +244,26 @@
                                         @if (!$app->special || $app->special == 1)
                                             {{-- permissao adm --}}
                                             <div class="custom-control custom-checkbox m-r-10">
-                                                <input class="{{ $app->name }}_permission custom-control-input"
+                                                <input class="{{ $app->id }}_permission custom-control-input"
                                                     type="radio" id="adm-{{ $app->id }}"
-                                                    name='{{ $app->name }}_permission' value="1" disabled>
+                                                    name='{{ $app->id }}_permission' value="1" disabled>
                                                 <label for="adm-{{ $app->id }}"
                                                     class="custom-control-label">Admin</label>
                                             </div>
                                             {{-- permissao conv --}}
                                             <div class="custom-control custom-checkbox m-r-30">
-                                                <input class="{{ $app->name }}_permission custom-control-input"
+                                                <input class="{{ $app->id }}_permission custom-control-input"
                                                     type="radio" id="conv-{{ $app->id }}"
-                                                    name='{{ $app->name }}_permission' value="0" disabled>
+                                                    name='{{ $app->id }}_permission' value="0" disabled>
                                                 <label for="conv-{{ $app->id }}"
                                                     class="custom-control-label">Conv</label>
                                             </div>
                                             @if ($app->special == 1)
                                                 {{-- permissao especial --}}
                                                 <div class="custom-control custom-checkbox m-r-30">
-                                                    <input class="{{ $app->name }}_permission custom-control-input"
+                                                    <input class="{{ $app->id }}_permission custom-control-input"
                                                         type="radio" id="spc-{{ $app->id }}"
-                                                        name='{{ $app->name }}_permission' value="2" disabled>
+                                                        name='{{ $app->id }}_permission' value="2" disabled>
                                                     <label for="spc-{{ $app->id }}" class="custom-control-label">Esp
                                                         (SGTTE)</label>
                                                 </div>
@@ -271,9 +271,9 @@
                                         @else
                                             {{-- app link --}}
                                             <div class="custom-control custom-checkbox m-r-30">
-                                                <input class="{{ $app->name }}_permission custom-control-input"
+                                                <input class="{{ $app->id }}_permission custom-control-input"
                                                     type="radio" id="link-{{ $app->id }}"
-                                                    name='{{ $app->name }}_permission' value="3" disabled>
+                                                    name='{{ $app->id }}_permission' value="3" disabled>
                                                 <label for="link-{{ $app->id }}"
                                                     class="custom-control-label">Link</label>
                                             </div>

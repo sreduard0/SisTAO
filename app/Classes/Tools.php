@@ -118,7 +118,7 @@ class Tools
     //===============[ Contar solicitaçoes de login]=======================
     public function login_requests()
     {
-        return count(UserModel::onlyTrashed()->get());
+        return count(LoginModel::where('status', 3)->get());
     }
     //=============================[]======================================
     //=============================[]======================================

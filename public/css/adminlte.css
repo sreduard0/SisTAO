@@ -3846,7 +3846,7 @@ input[type="button"].btn-block {
 .dropdown-item:active {
     color: #fff;
     text-decoration: none;
-    background-color: #007bff;
+    background-color: #075a33;
 }
 
 .dropdown-item.disabled,
@@ -48625,7 +48625,7 @@ a.text-muted:hover {
 
 .accent-primary .dropdown-item:active,
 .accent-primary .dropdown-item.active {
-    background-color: #007bff;
+    background-color: #085334;
     color: #fff;
 }
 

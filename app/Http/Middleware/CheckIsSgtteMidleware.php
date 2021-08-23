@@ -5,11 +5,11 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class CheckIsProfileMidleware
+class CheckIsSgtteMidleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (session('SisTAO')['profileType'] == 1) {
+        if (session('SisTAO')['profileType'] == 2) {
             return $next($request);
         }
 
