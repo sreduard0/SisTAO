@@ -12,7 +12,7 @@ class CreateProfileRequest extends FormRequest
             [
                 'name' => ['required'],
                 'professional_name' => ['required'],
-                'idt_mil' => ['required', 'min:11', 'max:11'],
+                'idt_mil' => ['required', 'min:10', 'max:11'],
                 'departament_id' => ['required'],
                 'rank_id' => ['required'],
                 'company_id' => ['required']

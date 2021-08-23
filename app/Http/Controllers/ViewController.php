@@ -35,8 +35,6 @@ class ViewController extends Controller
     //==========={ PERFIL }===========//
     public function profile($id = '')
     {
-
-
         if ($id) {
             $data = [
                 'user_data' => $this->Tools->user_data($id), //Buscando informações do usuário
@@ -52,8 +50,6 @@ class ViewController extends Controller
     //======={  EDITAR PERFIL }========//
     public function edit_profile($id = '')
     {
-
-
         //Buscando todas cidades
         $all_cities = CitiesModel::all();
         //Buscando toda tabela hierárquica
@@ -64,6 +60,7 @@ class ViewController extends Controller
         $all_departament = DepartamentModel::all();
 
         if ($id) {
+
             session()->flash('id', $id);
             $data = [
                 'apps' => ApplicationsModel::with('profiles')->get(),
@@ -85,7 +82,6 @@ class ViewController extends Controller
             return view('control-panel.edit_profile', $data);
         };
     }
-
     //======={ ALTERAR SENHA }========//
     public function alt_password()
     {
@@ -171,7 +167,15 @@ class ViewController extends Controller
     {
         return view('control-panel.app_list');
     }
-    //============{ Registers }=()============//
+    //================================{ lista registe }====================================//
+    public function register_list()
+    {
+        $data = [
+              'apps' => ApplicationsModel::all(),
+        ];
+        return view('control-panel.register-list',$data);
+    }
+      //============{ Registers }=============//
     public function get_register(Request $request)
     {
        //Receber a requisão da pesquisa
@@ -179,30 +183,28 @@ class ViewController extends Controller
 
         //Indice da coluna na tabela visualizar resultado => nome da coluna no banco de dados
         $columns = array(
-            0=> 'rank_id',
-            1=> 'rank_id',
-            2 =>'professionalName',
-            3 => 'name',
-            4 => 'company_id',
-            5 => 'departament_id',
-            6=> 'email',
+            0=> 'id',
+            1=> 'id',
+            2 =>'login',
+            3 => 'login',
+            4 => 'created_at',
+            5 => 'created_at',
+            6=> 'created_at',
             7=> 'created_at',
         );
 
        //Obtendo registros de número total sem qualquer pesquisa
-       $rows = count(UserModel::onlyTrashed()->get());
+       $rows = count(LoginModel::where('status', 3)->get());
 
        //Se há pesquisa ou não
         if( $requestData['search']['value'] )
         {
-           $requests = UserModel::orWhere('name', 'LIKE', '%'.$requestData['search']['value'] .'%')
-            ->onlyTrashed()->orWhere('professionalName', 'LIKE', '%'.$requestData['search']['value'].'%')
-            ->onlyTrashed()->orWhere('email', 'LIKE', '%' .$requestData['search']['value'] . '%')->onlyTrashed()->get();
+           $requests = LoginModel::with('data')->orWhere('login', 'LIKE', '%'.$requestData['search']['value'] .'%')->where('status', 3)->get();
             $filtered = count($requests);
         }
         else
         {
-            $requests = UserModel::onlyTrashed()->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] ) ->offset( $requestData['start'])->take($requestData['length'])->get();
+            $requests = LoginModel::with('data')->where('status', 3)->orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] )->offset( $requestData['start'])->take($requestData['length'])->get();
             $filtered = count($requests);
         }
 
@@ -212,11 +214,11 @@ class ViewController extends Controller
         foreach ($requests as $request){
             $dado = array();
             $dado[] = $i++;
-            $dado[] = $request->rank->rankAbbreviation;
-            $dado[] = $request->professionalName;
-            $dado[] = $request->name;
-            $dado[] = $request->departament->name;
-            $dado[] = $request->company->name;
+            $dado[] = $request->data->rank->rankAbbreviation;
+            $dado[] = $request->data->professionalName;
+            $dado[] = $request->data->name;
+            $dado[] = $request->data->departament->name;
+            $dado[] = $request->data->company->name;
                if ($request->email == '') {
                    $dado[] = '-';
                }else{
@@ -224,11 +226,11 @@ class ViewController extends Controller
                }
             $dado[] = "
                         <button class='btn btn-success btn-md' title='Aceitar' data-toggle='modal' data-target='#confirm_request'
-                         data-id='".$request->id."'>
+                         data-id='".$request->data->id."'>
                             <i class='fas fa-check'></i>
                         </button>
 
-                        <button class='btn btn-danger btn-md' title='Excluir' onclick='return cancel_request(".$request->id.",".'"'.$request->professionalName.'"'.")'>
+                        <button class='btn btn-danger btn-md' title='Excluir' onclick='return cancel_request(".$request->data->id.",".'"'.$request->data->professionalName.'"'.")'>
                             <i class='fas fa-times'></i>
                         </button>";
             $dados[] = $dado;
@@ -245,14 +247,6 @@ class ViewController extends Controller
 
         return json_encode($json_data);  //enviar dados como formato json
     }
-    //================================{ lista registe }====================================//
-    public function register_list()
-    {
-        $data = [
-              'apps' => ApplicationsModel::all(),
-        ];
-        return view('control-panel.register-list',$data);
-    }
     //================================={ Mostrar info das solicitções }====================================//
     public function register_info($id)
     {
@@ -265,8 +259,49 @@ class ViewController extends Controller
 
     return $permissions;
     }
-    //================================={  }====================================//
-    //================================={  }====================================//
-    //=========================================================================//
+    //================{ Area do SGTTE "PLANO DE CHAMADA" }===============//
+    //==============================={Lista de militares}=================================//
+    public function callplan($company)
+    {
+      $data = [
+          'users' =>  UserModel::where('company_id',$company)->get(),
+          'active' => $company
+        ];
 
+      return view('control-panel.callplan',$data);
+    }
+    //================================={ Editar informações do militar }====================================//
+    public function edit_military($id)
+    {
+        //Buscando informações do usuario
+        $user = $this->Tools->user_data($id);
+
+        if (session('user')['company'] != $user->company) {
+           return redirect()->route('callplan',['company'=> session('user')['company']]);
+        }
+
+        session()->flash('id', $id);
+        $data = [
+            'apps' => ApplicationsModel::with('profiles')->get(),
+            'all_ranks' => RanksModel::all(),
+            'all_departament' => DepartamentModel::all(),
+            'all_company' => CompanyModel::all(),
+            'all_cities' => CitiesModel::all(),
+            'active' => $user->company_id,
+            'user_data' => $user, //Buscando informações do usuário
+        ];
+        return view('control-panel.edit_user_profile', $data);
+    }
+
+    //================================={ Ver informações do militar }====================================//
+       public function military($id)
+    {
+        $user = $this->Tools->user_data($id);
+        $data = [
+            'user_data' => $user,
+            'active' => $user->company_id
+        ];
+            return view('control-panel.military-info', $data);
+    }
+    //=========================================================================//
 }

@@ -3,6 +3,10 @@
 @section('adm', 'active')
 @section('menu_adm_open', 'menu-open')
 @section('users', 'active')
+{{-- sgtte --}}
+@section('cp', 'active')
+@section('menu_cp_open', 'menu-open')
+{{-- / --}}
 @section('content')
     @php
     use App\Classes\Tools;
@@ -33,10 +37,12 @@
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <div class="widget-user-header text-white"
                         style="background: url('{{ asset($user_data->backgroundUrl) }}') center center;background-size:100%">
-                        <a class="btn btn-success btn-edit-user"
-                            href="{{ route('edit_user_profile', ['id' => $user_data->id]) }}"><i
-                                class="fa fa-pen m-r-10"></i>
-                            Editar perfil</a>
+                        @if (session('user')['company'] == $user_data->company)
+                            <a class="btn btn-success btn-edit-user"
+                                href="{{ route('edit_military_profile', ['id' => $user_data->id]) }}"><i
+                                    class="fa fa-pen m-r-10"></i>
+                                Editar perfil</a>
+                        @endif
                     </div>
                     <div class="widget-user-image">
                         <img class="img-circle" src="{{ asset($user_data->photoUrl) }}" alt="User Avatar">
@@ -91,13 +97,16 @@
 
                                         </div>
                                         <div class=" float-r col-md-6">
-                                            <strong>IDT Militar</strong>
+                                            @if (session('user')['company'] == $user_data->company)
+                                                <strong>IDT Militar</strong>
 
-                                            <p class="text-muted">
-                                                {{ $tools->mask('########-#', $user_data->idt_mil) }}
-                                            </p>
+                                                <p class="text-muted">
+                                                    {{ $tools->mask('#########-#', $user_data->idt_mil) }}
+                                                </p>
 
-                                            <hr>
+                                                <hr>
+                                            @endif
+
 
                                             <strong>Dada de nascimento</strong>
 

@@ -37,6 +37,11 @@ class CrudController extends Controller
         $this->Tools->crud_user($data, 'create');
         session()->flash('success', 'Perfil criado com sucesso.');
 
+
+        if(session('SisTAO')['profileType'] == 2)
+        {
+             return redirect()->route('callplan',['company'=> session('user')['company']]);
+        }
         return redirect()->route('users_list');
     }
     //======={ SUBMIT ALT PERFIL }======//
@@ -54,7 +59,7 @@ class CrudController extends Controller
     //========={ DELETE PERFIL }========//
     public function delete_profile($id)
     {
-        UserModel::find($id)->forceDelete();
+        UserModel::find($id)->delete();
         LoginModel::where('users_id', $id)->forceDelete();
         $loginApp = LoginApplicationModel::where('login_id', $id)->get();
         foreach ($loginApp as $permission){
@@ -97,7 +102,7 @@ class CrudController extends Controller
             'login' => $user->idt_mil,
             'password' => $pass,
         ]);
-        return redirect()->route('users_list');
+        return back();
     }
     //========{ SUBMIT ALT SENHA }======//
     public function submit_alt_pwd(AltPwdRequest $request)
@@ -119,7 +124,7 @@ class CrudController extends Controller
             $user->password = Hash::make($new_pwd);
             $user->save();
             session()->flash('success', 'Sua senha foi alterada com sucesso.');
-            return redirect()->route('profile');
+            return back();
         } else {
 
             session()->flash('erro', 'Os campos "Nova senha" e "Confirmar senha" devem ser iguais.');
@@ -192,44 +197,49 @@ class CrudController extends Controller
     {
         $data = $request->all();
 
-        $checkIdtMil = UserModel::withTrashed()->where('idt_mil', str_replace(['.', '-'], '', $data['data']['idt_mil']))->first();
-        if (!empty($checkIdtMil)) {
+        $checkLogin = LoginModel::where('login', str_replace(['.', '-'], '', $data['data']['idt_mil']))->first();
+        if (!empty($checkLogin)) {
             session()->flash('erro', 'Um perfil com essa IDT militar já existe.');
-            return back();
+            return false;
         }
 
         if($data['data']['conf_password'] != $data['data']['password'])
         {
             session()->flash('erro', 'As senhas não coincidem.');
-            return back();
+            return false;
         }
 
         $idt_mil = str_replace(['.', '-'], '', $data['data']['idt_mil']);
 
-        // Criando dados do usuario
-        $user_data = new UserModel();
-        $user_data->photoUrl = 'img/img_profiles/img_profile_padrao.png';
-        $user_data->backgroundUrl = 'img/img_background/bg3.jpg';
-        $user_data->name = $data['data']['name'];
-        $user_data->professionalName = $data['data']['professional_name'];
-        $user_data->email = $data['data']['email'];
-        $user_data->idt_mil = $idt_mil;
-        $user_data->departament_id = $data['data']['departament_id'];
-        $user_data->rank_id = $data['data']['rank_id'];
-        $user_data->company_id = $data['data']['company_id'];
-        $user_data->deleted_at = date('d-m-Y');
-        $user_data->save();
+        $checkUser = UserModel::withTrashed()->where('idt_mil', str_replace(['.', '-'], '', $data['data']['idt_mil']))->first();
+        if (empty($checkUser)) {
+            // Criando dados do usuario
+            $user_data = new UserModel();
+            $user_data->photoUrl = 'img/img_profiles/img_profile_padrao.png';
+            $user_data->backgroundUrl = 'img/img_background/bg3.jpg';
+            $user_data->name = $data['data']['name'];
+            $user_data->professionalName = $data['data']['professional_name'];
+            $user_data->email = $data['data']['email'];
+            $user_data->idt_mil = $idt_mil;
+            $user_data->departament_id = $data['data']['departament_id'];
+            $user_data->rank_id = $data['data']['rank_id'];
+            $user_data->company_id = $data['data']['company_id'];
+            $user_data->deleted_at = date('d-m-Y');
+            $user_data->save();
 
+            $userID = $user_data->id;
+        }else{
+            $userID = $checkUser->id;
+        }
 
         // Criando login
         $pass = $data['data']['password'];
         $login = new LoginModel;
-        $login->users_id = $user_data->id;
+        $login->users_id = $userID;
         $login->status = 3;
         $login->login = $idt_mil;
         $login->password = Hash::make($pass);
         $login->save();
-
 
         //tornando sistao acessivel caso não tenha escolhido permissao
         if($data['permission']['SisTAO']['check'] == null)
@@ -238,20 +248,20 @@ class CrudController extends Controller
         $permission->applications_id = 6;
         $permission->profileType = 0;
         $permission->notification = 1;
-        $permission->login_id = $user_data->id;
+        $permission->login_id = $userID;
         $permission->save();
         }
 
         // Adicionando permissoes
         foreach ($data['permission'] as $permission) {
-            $loginApp = LoginApplicationModel::where('login_id', $user_data->id)->where('applications_id', $permission['appID'])->first();
+            $loginApp = LoginApplicationModel::where('login_id', $userID)->where('applications_id', $permission['appID'])->first();
             if (isset($permission['check']) && isset($permission['permission'])) {
                 if (empty($loginApp)) {
                     $loginApp = new LoginApplicationModel();
                     $loginApp->applications_id = $permission['appID'];
                     $loginApp->profileType = $permission['permission'];
                     $loginApp->notification = 1;
-                    $loginApp->login_id = $user_data->id;
+                    $loginApp->login_id = $userID;
                     $loginApp->save();
                 }
             }
@@ -262,8 +272,7 @@ class CrudController extends Controller
     //============{ Ações de aceitar e recusar solicitação }=============//
     public function confirm_request(Request $request)
     {
-        // (`applications_id`, `profileType`, `notification`, `login_id`) VALUES ('2', '1', '1', '6')
-        $permissions = $request->all();
+         $permissions = $request->all();
         foreach ($permissions as $permission) {
             $loginApp = LoginApplicationModel::where('login_id', $permission['userID'])->where('applications_id', $permission['appID'])->first();
             if (isset($permission['check']) && isset($permission['permission'])) {
@@ -288,7 +297,12 @@ class CrudController extends Controller
                 }
             }
         }
-        UserModel::onlyTrashed()->find($permission['userID'])->restore();
+
+
+        $user = UserModel::withTrashed()->find($permission['userID']);
+        $user->deleted_at = null;
+        $user->save();
+
         $login = LoginModel::where('users_id', $permission['userID'])->first();
         $login->status = 1;
         $login->save();
@@ -301,7 +315,12 @@ class CrudController extends Controller
         foreach ($loginApp as $permission){
             $permission->delete();
         }
-        UserModel::onlyTrashed()->find($id)->forceDelete();
+
+        $data = UserModel::onlyTrashed()->find($id);
+        if ($data)
+        {
+            $data->forceDelete();
+        }
     }
     //============{  }=============//
     //============{  }=============//

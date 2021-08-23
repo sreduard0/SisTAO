@@ -104,6 +104,7 @@ class LoginController extends Controller
                 'professionalName' => $user->data->professionalName,
                 'email' => $user->data->email,
                 'rank' => $user->data->rank->rankAbbreviation,
+                'company' => $user->data->company
             ],
 
             'theme' => $user->theme,
@@ -115,5 +116,11 @@ class LoginController extends Controller
 
         return redirect()->route('home');
     }
-    //================================={  }===========================//
+    //================================={ checkIdtMil }===========================//
+    public function checkIdtMil($idt)
+    {
+        $checkIdtMil =  LoginModel::select('login')->where('login',  str_replace(['.', '-'], '',$idt))->first();
+        return $checkIdtMil;
+    }
+
 }

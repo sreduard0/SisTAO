@@ -163,7 +163,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button onclick="return edit_app()" class="btn btn-success">Adicionar</button>
+                    <button onclick="return edit_app()" class="btn btn-success">Atualizar</button>
 
                 </div>
             </div>
@@ -198,12 +198,16 @@
                         </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="special1" name=' special' value="1">
+                                <input class="custom-control-input" type="radio" id="special1" name='special' value="1">
                                 <label for="special1" class="custom-control-label">Especial (SGTTE)</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="special2" name='special' value="2">
                                 <label for="special2" class="custom-control-label">Link</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="special3" name='special' value="">
+                                <label for="special3" class="custom-control-label">Simples</label>
                             </div>
                         </div>
                     </form>

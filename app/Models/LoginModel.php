@@ -10,7 +10,7 @@ class LoginModel extends Model
 {
     public function data()
     {
-        return $this->hasOne('App\Models\UserModel', 'id', 'users_id');
+        return $this->hasOne('App\Models\UserModel', 'id', 'users_id')->withTrashed();
     }
     public function permissions()
     {
