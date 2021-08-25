@@ -94,7 +94,7 @@
                                             <strong>IDT Militar</strong>
 
                                             <p class="text-muted">
-                                                {{ $tools->mask('########-#', $user_data->idt_mil) }}
+                                                {{ $tools->mask('#########-#', $user_data->idt_mil) }}
                                             </p>
 
                                             <hr>

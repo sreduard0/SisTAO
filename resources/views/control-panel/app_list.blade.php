@@ -6,6 +6,7 @@
 @section('scripts')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <script src="{{ asset('js/bootbox.min.js') }}"></script>
@@ -67,13 +68,19 @@
 @section('plugins')
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
     <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/numeric-comma.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script>
         $(function() {
             $("#table_apps").DataTable({
+                "paging": true,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,
@@ -105,12 +112,16 @@
                 modal.find('#abbreviationApp').val(result.name)
                 modal.find('#fullname').val(result.fullName)
                 modal.find('#applink').val(result.link)
+                modal.find('#input_user').val(result.inputUser)
+                modal.find('#input_pass').val(result.inputPass)
                 if (result.special == 1) {
                     $("#pspecial1").prop("checked", true);
                 } else if (result.special == 2) {
                     $("#pspecial2").prop("checked", true);
                 } else if (result.special == null) {
                     $("#pspecial3").prop("checked", true);
+                } else if (result.special == 3) {
+                    $("#pspecial4").prop("checked", true);
                 }
             })
         });
@@ -145,6 +156,17 @@
                             <input type="text" class="form-control" id="applink" name="applink"
                                 placeholder="Ex: sistao.3bsup.eb.mil.br" value="">
                         </div>
+                        <div class="form-group col">
+                            <label for="input_user">input-usuario</label>
+                            <input type="text" class="form-control" id="input_user" name="input_user" placeholder="Ex: user"
+                                value="">
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="input_pass">input-senha</label>
+                            <input type="text" class="form-control" id="input_pass" name="input_pass"
+                                placeholder="Ex: password" value="">
+                        </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="pspecial1" name='appspecial' value="1">
@@ -153,6 +175,10 @@
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="pspecial2" name='appspecial' value="2">
                                 <label for="pspecial2" class="custom-control-label">Link</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="pspecial4" name='appspecial' value="3">
+                                <label for="pspecial4" class="custom-control-label">Vinculado</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="pspecial3" name='appspecial' value="0">
@@ -196,6 +222,18 @@
                             <input type="text" class="form-control" id="link" name="link"
                                 placeholder="Ex: sistao.3bsup.eb.mil.br" value="">
                         </div>
+
+                        <div class="form-group col">
+                            <label for="inputUser">input-usuario</label>
+                            <input type="text" class="form-control" id="inputUser" name="inputUser" placeholder="Ex: user"
+                                value="">
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="inputPass">input-senha</label>
+                            <input type="text" class="form-control" id="inputPass" name="inputPass"
+                                placeholder="Ex: password" value="">
+                        </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="special1" name='special' value="1">
@@ -205,10 +243,15 @@
                                 <input class="custom-control-input" type="radio" id="special2" name='special' value="2">
                                 <label for="special2" class="custom-control-label">Link</label>
                             </div>
-                        <div class="custom-control custom-checkbox m-r-30">
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="special4" name='special' value="3">
+                                <label for="special4" class="custom-control-label">Vinculado</label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="special3" name='special' value="">
                                 <label for="special3" class="custom-control-label">Simples</label>
                             </div>
+
                         </div>
                     </form>
                 </div>

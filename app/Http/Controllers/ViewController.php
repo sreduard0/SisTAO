@@ -78,6 +78,7 @@ class ViewController extends Controller
                 'all_company' => $all_company,
                 'all_cities' => $all_cities,
                 'user_data' => $this->Tools->user_data(session('user')['id']), //Buscando informações do usuário logado
+                'apps' => LoginApplicationModel::with('app')->where('login_id', session('user')['id'])->get(),
             ];
             return view('control-panel.edit_profile', $data);
         };
@@ -239,9 +240,9 @@ class ViewController extends Controller
 
         //Cria o array de informações a serem retornadas para o Javascript
         $json_data = array(
-            "draw" => intval( $requestData['draw'] ),//para cada requisição é enviado um número como parâmetro
-            "recordsTotal" => intval( $rows ),  //Quantidade de registros que há no banco de dados
-            "recordsFiltered" => intval( $filtered ), //Total de registros quando houver pesquisa
+            "draw" => intval($requestData['draw']),//para cada requisição é enviado um número como parâmetro
+            "recordsTotal" => intval( $filtered ),  //Quantidade de registros que há no banco de dados
+            "recordsFiltered" => intval($rows ), //Total de registros quando houver pesquisa
             "data" => $dados   //Array de dados completo dos dados retornados da tabela
         );
 

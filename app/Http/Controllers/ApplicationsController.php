@@ -61,7 +61,9 @@ class ApplicationsController extends Controller
         }
         else
         {
-            $apps = ApplicationsModel::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] ) ->offset( $requestData['start'])->take($requestData['length'])->get();
+            $apps = ApplicationsModel::orderBy($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir'] )->offset($requestData['start'])
+                ->take($requestData['length'])
+                ->get();
             $filtered = count($apps);
         }
 
@@ -85,6 +87,9 @@ class ApplicationsController extends Controller
                         case 2:
                             $dado[] = 'Link';
                         break;
+                         case 3:
+                            $dado[] = 'Vinculado';
+                        break;
 
                     default:
                             $dado[] = 'Simples';
@@ -105,9 +110,9 @@ class ApplicationsController extends Controller
 
         //Cria o array de informações a serem retornadas para o Javascript
         $json_data = array(
-            "draw" => intval( $requestData['draw'] ),//para cada requisição é enviado um número como parâmetro
-            "recordsTotal" => intval( $rows ),  //Quantidade de registros que há no banco de dados
-            "recordsFiltered" => intval( $filtered ), //Total de registros quando houver pesquisa
+            "draw" => intval($requestData['draw']),//para cada requisição é enviado um número como parâmetro
+            "recordsTotal" => intval( $filtered ),  //Quantidade de registros que há no banco de dados
+            "recordsFiltered" => intval($rows ), //Total de registros quando houver pesquisa
             "data" => $dados   //Array de dados completo dos dados retornados da tabela
         );
 
@@ -115,13 +120,30 @@ class ApplicationsController extends Controller
     }
 
 //================================={ find app info }====================================//
-public function find_app_info($id){
+public function find_app_info($id)
+{
     $app = ApplicationsModel::find($id);
     return $app;
 
 }
 
+//================================={ vincula usuario e senha }============================//
+public function link_login(Request $request)
+{
+    $data = $request->all();
 
+    $loginApp = LoginApplicationModel::find($data['id']);
+    $loginApp->user = $data['user'];
+    $loginApp->password = $data['password'];
+    $loginApp->save();
+}
+
+//================================={ vincula usuario e senha }============================//
+public function info_link($id)
+{
+    return LoginApplicationModel::where('id', $id)->where('login_id', session('user')['id'])->first();
+
+}
 // =======================================================================//
 //                             CRUD APPS                                  //
 //======================={ Adicionar app no DB }==========================//
@@ -138,6 +160,8 @@ public function find_app_info($id){
         $app->fullName = $newApp['full_name'];
         $app->link = 'http://' . str_replace('http://', '', $newApp['link']);
         $app->special = $newApp['special'] ;
+        $app->inputUser = $newApp['inputUser'];
+        $app->inputPass = $newApp['inputPass'];
         $app->save();
 
     }
@@ -161,6 +185,8 @@ public function edit_application(Request $request)
     $app->fullName = $infoApp['full_name'];
     $app->link = 'http://' . str_replace('http://', '', $infoApp['link']);
     $app->special = $infoApp['special'] ;
+    $app->inputUser = $infoApp['inputUser'];
+    $app->inputPass = $infoApp['inputPass'];
     $app->save();
 
 }
@@ -169,7 +195,7 @@ public function edit_application(Request $request)
 // =======================================================================//
 
 
-//================================={  }====================================//
+
 //================================={  }====================================//
 //================================={  }====================================//
 //================================={  }====================================//

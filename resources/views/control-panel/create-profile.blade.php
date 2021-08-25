@@ -141,7 +141,7 @@
                                                     <label for="idt_mil">* IDT Militar</label>
                                                     <input type="text" class="form-control"
                                                         data-inputmask="'mask': ['999999999-9']" data-mask=""
-                                                        inputmode="text" name="idt_mil" id="idt_mil"
+                                                        inputmode="number" name="idt_mil" id="idt_mil"
                                                         placeholder="_________-_" value="{{ old('idt_mil') }}">
                                                 </div>
                                                 <div class="form-group col-md-3">

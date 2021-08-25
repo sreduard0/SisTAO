@@ -8,15 +8,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('js/select-img-bg.js') }}"></script>
     <script src="{{ asset('js/request_fronend_user.js') }}"></script>
+    <script src="{{ asset('js/actions-apps.js') }}"></script>
 @endsection
 
 @section('content')
     @php
     use App\Classes\Tools;
     $tools = new Tools();
+    $i = 1;
     @endphp
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="min-height: 1150px;">
+    <div class="content-wrapper" style="min-height: 1350px;">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -61,13 +63,13 @@
                     </div>
                 </div>
                 <div class="row">
-
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
                                     <li class="nav-item"><a class="nav-link active" href="#info"
-                                            data-toggle="tab">Informações básicas</a></li>
+                                            data-toggle="tab">Informações
+                                            básicas</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#address" data-toggle="tab">Endereço</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link" href="#contact" data-toggle="tab">Contato</a>
@@ -252,16 +254,70 @@
                                 </div><!-- /.card-body -->
                                 <div id="btn-submit" class="text-center">
                                     <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#alt-user"> <i class="fa fa-user-edit"></i> Editar</button>
+                                        data-target="#alt-user">
+                                        <i class="fa fa-user-edit"></i> Editar</button>
                                 </div>
 
                             </form>
 
                         </div>
 
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Aplicativos vinculados ao SisTAO</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#</th>
+                                            <th>Aplicativo</th>
+                                            <th>Usuário</th>
+                                            <th>Vinculado</th>
+                                            <th>Última atualização</th>
+                                            <th style="width: 50px">Editar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
+                                        @foreach ($apps as $app)
+                                            @if ($app->applications_id == 6)
+                                                {{-- Ignora o sistão --}}
+                                                @continue
+                                            @endif
+                                            @switch($app->app->special)
+                                                @case(3)
+                                                    <tr>
+                                                        <td>{{ $i++ }}</td>
+                                                        <td>{{ $app->app->name }}</td>
+                                                        @if (empty($app->user))
+                                                            <td>-</td>
+                                                            <td>Não</td>
+                                                        @else
+                                                            <td>{{ $app->user }}</td>
+                                                            <td>Sim</td>
+                                                        @endif
 
+                                                        <td>{{ date('d/m/Y', strtotime($app->updated_at)) }}</td>
+                                                        <td>
+                                                            <button class="btn btn-primary" data-toggle='modal'
+                                                                data-target='#edit_app' data-id='{{ $app->id }}'
+                                                                data-name='{{ $app->app->name }}'>
+                                                                <i class="fa fa-pen"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @break
+                                            @endswitch
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="col-md-3">
 
                         <!-- About Me Box -->
@@ -280,7 +336,8 @@
                                         {{ $user_data->militaryId }}
                                         {{ $user_data->professionalName }}
                                     </li>
-                                    <li class="row">CIA: @if (isset($user_data->company->name)){{ $user_data->company->name }}
+                                    <li class="row">CIA: @if (isset($user_data->company->name))
+                                            {{ $user_data->company->name }}
                                         @endif
                                     </li>
                                     <li class="row">NASCIDO:
@@ -296,7 +353,8 @@
                                 <ul class="text-muted">
                                     <li class="row">LOGRADOURO: {{ $user_data->street }}</li>
                                     <li class="row">BAIRRO: {{ $user_data->district }}</li>
-                                    <li class="row">CIDADE: @if (isset($user_data->city->name)){{ $user_data->city->name }}
+                                    <li class="row">CIDADE: @if (isset($user_data->city->name))
+                                            {{ $user_data->city->name }}
                                         @endif
                                     </li>
                                     <li class="row">ESTADO: @if (isset($user_data->city->state)){{ $user_data->city->state }}
@@ -322,9 +380,15 @@
                         </div>
                         <!-- /.card -->
                     </div>
-                    <!-- /.col -->
-                    <!-- /.col -->
                 </div>
+
+
+
+
+
+
+
+
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
@@ -442,8 +506,64 @@
             </div>
         </div>
     </div>
+
+
+@endsection
+@section('plugins')
+    <script>
+        $('#edit_app').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget)
+            var id = button.data('id');
+            var name = button.data('name');
+            var modal = $(this)
+            var url = 'http://sistao.3bsup.eb.mil.br/info_link/' + id
+            $.get(url, function(result) {
+                modal.find('.modal-title').text('Editar ' + name)
+                modal.find('#id_app').val(result.id)
+                modal.find('#user_app').val(result.user)
+                modal.find('#password_app').val(result.password)
+            })
+        });
+    </script>
 @endsection
 @section('modal')
+    {{-- Editar APP --}}
+    <div class="modal fade" id="edit_app" tabindex="-1" role="dialog" aria-labelledby="add_app" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit_userLabel">Editar aplicação</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>(Preencha os campos ou deixe vazio para desvincular)</span>
+                    <hr>
+                    <form>
+                        <input type="hidden" id="id_app" name="id_app" value="">
+                        <div class="form-group col">
+                            <label for="user_app">Usuário</label>
+                            <input type="text" class="form-control" id="user_app" name="user_app" placeholder="Ex: João"
+                                value="">
+                        </div>
+                        <div class="form-group col">
+                            <label for="password_app">Senha</label>
+                            <input type="password" class="form-control" id="password_app" name="password_app"
+                                placeholder="Ex: joao123" value="">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button onclick="return edit_link()" class="btn btn-success">Atualizar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     {{-- Modal de envio de imagem --}}
     <div id="uploadimageModal" class="modal" role="dialog">
         <div class="modal-dialog">

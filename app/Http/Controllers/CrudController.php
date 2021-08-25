@@ -242,7 +242,7 @@ class CrudController extends Controller
         $login->save();
 
         //tornando sistao acessivel caso não tenha escolhido permissao
-        if($data['permission']['SisTAO']['check'] == null)
+        if($data['permission'][6]['check'] == null)
         {
         $permission = new LoginApplicationModel();
         $permission->applications_id = 6;

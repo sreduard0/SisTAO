@@ -407,7 +407,7 @@
                                                                     (SGTTE)</label>
                                                             </div>
                                                         @endif
-                                                    @else
+                                                    @elseif ($app->special == 2)
                                                         {{-- app link --}}
                                                         <div class="custom-control custom-checkbox m-r-30">
                                                             <input
@@ -417,6 +417,17 @@
                                                                 @if ($app->profiles && $app->profiles->profileType == 3) checked @elseif(!$app->profiles) disabled @endif>
                                                             <label for="link-{{ $app->id }}"
                                                                 class="custom-control-label">Link</label>
+                                                        </div>
+                                                    @elseif ($app->special == 3)
+                                                        {{-- Vinculado --}}
+                                                        <div class="custom-control custom-checkbox m-r-30">
+                                                            <input
+                                                                class="{{ $app->id }}_permission custom-control-input"
+                                                                type="radio" id="vinc-{{ $app->id }}"
+                                                                name='{{ $app->id }}_permission' value="4"
+                                                                @if ($app->profiles && $app->profiles->profileType == 4) checked @elseif(!$app->profiles) disabled @endif>
+                                                            <label for="vinc-{{ $app->id }}"
+                                                                class="custom-control-label">Vinculado</label>
                                                         </div>
                                                     @endif
                                                 </div>

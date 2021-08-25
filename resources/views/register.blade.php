@@ -24,10 +24,10 @@
 
             check.on('click', function() {
             if (check.prop('checked') == true) {
-            $(".{{ $app->name }}_permission").prop("disabled", false); //mostra os as permissoes
+            $(".{{ $app->id }}_permission").prop("disabled", false); //mostra os as permissoes
 
             } else if (check.prop('checked') == false) {
-            $(".{{ $app->name }}_permission").prop("disabled", true); //oculta os as permissoes
+            $(".{{ $app->id }}_permission").prop("disabled", true); //oculta os as permissoes
             }
             })
             })
@@ -35,10 +35,10 @@
 
         function apply() {
             @foreach ($apps as $app)
-                if($('input[name=sts_{{ $app->name }}]').is(':checked')){
+                if($('input[name=sts_{{ $app->id }}]').is(':checked')){
                 check{{ $app->id }} = 1;
 
-                if(!$('input[name={{ $app->name }}_permission]').is(':checked')){
+                if(!$('input[name={{ $app->id }}_permission]').is(':checked')){
                 alert(' Selecione uma permissão para {{ $app->name }}.');
                 return false;
                 }
@@ -50,11 +50,11 @@
             var req_permissions = {
                 @foreach ($apps as $app)
 
-                    {{ $app->name }}:
+                    {{ $app->id }}:
                     {
                     appID: {{ $app->id }},
                     check: check{{ $app->id }},
-                    permission: $('input[name={{ $app->name }}_permission]:checked').attr('value'),
+                    permission: $('input[name={{ $app->id }}_permission]:checked').attr('value'),
                     },
                 @endforeach
             };
@@ -251,7 +251,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn btn-success" onclick="return check_register()">Proximo</a>
+                            <a class="btn btn-success" onclick="return check_register();">Proximo</a>
                         </div>
                         <div id="information-part" class="content-request" role="tabpanel"
                             aria-labelledby="information-part-trigger">
@@ -263,7 +263,7 @@
                                             {{-- Ativar app --}}
                                             <div class="custom-control custom-switch m-l-30">
                                                 <input type="checkbox" class="custom-control-input"
-                                                    name="sts_{{ $app->name }}" id={{ $app->id }} value='1'>
+                                                    name="sts_{{ $app->id }}" id={{ $app->id }} value='1'>
                                                 <label class="custom-control-label c-gr"
                                                     for={{ $app->id }}>{{ $app->name }}</label>
                                             </div>
@@ -273,17 +273,18 @@
                                             @if (!$app->special || $app->special == 1)
                                                 {{-- permissao adm --}}
                                                 <div class="custom-control custom-checkbox m-r-10">
-                                                    <input class="{{ $app->name }}_permission custom-control-input"
+                                                    <input class="{{ $app->id }}_permission custom-control-input"
                                                         type="radio" id="adm-{{ $app->id }}"
-                                                        name='{{ $app->name }}_permission' value="1" disabled>
+                                                        name='{{ $app->id }}_permission' value="1" disabled>
                                                     <label for="adm-{{ $app->id }}"
                                                         class="custom-control-label c-gr">Administrador</label>
                                                 </div>
                                                 {{-- permissao conv --}}
                                                 <div class="custom-control custom-checkbox m-r-30">
-                                                    <input class="{{ $app->name }}_permission custom-control-input"
+                                                    <input class="{{ $app->id }}_permission custom-control-input"
                                                         type="radio" id="conv-{{ $app->id }}"
-                                                        name='{{ $app->name }}_permission' value="0" disabled>
+                                                        name='{{ $app->id }}_permission' value="0" disabled
+                                                        checked>
                                                     <label for="conv-{{ $app->id }}"
                                                         class="custom-control-label c-gr">Convencional</label>
                                                 </div>
@@ -291,22 +292,33 @@
                                                     {{-- permissao especial --}}
                                                     <div class="custom-control custom-checkbox m-r-30">
                                                         <input
-                                                            class="{{ $app->name }}_permission custom-control-input"
+                                                            class="{{ $app->id }}_permission custom-control-input"
                                                             type="radio" id="spc-{{ $app->id }}"
-                                                            name='{{ $app->name }}_permission' value="2" disabled>
+                                                            name='{{ $app->id }}_permission' value="2" disabled>
                                                         <label for="spc-{{ $app->id }}"
                                                             class="custom-control-label c-gr">Especial
                                                             (SGTTE)</label>
                                                     </div>
                                                 @endif
-                                            @else
+                                            @elseif ($app->special == 2)
                                                 {{-- app link --}}
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="{{ $app->name }}_permission custom-control-input"
+                                                <div class="custom-control custom-checkbox m-r-30">
+                                                    <input class="{{ $app->id }}_permission custom-control-input"
                                                         type="radio" id="link-{{ $app->id }}"
-                                                        name='{{ $app->name }}_permission' value="3" disabled>
+                                                        name='{{ $app->id }}_permission' value="3" disabled
+                                                        checked>
                                                     <label for="link-{{ $app->id }}"
                                                         class="custom-control-label c-gr">Link</label>
+                                                </div>
+                                            @elseif ($app->special == 3)
+                                                {{-- Vinculado --}}
+                                                <div class="custom-control custom-checkbox m-r-30">
+                                                    <input class="{{ $app->id }}_permission custom-control-input"
+                                                        type="radio" id="link-{{ $app->id }}"
+                                                        name='{{ $app->id }}_permission' value="4" disabled
+                                                        checked>
+                                                    <label for="link-{{ $app->id }}"
+                                                        class="custom-control-label c-gr">Vinculado</label>
                                                 </div>
                                             @endif
                                         </div>

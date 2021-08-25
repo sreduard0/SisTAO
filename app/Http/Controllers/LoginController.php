@@ -111,16 +111,13 @@ class LoginController extends Controller
 
         ]);
 
-
-
-
         return redirect()->route('home');
     }
     //================================={ checkIdtMil }===========================//
     public function checkIdtMil($idt)
     {
-        $checkIdtMil =  LoginModel::select('login')->where('login',  str_replace(['.', '-'], '',$idt))->first();
-        return $checkIdtMil;
+        $checkIdtMil = LoginModel::select('login')->where('login',  str_replace(['.', '-'], '',$idt))->first();
+        return json_encode($checkIdtMil);
     }
 
 }

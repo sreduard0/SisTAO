@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18-Ago-2021 às 21:25
+-- Tempo de geração: 25-Ago-2021 às 04:00
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -34,19 +34,19 @@ CREATE TABLE `applications` (
   `link` varchar(255) DEFAULT NULL,
   `special` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `inputUser` varchar(255) DEFAULT NULL,
+  `inputPass` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `applications`
 --
 
-INSERT INTO `applications` (`id`, `name`, `fullName`, `link`, `special`, `created_at`, `updated_at`) VALUES
-(1, 'Despacho', 'Fila de despacho', 'http://despacho.3bsup.eb.mil.br/', NULL, '2021-07-28 17:26:36', '2021-07-28 17:26:36'),
-(2, 'SISBOL', 'Sisma de Boletins', 'http://sisbol.3bsup.eb.mil.br/', 2, '2021-07-28 17:26:36', '2021-08-09 18:54:23'),
-(4, 'SCLE', 'Sistema de Controle de Licitações e Empenhos', 'http://scle.3bsup.eb.mil.br/', NULL, '2021-07-28 17:26:36', '2021-08-09 19:39:29'),
-(6, 'SisTAO', 'Sistema de Tático de Apoio Operacional ', 'http://sistao.3bsup.eb.mil.br/', 1, '2021-07-28 17:26:36', '2021-07-28 17:26:36'),
-(9, 'SPED', 'Sistema Protocolo Eletronico do Exército', 'http://sped.3bsup.eb.mil.br', 2, '2021-07-28 20:41:12', '2021-08-10 04:17:21');
+INSERT INTO `applications` (`id`, `name`, `fullName`, `link`, `special`, `created_at`, `updated_at`, `inputUser`, `inputPass`) VALUES
+(2, 'SISBOL', 'Sisma de Boletins', 'http://sisbol.3bsup.eb.mil.br/sisbol.php?login=true', 3, '2021-07-28 17:26:36', '2021-08-24 00:55:43', 'nomeUsuario', 'senha'),
+(6, 'SisTAO', 'Sistema de Tático de Apoio Operacional ', 'http://sistao.3bsup.eb.mil.br/', 1, '2021-07-28 17:26:36', '2021-07-28 17:26:36', NULL, NULL),
+(9, 'SPED', 'Sistema Protocolo Eletronico do Exército', 'http://sped.3bsup.eb.mil.br/sped/administracao/sessao/eb/j_security_check', 3, '2021-07-28 20:41:12', '2021-08-10 04:17:21', 'j_username', 'j_password');
 
 -- --------------------------------------------------------
 
@@ -370,8 +370,7 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `login`, `password`, `created_at`, `updated_at`, `deleted_at`, `status`, `theme`, `users_id`) VALUES
-(3, 'eduardo', '$2y$10$eKA62oD1vmOLZnLiERk4.uC7I3nqd1DSql2ZFAMjPd0PmeAiTaN/K', '2021-08-10 18:48:09', '2021-08-10 21:48:09', NULL, 1, 1, 1),
-(46, '5151515151', '$2y$10$N4Ujq76umd9j.QH/MoC6nuQktDh3clsgeWnSyLsWismuhtIsx3LQq', '2021-08-18 04:12:31', '2021-08-18 07:12:31', NULL, 1, 1, 46);
+(1, 'eduardo', '$2y$10$LkDCFmQDYyefxleu2V3eRe5emsC8ghmLz6Sz3Qi73kgQhZGf9yDqy', '2021-08-24 04:12:02', '2021-08-24 07:12:02', NULL, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -385,6 +384,8 @@ CREATE TABLE `login_application` (
   `profileType` int(2) DEFAULT 0,
   `notification` int(2) DEFAULT 0,
   `login_id` int(11) NOT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `updated_at` timestamp(6) NULL DEFAULT NULL,
   `created_at` timestamp(6) NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -393,16 +394,8 @@ CREATE TABLE `login_application` (
 -- Extraindo dados da tabela `login_application`
 --
 
-INSERT INTO `login_application` (`id`, `applications_id`, `profileType`, `notification`, `login_id`, `updated_at`, `created_at`) VALUES
-(106, 6, 1, 1, 1, '2021-08-11 12:18:03.000000', '2021-08-11 12:18:03.000000'),
-(152, 1, 0, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
-(153, 2, 3, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
-(154, 4, 0, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
-(155, 6, 0, 1, 46, '2021-08-18 06:57:31.000000', '2021-08-18 06:57:31.000000'),
-(157, 1, 1, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000'),
-(158, 2, 3, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000'),
-(159, 4, 0, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000'),
-(160, 9, 3, 1, 1, '2021-08-18 16:29:37.000000', '2021-08-18 16:29:37.000000');
+INSERT INTO `login_application` (`id`, `applications_id`, `profileType`, `notification`, `login_id`, `user`, `password`, `updated_at`, `created_at`) VALUES
+(106, 6, 1, 1, 1, NULL, NULL, '2021-08-11 12:18:03.000000', '2021-08-11 12:18:03.000000');
 
 -- --------------------------------------------------------
 
@@ -519,14 +512,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ecEJQ2PwfNCi6sQ8XafoAx3rpSBfW9k4ChRCvhTF', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibzNJV1BBTThqcWcwV2REOUVueWtuY2hUb3YwYWh2WkpGM01NZnI2YSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTg6Imh0dHA6Ly8xMC4yNi4xOTcuMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313016),
-('Fp0dy7XNfOggAjfkRbfg8UHTa9sH9WFO7c2VTL03', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiT0VaTndEcDBjc0JaYTRoMDNmOGFycnpnNGlWdDVxc2l0NHpaTDNDbiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMC4yNi4xOTcuMC9yZWdpc3RlciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313026),
-('FZGl02Hkve6S3zVHAgNLXwajQAqFT4Qw6LBnrawh', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoibnJ3WWF1MjF5WW5Yc3lSdXo1MktYWElPQVdyNzBMRlZSMktLZ0s3bSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1629313093),
-('i6vMlNe3FGGsM1UsXUGqLdCpKOoOAbT7j7r5Hgyy', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidmRsalA0SWhPOUprVFFtT1QxVlBHRjZ0S3Aza1hyanhPTmhjZUxYUCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTg6Imh0dHA6Ly8xMC4yNi4xOTcuMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313005),
-('IFmTKPiIPxMvDfgap6C8ZM1U0S9BfmtGQmUsTLCJ', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNWNORlJtSkxxMWtOd2VxekVxWE0zTThMczh4VGRXazdheG5sc1U5aSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjQ6Imh0dHA6Ly8xMC4yNi4xOTcuMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313005),
-('jZCQBRKPw8RH71iZieWaIRsJgoVW0TFMvGrLLFL0', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVDFmZ1R0SzZTbUttVDlqekhNV1pZMFZ2M2lxU1RhTXpEQmZXWFc1SCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjQ6Imh0dHA6Ly8xMC4yNi4xOTcuMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313016),
-('tQzX6YEG2sFZCELZ5f4wviUEXttoc3pA6uK1SkMw', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36', 'YTo2OntzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MzoiaHR0cDovL3Npc3Rhby4zYnN1cC5lYi5taWwuYnIvcmVnaXN0ZXIvbGlzdCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NjoiX3Rva2VuIjtzOjQwOiJVQTd3M3V5Y2thVDgxdldhUDByeHo0bjRrN2FPTDFrRkM0bkJjY2FMIjtzOjY6IlNpc1RBTyI7YTozOntzOjExOiJwcm9maWxlVHlwZSI7aToxO3M6MTI6Im5vdGlmaWNhdGlvbiI7aToxO3M6NzoibG9naW5JRCI7aToxO31zOjQ6InVzZXIiO2E6NTp7czoyOiJpZCI7aToxO3M6NDoibmFtZSI7czoxNToiRWR1YXJkbyBNYXJ0aW5zIjtzOjE2OiJwcm9mZXNzaW9uYWxOYW1lIjtzOjc6IkVkdWFyZG8iO3M6NToiZW1haWwiO3M6OToiZWR1QGdtYWlsIjtzOjQ6InJhbmsiO3M6MjoiQ2IiO31zOjU6InRoZW1lIjtpOjE7fQ==', 1629314675),
-('X0OiRqTwm2NU8aCua7cFX32BYHYhoPJ0A7yn5Mwd', NULL, '10.26.199.60', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:89.0) Gecko/20100101 Firefox/89.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZXZzdGVVbHBtc205dG8wQzlRdUtPNzVBUUZtekI5ekhLRThLZ3ZIUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjQ6Imh0dHA6Ly8xMC4yNi4xOTcuMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1629313075);
+('UWzOaeCjjbDBIifG4UrRN0p2fuMlrBQl7wSUoCTQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiTUFLV1g5ajBMVGFGbk11dU5lU2QwZGh5bmtVUVh4UW15eXpVSUFGYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly9zaXN0YW8uM2JzdXAuZWIubWlsLmJyL3VzZXJzL2xpc3QiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6IlNpc1RBTyI7YTozOntzOjExOiJwcm9maWxlVHlwZSI7aToxO3M6MTI6Im5vdGlmaWNhdGlvbiI7aToxO3M6NzoibG9naW5JRCI7aToxO31zOjQ6InVzZXIiO2E6Njp7czoyOiJpZCI7aToxO3M6NDoibmFtZSI7czoxNToiRWR1YXJkbyBNYXJ0aW5zIjtzOjE2OiJwcm9mZXNzaW9uYWxOYW1lIjtzOjc6IkVkdWFyZG8iO3M6NToiZW1haWwiO3M6OToiZWR1QGdtYWlsIjtzOjQ6InJhbmsiO3M6MjoiQ2IiO3M6NzoiY29tcGFueSI7TzoyMzoiQXBwXE1vZGVsc1xDb21wYW55TW9kZWwiOjI4OntzOjg6IgAqAHRhYmxlIjtzOjc6ImNvbXBhbnkiO3M6MTM6IgAqAHByaW1hcnlrZXkiO3M6MjoiaWQiO3M6MTM6IgAqAGNvbm5lY3Rpb24iO3M6NToibXlzcWwiO3M6MTM6IgAqAHByaW1hcnlLZXkiO3M6MjoiaWQiO3M6MTA6IgAqAGtleVR5cGUiO3M6MzoiaW50IjtzOjEyOiJpbmNyZW1lbnRpbmciO2I6MTtzOjc6IgAqAHdpdGgiO2E6MDp7fXM6MTI6IgAqAHdpdGhDb3VudCI7YTowOnt9czoxMDoiACoAcGVyUGFnZSI7aToxNTtzOjY6ImV4aXN0cyI7YjoxO3M6MTg6Indhc1JlY2VudGx5Q3JlYXRlZCI7YjowO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6Mjp7czoyOiJpZCI7aToyO3M6NDoibmFtZSI7czo0OiJDQ1N2Ijt9czoxMToiACoAb3JpZ2luYWwiO2E6Mjp7czoyOiJpZCI7aToyO3M6NDoibmFtZSI7czo0OiJDQ1N2Ijt9czoxMDoiACoAY2hhbmdlcyI7YTowOnt9czo4OiIAKgBjYXN0cyI7YTowOnt9czoxNzoiACoAY2xhc3NDYXN0Q2FjaGUiO2E6MDp7fXM6ODoiACoAZGF0ZXMiO2E6MDp7fXM6MTM6IgAqAGRhdGVGb3JtYXQiO047czoxMDoiACoAYXBwZW5kcyI7YTowOnt9czoxOToiACoAZGlzcGF0Y2hlc0V2ZW50cyI7YTowOnt9czoxNDoiACoAb2JzZXJ2YWJsZXMiO2E6MDp7fXM6MTI6IgAqAHJlbGF0aW9ucyI7YTowOnt9czoxMDoiACoAdG91Y2hlcyI7YTowOnt9czoxMDoidGltZXN0YW1wcyI7YjoxO3M6OToiACoAaGlkZGVuIjthOjA6e31zOjEwOiIAKgB2aXNpYmxlIjthOjA6e31zOjExOiIAKgBmaWxsYWJsZSI7YTowOnt9czoxMDoiACoAZ3VhcmRlZCI7YToxOntpOjA7czoxOiIqIjt9fX1zOjU6InRoZW1lIjtpOjE7fQ==', 1629856573);
 
 -- --------------------------------------------------------
 
@@ -567,8 +553,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `professionalName`, `motherName`, `fatherName`, `email`, `phone1`, `phone2`, `born_at`, `militaryId`, `idt_mil`, `photoUrl`, `backgroundUrl`, `street`, `house_number`, `district`, `city_id`, `cep`, `created_at`, `updated_at`, `deleted_at`, `departament_id`, `rank_id`, `rank_group_id`, `company_id`) VALUES
-(1, 'Eduardo Martins', 'Eduardo', 'teste', NULL, 'edu@gmail', 51980204595, 51980423365, '2021-06-23', '159', 6666666666, 'img/img_profiles/1/img_profile_user_1-11-08-2021-13-08-18.png', 'img/img_background/bg6.png', 'av caju', 52, 'caju', 194, 92480000, '2021-08-11 13:19:55', '2021-08-11 16:19:55', NULL, 5, 13, 1, 2),
-(46, 'Predro Pedroso', 'Pedro', NULL, NULL, 'pedro@pedro.com', NULL, NULL, NULL, NULL, 5151515151, 'img/img_profiles/img_profile_padrao.png', 'img/img_background/bg3.jpg', NULL, NULL, NULL, NULL, NULL, '2021-08-18 04:00:10', '2021-08-18 07:00:10', NULL, 22, 13, NULL, 2);
+(1, 'Eduardo Martins', 'Eduardo', 'teste', NULL, 'edu@gmail', 51980204595, 51980423365, '2021-06-23', '130', 6666666666, 'img/img_profiles/1/img_profile_user_1-11-08-2021-13-08-18.png', 'img/img_background/bg5.jpg', 'av caju', 55, 'caju', 194, 92480000, '2021-08-22 08:56:49', '2021-08-22 11:56:49', NULL, 5, 13, 1, 2);
 
 --
 -- Índices para tabelas despejadas
@@ -656,7 +641,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de tabela `cities`
@@ -680,13 +665,13 @@ ALTER TABLE `departament`
 -- AUTO_INCREMENT de tabela `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT de tabela `login_application`
 --
 ALTER TABLE `login_application`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
 
 --
 -- AUTO_INCREMENT de tabela `migrations`
@@ -716,7 +701,7 @@ ALTER TABLE `rank_groups`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

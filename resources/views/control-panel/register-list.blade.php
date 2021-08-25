@@ -180,10 +180,10 @@
                     $("#conv-{{ $app->id }}").prop("checked", false);
                     $("#spc-{{ $app->id }}").prop("checked", false);
                     $("#link-{{ $app->id }}").prop("checked", false);
+                    $("#vinc-{{ $app->id }}").prop("checked", false);
 
                     if (typeof result.id{{ $app->id }} !== "undefined")
                     {
-
                     $("#{{ $app->id }}").prop("checked", true);
 
                     if (result.id{{ $app->id }}.profileType == 1)
@@ -206,6 +206,11 @@
                     $(".{{ $app->id }}_permission").prop("disabled", false)
                     $("#link-{{ $app->id }}").prop("checked", true);
                     }
+                    else if (result.id{{ $app->id }}.profileType == 4)
+                    {
+                    $(".{{ $app->id }}_permission").prop("disabled", false)
+                    $("#vinc-{{ $app->id }}").prop("checked", true);
+                    }
                     }
 
                 @endforeach
@@ -215,7 +220,7 @@
     </script>
 @endsection
 @section('modal')
-    {{-- Editar APP --}}
+    }
     <div class="modal fade" id="confirm_request" tabindex="-1" role="dialog" aria-labelledby="add_app" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -268,14 +273,23 @@
                                                         (SGTTE)</label>
                                                 </div>
                                             @endif
-                                        @else
+                                        @elseif ($app->special == 2)
                                             {{-- app link --}}
                                             <div class="custom-control custom-checkbox m-r-30">
                                                 <input class="{{ $app->id }}_permission custom-control-input"
                                                     type="radio" id="link-{{ $app->id }}"
                                                     name='{{ $app->id }}_permission' value="3" disabled>
-                                                <label for="link-{{ $app->id }}"
+                                                <label for="vinc-{{ $app->id }}"
                                                     class="custom-control-label">Link</label>
+                                            </div>
+                                        @elseif ($app->special == 3)
+                                            {{-- Vinculado --}}
+                                            <div class="custom-control custom-checkbox m-r-30">
+                                                <input class="{{ $app->id }}_permission custom-control-input"
+                                                    type="radio" id="vinc-{{ $app->id }}"
+                                                    name='{{ $app->id }}_permission' value="4" disabled>
+                                                <label for="vinc-{{ $app->id }}"
+                                                    class="custom-control-label">Vinculado</label>
                                             </div>
                                         @endif
                                     </div>

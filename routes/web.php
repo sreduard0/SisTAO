@@ -32,12 +32,16 @@ Route::middleware('auth')->group(function () {
     //======== ações
     Route::get('login/apps/{id}', [ApplicationsController::class, 'login_apps'])->name('login_apps');
     Route::get('theme/{id}', [ViewController::class, 'theme'])->name('theme');
+    Route::get('info_link/{id}',[ApplicationsController::class, 'info_link']);
 
     //========Rotas de envio de formularios
     Route::post('submit_alt_profile', [CrudController::class, 'submit_alt_profile'])->name('submit_alt_profile');
     Route::post('submit_alt_pwd', [CrudController::class, 'submit_alt_pwd'])->name('submit_alt_pwd');
     Route::post('upload_img_profile', [CrudController::class, 'upload_img_profile'])->name('upload_img_profile');
     Route::post('alt_img_bg', [CrudController::class, 'alt_img_bg'])->name('alt_img_bg');
+    Route::post('link_login',[ApplicationsController::class, 'link_login']);
+    Route::post('create_user_submit', [CrudController::class, 'submit_create_user'])->name('submit_create_user');
+
 });
 
 Route::middleware('auth','CheckAdm')->group(function () {
@@ -58,7 +62,6 @@ Route::middleware('auth','CheckAdm')->group(function () {
     Route::get('request/delete/{id}',[CrudController::class , 'delete_request'])->name('delete_request');
 
     //========Rotas de envio de formularios
-    Route::post('submit_create_user', [CrudController::class, 'submit_create_user'])->name('submit_create_user');
     Route::post('alt_permissions', [CrudController::class, 'alt_permissions'])->name('alt_permissions');
     Route::post('apps_add',[ApplicationsController::class, 'add_application'])->name('add_application');
     Route::post('app_edit',[ApplicationsController::class, 'edit_application'])->name('edit_application');
@@ -77,7 +80,6 @@ Route::middleware('auth','CheckSgtte')->group(function () {
     //======== ações
 
     //========Rotas de envio de formularios
-    Route::post('submit_create_user', [CrudController::class, 'submit_create_user'])->name('submit_create_user');
 
 });
 

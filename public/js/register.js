@@ -8,13 +8,6 @@ function check_register() {
     var Pass = password.value;
     var PassConf = conf_password.value;
 
-    var url = 'http://sistao.3bsup.eb.mil.br/checkIdtMil/' + IdtMil;
-    $.get(url, function(result) {
-        if (result) {
-            alert("Ja exiate um login com esta IDT militar");
-            return false;
-        }
-    });
 
     if (Name == "" || ProfessionalName == "" || IdtMil == "" || DepartamentId == "" || RankId == "" || CompanyId ==
         "" || Pass == "" || PassConf ==
@@ -39,6 +32,14 @@ function check_register() {
         return false;
     }
 
+    var url = 'http://sistao.3bsup.eb.mil.br/checkIdtMil/' + IdtMil;
+    $.get(url, function (result) {
+        if (result == 'null') {
+            return stepper.next();
+        } else {
+            alert('Há outro login utilizando está IDT militar.');
+        }
+    });
 
-    return stepper.next();
 }
+
