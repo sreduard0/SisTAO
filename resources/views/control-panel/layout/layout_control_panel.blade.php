@@ -15,8 +15,6 @@ $theme = session('theme');
     {{-- Posto/Graduação          Nome de Guerra --}}
     <title>SisTAO - @yield('title')</title>
     <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.cs') }}s">
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -24,8 +22,6 @@ $theme = session('theme');
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -240,12 +236,10 @@ $theme = session('theme');
             </div>
 
         </aside>
-        @yield('content')
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
 
-        <footer class=" align-items-center main-footer">
+
+   @yield('content')
+        <footer class="main-footer align-items-center ">
             <footer>
                 <div class="text-center">
 
@@ -256,6 +250,9 @@ $theme = session('theme');
         </footer>
 
     </div>
+
+
+
     @yield('modal')
     @yield('plugins')
     <!-- Bootstrap 4 -->
@@ -281,8 +278,7 @@ $theme = session('theme');
     <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
     <!-- dropzonejs -->
     <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.js') }}"></script>
+
     <!-- overlayScrollbars -->
     <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <!-- Page specific script -->
@@ -291,6 +287,9 @@ $theme = session('theme');
     <!-- SCRIPT MANUAIS -->
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/toast.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('js/adminlte.js') }}"></script>
+    {{-- <script src="{{ asset('js/demo.js') }}"></script> --}}
 </body>
 
 </html>
