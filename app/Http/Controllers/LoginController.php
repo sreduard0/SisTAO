@@ -118,6 +118,7 @@ class LoginController extends Controller
     {
         $checkIdtMil = LoginModel::select('login')->where('login',  str_replace(['.', '-'], '',$idt))->first();
         return json_encode($checkIdtMil);
+
     }
 
 }
