@@ -221,7 +221,8 @@
 @endsection
 @section('modal')
     }
-    <div class="modal fade" id="confirm_request" tabindex="-1" role="dialog" aria-labelledby="add_app" aria-hidden="true">
+    <div class="modal fade" id="confirm_request" tabindex="-1" role="dialog" aria-labelledby="add_app"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -279,7 +280,7 @@
                                                 <input class="{{ $app->id }}_permission custom-control-input"
                                                     type="radio" id="link-{{ $app->id }}"
                                                     name='{{ $app->id }}_permission' value="3" disabled>
-                                                <label for="vinc-{{ $app->id }}"
+                                                <label for="link-{{ $app->id }}"
                                                     class="custom-control-label">Link</label>
                                             </div>
                                         @elseif ($app->special == 3)

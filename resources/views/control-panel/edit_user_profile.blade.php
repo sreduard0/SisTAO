@@ -165,11 +165,14 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#info" data-toggle="tab">Informações
+                                <li class="nav-item"><a class="nav-link active" href="#info"
+                                        data-toggle="tab">Informações
                                         básicas</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#address" data-toggle="tab">Endereço</a>
+                                <li class="nav-item"><a class="nav-link" href="#address"
+                                        data-toggle="tab">Endereço</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#contact" data-toggle="tab">Contato</a>
+                                <li class="nav-item"><a class="nav-link" href="#contact"
+                                        data-toggle="tab">Contato</a>
                                 </li>
                             </ul>
                         </div>
@@ -194,8 +197,9 @@
                                             </div>
                                             <div class="form-group col-md-1">
                                                 <label for="military_id">N°</label>
-                                                <input type="text" class="form-control" id="military_id" name="military_id"
-                                                    placeholder="N°" value="{{ $user_data->militaryId }}" disabled>
+                                                <input type="text" class="form-control" id="military_id"
+                                                    name="military_id" placeholder="N°"
+                                                    value="{{ $user_data->militaryId }}" disabled>
                                             </div>
                                             <div class="form-group col">
                                                 <label for="professionalname">Nome de gerra</label>
@@ -260,15 +264,15 @@
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="mother_name">Nome da mãe</label>
-                                                <input type="text" id="mother_name" name="mother_name" class="form-control"
-                                                    placeholder="Nome da mãe" value="{{ $user_data->motherName }}"
-                                                    disabled>
+                                                <input type="text" id="mother_name" name="mother_name"
+                                                    class="form-control" placeholder="Nome da mãe"
+                                                    value="{{ $user_data->motherName }}" disabled>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="father_name">Nome do pai</label>
-                                                <input type="text" id="father_name" name="father_name" class="form-control"
-                                                    placeholder="Nome do pai" value="{{ $user_data->fatherName }}"
-                                                    disabled>
+                                                <input type="text" id="father_name" name="father_name"
+                                                    class="form-control" placeholder="Nome do pai"
+                                                    value="{{ $user_data->fatherName }}" disabled>
                                             </div>
                                         </div>
 
@@ -404,7 +408,7 @@
                                                                     @if ($app->profiles && $app->profiles->profileType == 2) checked @elseif(!$app->profiles) disabled @endif>
                                                                 <label for="spc-{{ $app->id }}"
                                                                     class="custom-control-label">Especial
-                                                                    (SGTTE)</label>
+                                                                </label>
                                                             </div>
                                                         @endif
                                                     @elseif ($app->special == 2)

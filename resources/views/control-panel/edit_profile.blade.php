@@ -70,9 +70,11 @@
                                     <li class="nav-item"><a class="nav-link active" href="#info"
                                             data-toggle="tab">Informações
                                             básicas</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#address" data-toggle="tab">Endereço</a>
+                                    <li class="nav-item"><a class="nav-link" href="#address"
+                                            data-toggle="tab">Endereço</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="#contact" data-toggle="tab">Contato</a>
+                                    <li class="nav-item"><a class="nav-link" href="#contact"
+                                            data-toggle="tab">Contato</a>
                                     </li>
                                 </ul>
                             </div>
@@ -121,7 +123,8 @@
                                                 </div>
                                                 <div class="form-group col-md-2">
                                                     <label for="company_id">CIA</label>
-                                                    <select name="company_id" id="company_id" class="form-control" disabled>
+                                                    <select name="company_id" id="company_id" class="form-control"
+                                                        disabled>
                                                         <option value="">Selecione</option>
                                                         @foreach ($all_company as $company)
                                                             <option @if ($user_data->company_id == $company->id) selected="selected" @endif value="{{ $company->id }}">
@@ -357,7 +360,8 @@
                                             {{ $user_data->city->name }}
                                         @endif
                                     </li>
-                                    <li class="row">ESTADO: @if (isset($user_data->city->state)){{ $user_data->city->state }}
+                                    <li class="row">ESTADO: @if (isset($user_data->city->state))
+                                            {{ $user_data->city->state }}
                                         @endif
                                     </li>
                                 </ul>
@@ -383,115 +387,15 @@
                 </div>
 
 
-                    </div>
-                    <div class="col-md-3">
-
-                        <!-- About Me Box -->
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Visão geral</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <strong><i class="fas fa-user mr-1"></i> Informações básicas</strong>
-
-                                <ul class="text-muted">
-                                    <li class="row">NOME: {{ $user_data->name }}</li>
-                                    <li class="row">MILITAR:
-                                        {{ $user_data->rank->rankAbbreviation }}
-                                        {{ $user_data->militaryId }}
-                                        {{ $user_data->professionalName }}
-                                    </li>
-                                    <li class="row">CIA: @if (isset($user_data->company->name)){{ $user_data->company->name }}
-                                        @endif
-                                    </li>
-                                    <li class="row">NASCIDO:
-                                        {{ date('d/m/Y', strtotime($user_data->born_at)) }}</li>
-                                    <li class="row">MÃE: {{ $user_data->motherName }}</li>
-                                    <li class="row">PAI: {{ $user_data->fatherName }}</li>
-                                </ul>
-
-                                <hr>
-
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Endereço</strong>
-
-                                <ul class="text-muted">
-                                    <li class="row">LOGRADOURO: {{ $user_data->street }}</li>
-                                    <li class="row">BAIRRO: {{ $user_data->district }}</li>
-                                    <li class="row">CIDADE: @if (isset($user_data->city->name)){{ $user_data->city->name }}
-                                        @endif
-                                    </li>
-                                    <li class="row">ESTADO: @if (isset($user_data->city->state)){{ $user_data->city->state }}
-                                        @endif
-                                    </li>
-                                </ul>
-
-                                <hr>
-
-                                <strong><i class="fas fa-id-badge mr-1"></i> Contato</strong>
-
-                                <ul class="text-muted">
-                                    <li class="row">FONE 1:
-                                        {{ $tools->mask('(##) # ####-####', $user_data->phone1) }}</li>
-                                    <li class="row">FONE 2:
-                                        {{ $tools->mask('(##) # ####-####', $user_data->phone2) }}
-                                    </li>
-                                    <li class="row">E-mail: {{ $user_data->email }}</li>
-                                </ul>
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </section>
+            </div>
+            <!-- /.col -->
+            <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    </div><!-- /.container-fluid -->
+    </section>
     </div>
 
-    {{-- Modal Alteração BG --}}
-    <div class="modal fade show" id="alt-img-bg" style="display: none;" aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Alteração de imagem de fundo</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="image-bg">
-                        <fieldset class="radio-image">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="bg1">
-                                        <input type="radio" name="bg" id="bg1" value="img/img_background/bg1.jpg">
-                                        <img src="{{ asset('img/img_background/bg1.jpg') }}" width="100%"
-                                            alt="Background 1">
-                                    </label>
-                                    <label for="bg2">
-                                        <input type="radio" name="bg" id="bg2" value="img/img_background/bg2.jpg">
-                                        <img src="{{ asset('img/img_background/bg2.jpg') }}" width="100%"
-                                            alt="Background 2">
-                                    </label>
-                                    <label for="bg3">
-                                        <input type="radio" name="bg" id="bg3" value="img/img_background/bg3.jpg">
-                                        <img src="{{ asset('img/img_background/bg3.jpg') }}" width="100%"
-                                            alt="Background 3">
-                                    </label>
-                                </div>
-
-
-
-
-
-                <!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </section>
-    </div>
 
     {{-- Modal Alteração BG --}}
     <div class="modal fade show" id="alt-img-bg" style="display: none;" aria-modal="true" role="dialog">

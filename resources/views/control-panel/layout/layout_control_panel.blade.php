@@ -239,15 +239,6 @@ $theme = session('theme');
 
 
    @yield('content')
-        <footer class="main-footer align-items-center ">
-            <footer>
-                <div class="text-center">
-
-                    &copy;SisTAO 2021 (v1.0) <br>
-                    Desenvolvido por: Eduardo Martins
-                </div>
-            </footer>
-        </footer>
 
     </div>
 

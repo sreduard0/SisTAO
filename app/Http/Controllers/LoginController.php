@@ -101,6 +101,7 @@ class LoginController extends Controller
             'user' => [
                 'id' => $user->data->id,
                 'name' => $user->data->name,
+                'photo' => $user->data->photoUrl,
                 'professionalName' => $user->data->professionalName,
                 'email' => $user->data->email,
                 'rank' => $user->data->rank->rankAbbreviation,

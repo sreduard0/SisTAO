@@ -160,8 +160,8 @@
                         </div>
                         <div class="form-group col">
                             <label for="input_user">input-usuario</label>
-                            <input type="text" class="form-control" id="input_user" name="input_user" placeholder="Ex: user"
-                                value="">
+                            <input type="text" class="form-control" id="input_user" name="input_user"
+                                placeholder="Ex: user" value="">
                         </div>
 
                         <div class="form-group col">
@@ -172,7 +172,11 @@
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="pspecial1" name='appspecial' value="1">
-                                <label for="pspecial1" class="custom-control-label">Especial (SGTTE)</label>
+                                <label for="pspecial1" class="custom-control-label">Especial </label>
+                            </div>
+                            <div class="custom-control custom-checkbox m-r-30">
+                                <input class="custom-control-input" type="radio" id="pspecial3" name='appspecial' value="0">
+                                <label for="pspecial3" class="custom-control-label">Simples</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
                                 <input class="custom-control-input" type="radio" id="pspecial2" name='appspecial' value="2">
@@ -182,10 +186,7 @@
                                 <input class="custom-control-input" type="radio" id="pspecial4" name='appspecial' value="3">
                                 <label for="pspecial4" class="custom-control-label">Vinculado</label>
                             </div>
-                            <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial3" name='appspecial' value="0">
-                                <label for="pspecial3" class="custom-control-label">Simples</label>
-                            </div>
+
                         </div>
                     </form>
                 </div>

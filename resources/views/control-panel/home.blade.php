@@ -45,7 +45,7 @@
                                 @continue
                             @endif
                             @switch($app->apps[0]->special)
-                                @case(null)
+                                @case(1)
                                     <div class="col-lg-3 col-6">
                                         <a href="{{ route('login_apps', ['id' => $app->apps[0]->id]) }}" target="_blank"
                                             class="small-box bg-success">
@@ -59,24 +59,29 @@
 
                                 @case(3)
                                     <div class="col-lg-3 col-6">
-                                        zz
-                                        @if (!$app->user && !$app->password)
-                                            <a data-toggle="modal" data-target="#login" data-id="{{ $app->id }}"
-                                                data-name="{{ $app->apps[0]->name }}" class="small-box bg-success">
-                                                <div class="inner">
-                                                    <h3>{{ $app->apps[0]->name }}</h3>
-                                                    <p>Vincule sua conta</p>
-                                                </div>
-                                            </a>
-                                        @else
-                                            <a onclick="return document.login{{ $app->id }}.submit();"
-                                                class="small-box bg-success">
-                                                <div class="inner">
-                                                    <h3>{{ $app->apps[0]->name }}</h3>
-                                                    <p>Vinculado</p>
-                                                </div>
-                                            </a>
-                                        @endif
+                                        <form name='login{{ $app->id }}' target="_blank"
+                                            action="{{ $app->apps[0]->link }}" method="post">
+                                            <input type="hidden" id="user{{ $app->id }}"
+                                                name="{{ $app->apps[0]->inputUser }}" value="{{ $app->user }}">
+                                            <input type="hidden" id="password{{ $app->id }}"
+                                                name="{{ $app->apps[0]->inputPass }}" value="{{ $app->password }}">
+                                            @if (!$app->user && !$app->password)
+                                                <a data-toggle="modal" data-target="#login" data-id="{{ $app->id }}"
+                                                    data-name="{{ $app->apps[0]->name }}" class="small-box bg-success">
+                                                    <div class="inner">
+                                                        <h3>{{ $app->apps[0]->name }}</h3>
+                                                        <p>Vincule sua conta</p>
+                                                    </div>
+                                                </a>
+                                            @else
+                                                <a onclick="return document.login{{ $app->id }}.submit();"
+                                                    class="small-box bg-success">
+                                                    <div class="inner">
+                                                        <h3>{{ $app->apps[0]->name }}</h3>
+                                                        <p>Vinculado</p>
+                                                    </div>
+                                                </a>
+                                            @endif
                                         </form>
                                     </div>
                                 @break
@@ -98,6 +103,15 @@
             </div>
         </section>
     </div>
+    <footer class="main-footer align-items-center ">
+        <footer>
+            <div class="text-center">
+
+                &copy;SisTAO 2021 (v1.0) <br>
+                Desenvolvido por: Eduardo Martins
+            </div>
+        </footer>
+    </footer>
 @endsection
 @section('plugins')
     <script>
