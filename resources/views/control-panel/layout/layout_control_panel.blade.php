@@ -21,7 +21,7 @@ $theme = session('theme');
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -108,7 +108,7 @@ $theme = session('theme');
                     <ul class="nav nav-pills nav-sidebar flex-column nav-flat nav-legacy" data-widget="treeview"
                         role="menu" data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ route('home') }}" class='nav-link @yield("home")'>
+                            <a href="{{ route('home') }}" class='nav-link @yield('home')'>
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>
                                     Home
@@ -210,8 +210,7 @@ $theme = session('theme');
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('edit_my_profile') }}"
-                                        class="nav-link  @yield('edit_profile')">
+                                    <a href="{{ route('edit_my_profile') }}" class="nav-link  @yield('edit_profile')">
                                         <i class="nav-icon fas fa-user-edit"></i>
                                         <p>Editar perfil</p>
                                     </a>
@@ -238,7 +237,7 @@ $theme = session('theme');
         </aside>
 
 
-   @yield('content')
+        @yield('content')
 
     </div>
 

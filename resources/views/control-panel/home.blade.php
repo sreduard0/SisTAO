@@ -30,6 +30,7 @@
                 </div>
             </div>
         </div>
+
         <section class="content">
             <div class="container-fluid">
                 @if (count($apps) == 1)
@@ -45,6 +46,7 @@
                                 @continue
                             @endif
                             @switch($app->apps[0]->special)
+                                @case(0)
                                 @case(1)
                                     <div class="col-lg-3 col-6">
                                         <a href="{{ route('login_apps', ['id' => $app->apps[0]->id]) }}" target="_blank"
@@ -59,12 +61,26 @@
 
                                 @case(3)
                                     <div class="col-lg-3 col-6">
-                                        <form name='login{{ $app->id }}' target="_blank"
-                                            action="{{ $app->apps[0]->link }}" method="post">
-                                            <input type="hidden" id="user{{ $app->id }}"
-                                                name="{{ $app->apps[0]->inputUser }}" value="{{ $app->user }}">
-                                            <input type="hidden" id="password{{ $app->id }}"
-                                                name="{{ $app->apps[0]->inputPass }}" value="{{ $app->password }}">
+
+                                        @if ($app->apps[0]->inputUser == null || $app->apps[0]->inputPass == null)
+                                            <form name='login{{ $app->id }}' target="_blank"
+                                                action="{{ $app->apps[0]->link }}" method="post">
+
+                                                <input type="hidden" id="userID" name="userID"
+                                                    value="{{ session('user')['id'] }}">
+                                                <input type="hidden" id="departament_id" name="departament_id"
+                                                    value="{{ session('user')['departament_id'] }}">
+                                                <input type="hidden" id="token_sistao" name="token_sistao" value="Mb#Intel@11">
+                                                <a onclick="return document.login{{ $app->id }}.submit();"
+                                                    class="small-box bg-success">
+                                                    <div class="inner">
+                                                        <h3>{{ $app->apps[0]->name }}</h3>
+                                                        <p>Integrado</p>
+                                                    </div>
+                                                </a>
+
+                                            </form>
+                                        @else
                                             @if (!$app->user && !$app->password)
                                                 <a data-toggle="modal" data-target="#login" data-id="{{ $app->id }}"
                                                     data-name="{{ $app->apps[0]->name }}" class="small-box bg-success">
@@ -74,7 +90,23 @@
                                                     </div>
                                                 </a>
                                             @else
-                                                <a onclick="return document.login{{ $app->id }}.submit();"
+                                                <iframe style="display: none" name="the-iframe{{ $app->id }}"></iframe>
+                                                <script>
+                                                    function postToIframe{{ $app->id }}() {
+                                                        $('#form{{ $app->id }}').append(
+                                                            '<form action="{{ $app->apps[0]->link }}"  method="post" target="the-iframe{{ $app->id }}" id="post{{ $app->id }}"><input type="hidden" name="{{ $app->apps[0]->inputUser }}" value="{{ $app->user }}" /><input type="hidden" name="{{ $app->apps[0]->inputPass }}" value="{{ $app->password }}" /></form>'
+                                                        );
+
+                                                        $('#post{{ $app->id }}').submit().remove();
+                                                        window.open('{{ $app->apps[0]->linkHome }}', '_blank');
+
+                                                    }
+                                                </script>
+
+                                                <div id="form{{ $app->id }}"></div>
+
+
+                                                <a onclick="return postToIframe{{ $app->id }}();"
                                                     class="small-box bg-success">
                                                     <div class="inner">
                                                         <h3>{{ $app->apps[0]->name }}</h3>
@@ -82,7 +114,10 @@
                                                     </div>
                                                 </a>
                                             @endif
-                                        </form>
+                                        @endif
+
+
+
                                     </div>
                                 @break
 
@@ -141,7 +176,8 @@
                         <input type="hidden" id="id" name="id" value="">
                         <div class="form-group col">
                             <label for="login">Login *</label>
-                            <input type="text" class="form-control" id="user" name="user" placeholder="Ex: joão" value="">
+                            <input type="text" class="form-control" id="user" name="user"
+                                placeholder="Ex: joão" value="">
                         </div>
                         <div class="form-group col">
                             <label for="password">Senha *</label>
