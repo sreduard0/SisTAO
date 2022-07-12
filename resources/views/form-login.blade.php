@@ -55,18 +55,14 @@
                     <div class="height mt-3">
 
                         @if (isset($erro))
-
                             <p id="error" class="alert alert-danger">{{ $erro }}</p>
-
                         @endif
 
                         @if ($errors->any())
 
                             <ul id="error" class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
-
                                     <li>{{ $error }}</li>
-
                                 @endforeach
                             </ul>
 
@@ -79,8 +75,16 @@
                             Primeiro acesso?
                         </span><br>
                         <a class="txt2" href="{{ route('register') }}">
-                           Clique aqui
+                            Clique aqui
                         </a>
+                        <br>
+                        <br>
+                        <span class="txt1">
+                            Desenvolvidor: <br>
+                            <a class="txt1" href="https://www.linkedin.com/in/eduardo-martins-a100b6211">
+                                Eduardo Martins
+                            </a>
+                        </span><br>
                     </div>
                 </form>
             </div>

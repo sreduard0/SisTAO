@@ -107,13 +107,17 @@
             var button = $(event.relatedTarget)
             var id = button.data('id');
             var modal = $(this)
-            var url = 'http://sistao.3bsup.eb.mil.br/apps/info/' + id
+            var url = '/apps/info/' + id
             $.get(url, function(result) {
                 modal.find('.modal-title').text('Editar ' + result.name)
                 modal.find('#id').val(result.id)
                 modal.find('#abbreviationApp').val(result.name)
                 modal.find('#fullname').val(result.fullName)
-                modal.find('#applink').val(result.link)
+                modal.find('#url_post').val(result.link)
+                modal.find('#url_home').val(result.linkHome)
+                if (result.loading == 1) {
+                    $("#loading_post").prop("checked", true);
+                }
                 modal.find('#input_user').val(result.inputUser)
                 modal.find('#input_pass').val(result.inputPass)
                 if (result.special == 1) {
@@ -154,10 +158,26 @@
                                 placeholder="Ex: Sistema Tático de Apoio Operacional" value="">
                         </div>
                         <div class="form-group col">
-                            <label for="applink">Link</label>
-                            <input type="text" class="form-control" id="applink" name="applink"
+                            <label for="url_post">URL do POST</label>
+                            <input type="text" class="form-control" id="url_post" name="url_post"
+                                placeholder="Ex: sistao.3bsup.eb.mil.br/app/post.php" value="">
+                        </div>
+                        <div class="form-group col">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" id="loading_post" name='loading_post'
+                                    value="1">
+                                <label for="loading_post" class="custom-control-label">Login prolongado</label><br>
+                                <span style="font-size:14px ">Para sites que necessitem de alguns segundos para fazer o
+                                    login.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="url_home">URL da página inicial</label>
+                            <input type="text" class="form-control" id="url_home" name="url_home"
                                 placeholder="Ex: sistao.3bsup.eb.mil.br" value="">
                         </div>
+
                         <div class="form-group col">
                             <label for="input_user">input-usuario</label>
                             <input type="text" class="form-control" id="input_user" name="input_user"
@@ -171,20 +191,24 @@
                         </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial1" name='appspecial' value="1">
+                                <input class="custom-control-input" type="radio" id="pspecial1" name='appspecial'
+                                    value="1">
                                 <label for="pspecial1" class="custom-control-label">Especial </label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial3" name='appspecial' value="0">
+                                <input class="custom-control-input" type="radio" id="pspecial3" name='appspecial'
+                                    value="0">
                                 <label for="pspecial3" class="custom-control-label">Simples</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial2" name='appspecial' value="2">
+                                <input class="custom-control-input" type="radio" id="pspecial2" name='appspecial'
+                                    value="2">
                                 <label for="pspecial2" class="custom-control-label">Link</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="pspecial4" name='appspecial' value="3">
-                                <label for="pspecial4" class="custom-control-label">Vinculado</label>
+                                <input class="custom-control-input" type="radio" id="pspecial4" name='appspecial'
+                                    value="3">
+                                <label for="pspecial4" class="custom-control-label">Vinculado / Integrado</label>
                             </div>
 
                         </div>
@@ -221,15 +245,30 @@
                                 placeholder="Ex: Sistema Tático de Apoio Operacional" value="">
                         </div>
                         <div class="form-group col">
-                            <label for="link">Link</label>
-                            <input type="text" class="form-control" id="link" name="link"
+                            <label for="urlpost">URL do POST</label>
+                            <input type="text" class="form-control" id="urlpost" name="urlpost"
+                                placeholder="Ex: sistao.3bsup.eb.mil.br/app/post.php" value="">
+                        </div>
+                        <div class="form-group col">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" id="loadingpost" name='loadingpost'
+                                    value="1">
+                                <label for="loadingpost" class="custom-control-label">Login prolongado</label><br>
+                                <span style="font-size:14px ">Para sites que necessitem de alguns segundos para fazer o
+                                    login.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group col">
+                            <label for="urlhome">URL da página inicial</label>
+                            <input type="text" class="form-control" id="urlhome" name="urlhome"
                                 placeholder="Ex: sistao.3bsup.eb.mil.br" value="">
                         </div>
 
                         <div class="form-group col">
                             <label for="inputUser">input-usuario</label>
-                            <input type="text" class="form-control" id="inputUser" name="inputUser" placeholder="Ex: user"
-                                value="">
+                            <input type="text" class="form-control" id="inputUser" name="inputUser"
+                                placeholder="Ex: user" value="">
                         </div>
 
                         <div class="form-group col">
@@ -239,19 +278,23 @@
                         </div>
                         <div class="row">
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="special1" name='special' value="1">
-                                <label for="special1" class="custom-control-label">Especial (SGTTE)</label>
+                                <input class="custom-control-input" type="radio" id="special1" name='special'
+                                    value="1">
+                                <label for="special1" class="custom-control-label">Especial</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="special2" name='special' value="2">
+                                <input class="custom-control-input" type="radio" id="special2" name='special'
+                                    value="2">
                                 <label for="special2" class="custom-control-label">Link</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="special4" name='special' value="3">
-                                <label for="special4" class="custom-control-label">Vinculado</label>
+                                <input class="custom-control-input" type="radio" id="special4" name='special'
+                                    value="3">
+                                <label for="special4" class="custom-control-label">Vinculado / Integrado</label>
                             </div>
                             <div class="custom-control custom-checkbox m-r-30">
-                                <input class="custom-control-input" type="radio" id="special3" name='special' value="">
+                                <input class="custom-control-input" type="radio" id="special3" name='special'
+                                    value="">
                                 <label for="special3" class="custom-control-label">Simples</label>
                             </div>
 

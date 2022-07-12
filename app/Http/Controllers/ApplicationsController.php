@@ -155,10 +155,16 @@ public function info_link($id)
         {
             $newApp['special'] = null;
         }
+          if (empty($newApp['loading']))
+        {
+            $newApp['loading'] = 0;
+        }
         $app = new ApplicationsModel();
         $app->name = $newApp['abbreviation_app'];
         $app->fullName = $newApp['full_name'];
-        $app->link = 'http://' . str_replace('http://', '', $newApp['link']);
+        $app->link = 'http://' . str_replace(['http://','https://'], '', $newApp['urlpost']);
+        $app->linkHome = 'http://' . str_replace(['http://','https://'], '', $newApp['urlhome']);
+        $app->loading = $newApp['loading'];
         $app->special = $newApp['special'] ;
         $app->inputUser = $newApp['inputUser'];
         $app->inputPass = $newApp['inputPass'];
@@ -180,10 +186,17 @@ public function edit_application(Request $request)
     {
         $infoApp['special'] = null;
     }
+
+    if (empty($infoApp['loading']))
+    {
+        $infoApp['loading'] = 0;
+    }
     $app = ApplicationsModel::find($infoApp['id']);
     $app->name = $infoApp['abbreviation_app'];
     $app->fullName = $infoApp['full_name'];
-    $app->link = 'http://' . str_replace('http://', '', $infoApp['link']);
+    $app->link = 'http://' . str_replace(['http://','https://'], '', $infoApp['urlpost']);
+    $app->linkHome = 'http://' . str_replace(['http://','https://'], '', $infoApp['urlhome']);
+    $app->loading = $infoApp['loading'];
     $app->special = $infoApp['special'] ;
     $app->inputUser = $infoApp['inputUser'];
     $app->inputPass = $infoApp['inputPass'];

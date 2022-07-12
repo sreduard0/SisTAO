@@ -48,7 +48,8 @@
                                             <th>Nome de guerra</th>
                                             <th>CIA</th>
                                             <th>Seção</th>
-                                        	<th>Endereço</th>
+                                            <th>Endereço</th>
+                                            <th>Telefone</th>
                                             <th>Última atualização</th>
                                             <th>Ações</th>
                                         </tr>
@@ -59,18 +60,25 @@
                                                 <td data-order="{{ $user->rank->id }}" width="40px"><img
                                                         class="img-circle img-size-35"
                                                         src="{{ asset("$user->photoUrl") }}"></td>
-                                                <td data-order="{{ $user->rank->id }}" width="60px">{{ $user->rank->rankAbbreviation }}</td>
-                                                <td>{{ $user->professionalName }}</td>
+                                                <td data-order="{{ $user->rank->id }}" width="60px">
+                                                    {{ $user->rank->rankAbbreviation }}</td>
+                                                <td>{{ ucwords(strtolower($user->professionalName)) }}</td>
                                                 <td>{{ $user->company->name }}</td>
                                                 <td> {{ $user->departament->name }}</td>
-                                             	<td> 
+                                                <td>
                                                     @if (isset($user->city->name) && isset($user->city->state))
-                                                         {{ $user->street . ', N°' . $user->house_number . ', Bairro: ' .$user->district . ', ' . $user->city->name . ', ' . $user->city->state }}
-                                                	@else
-                                                		Não há informações.
+                                                        {{ $user->street . ', N°' . $user->house_number . ', Bairro: ' . $user->district . ', ' . $user->city->name . ', ' . $user->city->state }}
+                                                    @else
+                                                        Não há informações.
                                                     @endif
-                                               </td>
-
+                                                </td>
+                                                <td>
+                                                    @if ($user->phone1)
+                                                        {{ $tools->mask('(##) # ####-####', $user->phone1) }}
+                                                    @else
+                                                        Não há informações.
+                                                    @endif
+                                                </td>
                                                 <td width="180px">{{ date('d/m/Y', strtotime($user->updated_at)) }}</td>
 
                                                 <td width="70px">
@@ -80,7 +88,7 @@
                                                         <i class="fas fa-user">
                                                         </i>
                                                     </a>
-                                                    @if (session('user')['company'] == $user->company && session('SisTAO')['profileType'] == 2 )
+                                                    @if (session('user')['company']['id'] == $user->company->id && session('SisTAO')['profileType'] == 2)
                                                         <a class="btn btn-info btn-sm"
                                                             href="{{ route('edit_military_profile', ['id' => $user->id]) }}"
                                                             title="Editar perfil">

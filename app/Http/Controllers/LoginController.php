@@ -10,6 +10,7 @@ use App\Models\LoginApplicationModel;
 use App\Models\LoginModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -101,11 +102,15 @@ class LoginController extends Controller
             'user' => [
                 'id' => $user->data->id,
                 'name' => $user->data->name,
-                'photo' => $user->data->photoUrl,
+                'departament_id' => $user->data->departament_id,
+            	'photo' => $user->data->photoUrl,
                 'professionalName' => $user->data->professionalName,
                 'email' => $user->data->email,
                 'rank' => $user->data->rank->rankAbbreviation,
-                'company' => $user->data->company
+                'company' => [
+                    'id' => $user->data->company->id,
+                    'name' => $user->data->company->name
+                ]
             ],
 
             'theme' => $user->theme,
@@ -121,5 +126,6 @@ class LoginController extends Controller
         return json_encode($checkIdtMil);
 
     }
+
 
 }

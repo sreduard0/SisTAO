@@ -67,7 +67,9 @@ class CrudController extends Controller
         }
 
         session()->flash('success', 'Perfil excluído com sucesso.');
-        return redirect()->route('users_list');
+       if(session('SisTAO')['profileType'] == 1){
+         return redirect()->route('users_list');
+               }else{ return redirect()->route('callplan',['company'=> session('user')['company']]);}
     }
     //========={ RESET PASSWORD }========//
     public function password($f, $id)

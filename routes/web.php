@@ -76,6 +76,7 @@ Route::middleware('auth','CheckSgtte')->group(function () {
     Route::get('military/callplan/{company}',[ViewController::class, 'callplan'])->name('callplan');
     Route::get('military/view/{id?}', [ViewController::class, 'military'])->name('military_profile');
     Route::get('military/edit/{id}', [ViewController::class, 'edit_military'])->name('edit_military_profile');
+    Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->name('delete_profile');
 
     //======== ações
 

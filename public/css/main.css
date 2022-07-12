@@ -294,6 +294,7 @@ body {
     padding: 0 5px;
 }
 
+
 /*---------------------------------------------*/
 
 .focus-input {
@@ -343,7 +344,7 @@ body {
     transition: all 0.4s;
 }
 
-.option{
+.option {
     background: #666666;
     color: #fff;
 }
@@ -363,7 +364,6 @@ body {
 .has-val.input+.focus-input::before {
     width: 100%;
 }
-
 
 .m-r-l {
     margin: 80px 50px;
@@ -401,62 +401,76 @@ body {
 }
 
 .permissions {
-  height: 350px;
-  overflow-x: hidden;
+    height: 350px;
+    overflow-x: hidden;
 }
 
-
 .permissions::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+    width: 12px;
+    /* width of the entire scrollbar */
 }
 
 .permissions::-webkit-scrollbar-track {
-  background: rgb(116, 115, 115);
-  border-radius: 5px;
+    background: rgb(116, 115, 115);
+    border-radius: 5px;
 }
 
 .permissions::-webkit-scrollbar-thumb {
-  background-color: #2e2e2e;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid rgb(116, 115, 115);  /* creates padding around scroll thumb */
+    background-color: #2e2e2e;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid rgb(116, 115, 115);
+    /* creates padding around scroll thumb */
 }
 
 
 /* Tela de login */
 
+
 /* [ AVISOS ] */
 
+
 /*[ FONT ]*/
+
 @font-face {
     font-family: Poppins-Regular;
     src: url('../fonts/poppins/Poppins-Regular.ttf');
 }
+
 @font-face {
     font-family: Poppins-Medium;
     src: url('../fonts/poppins/Poppins-Medium.ttf');
 }
+
 @font-face {
     font-family: Poppins-Bold;
     src: url('../fonts/poppins/Poppins-Bold.ttf');
 }
+
 @font-face {
     font-family: Poppins-SemiBold;
     src: url('../fonts/poppins/Poppins-SemiBold.ttf');
 }
 
+
 /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
+
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
+
 html {
     height: 100%;
     font-family: Poppins-Regular, sans-serif;
 }
 
+
 /*---------------------------------------------*/
+
 a {
     font-family: Poppins-Regular;
     font-size: 14px;
@@ -468,9 +482,11 @@ a {
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
 }
+
 a:focus {
     outline: none !important;
 }
+
 a:hover {
     text-decoration: none;
     color: #08ec00;
@@ -480,7 +496,9 @@ a:hover {
     color: linear-gradient(left, #e5ed00, #06a800);
 }
 
+
 /*---------------------------------------------*/
+
 h1,
 h2,
 h3,
@@ -489,6 +507,7 @@ h5,
 h6 {
     margin: 0px;
 }
+
 p {
     font-family: Poppins-Regular;
     font-size: 14px;
@@ -496,99 +515,128 @@ p {
     color: #ffffff;
     margin: 0px;
 }
+
 ul,
 li {
     margin: 0px;
     list-style-type: none;
 }
 
+
 /*---------------------------------------------*/
+
 input {
     outline: none;
     border: none;
 }
+
 select {
     outline: none;
     border: none;
 }
+
 textarea {
     outline: none;
     border: none;
     width: 100%;
 }
+
 textarea:focus {
     border-color: transparent !important;
 }
+
 input:focus::-webkit-input-placeholder {
     color: transparent;
 }
+
 input:focus:-moz-placeholder {
     color: transparent;
 }
+
 input:focus::-moz-placeholder {
     color: transparent;
 }
+
 input:focus:-ms-input-placeholder {
     color: transparent;
 }
+
 textarea:focus::-webkit-input-placeholder {
     color: transparent;
 }
+
 textarea:focus:-moz-placeholder {
     color: transparent;
 }
+
 textarea:focus::-moz-placeholder {
     color: transparent;
 }
+
 textarea:focus:-ms-input-placeholder {
     color: transparent;
 }
+
 input::-webkit-input-placeholder {
     color: #adadad;
 }
+
 input:-moz-placeholder {
     color: #adadad;
 }
+
 input::-moz-placeholder {
     color: #adadad;
 }
+
 input:-ms-input-placeholder {
     color: #adadad;
 }
+
 textarea::-webkit-input-placeholder {
     color: #adadad;
 }
+
 textarea:-moz-placeholder {
     color: #adadad;
 }
+
 textarea::-moz-placeholder {
     color: #adadad;
 }
+
 textarea:-ms-input-placeholder {
     color: #adadad;
 }
 
+
 /*---------------------------------------------*/
+
 button {
     outline: none !important;
     border: none;
     background: transparent;
 }
+
 button:hover {
     cursor: pointer;
 }
+
 iframe {
     border: none !important;
 }
 
+
 /*//////////////////////////////////////////////////////////////////
   [ Utility ]*/
+
 .txt1 {
     font-family: Poppins-Regular;
     font-size: 16px;
     color: #fff;
     line-height: 1.5;
 }
+
 .txt2 {
     font-family: Poppins-Regular;
     font-size: 13px;
@@ -596,12 +644,15 @@ iframe {
     line-height: 1.5;
 }
 
+
 /*//////////////////////////////////////////////////////////////////
   [ login ]*/
+
 .limiter {
     width: 100%;
     margin: 0 auto;
 }
+
 .container-login100 {
     width: 100%;
     min-height: 100vh;
@@ -615,14 +666,17 @@ iframe {
     align-items: center;
     padding: 15px;
 }
+
 .img-login {
     height: 3em;
     padding: 0;
     margin: 0;
 }
+
 .padding-title {
     padding-bottom: 10px;
 }
+
 .wrap-login100 {
     width: 390px;
     background: #2e2e2e;
@@ -651,25 +705,26 @@ iframe {
 
 @media (max-height:700px) {
     .wrap-register100 {
-        width: 350px;
-        max-height: 590px;
+        width: 750px;
         padding: 45px 55px 20px 55px;
     }
 }
 
 @media (max-height:700px) {
     .wrap-login100 {
-        width: 350px;
-        max-height: 590px;
+        width: 750px;
         padding: 45px 55px 20px 55px;
     }
 }
 
+
 /*------------------------------------------------------------------
   [ Form ]*/
+
 .login100-form {
     width: 100%;
 }
+
 .login100-form-title {
     display: block;
     font-family: Poppins-Bold;
@@ -678,18 +733,22 @@ iframe {
     line-height: 1.2;
     text-align: center;
 }
+
 .login100-form-title i {
     font-size: 60px;
 }
 
+
 /*------------------------------------------------------------------
   [ Input ]*/
+
 .wrap-input100 {
     width: 100%;
     position: relative;
     border-bottom: 2px solid #adadad;
     margin-bottom: 37px;
 }
+
 .input100 {
     font-family: Poppins-Regular;
     font-size: 15px;
@@ -702,7 +761,9 @@ iframe {
     padding: 0 5px;
 }
 
+
 /*---------------------------------------------*/
+
 .focus-input100 {
     position: absolute;
     display: block;
@@ -712,6 +773,7 @@ iframe {
     left: 0;
     pointer-events: none;
 }
+
 .focus-input100::before {
     content: "";
     display: block;
@@ -730,6 +792,7 @@ iframe {
     background: -moz-linear-gradient(left, #e5ed00, #06a800);
     background: linear-gradient(left, #e5ed00, #06a800);
 }
+
 .focus-input100::after {
     font-family: Poppins-Regular;
     font-size: 15px;
@@ -747,20 +810,26 @@ iframe {
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 }
+
 .input100:focus+.focus-input100::after {
     top: -15px;
 }
+
 .input100:focus+.focus-input100::before {
     width: 100%;
 }
+
 .has-val.input100+.focus-input100::after {
     top: -15px;
 }
+
 .has-val.input100+.focus-input100::before {
     width: 100%;
 }
 
+
 /*---------------------------------------------*/
+
 .btn-show-pass {
     font-size: 15px;
     color: #999999;
@@ -781,6 +850,7 @@ iframe {
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 }
+
 .btn-show-pass:hover {
     color: #06a800;
     color: -webkit-linear-gradient(left, #e5ed00, #06a800);
@@ -788,6 +858,7 @@ iframe {
     color: -moz-linear-gradient(left, #e5ed00, #06a800);
     color: linear-gradient(left, #e5ed00, #06a800);
 }
+
 .btn-show-pass.active {
     color: #06a800;
     color: -webkit-linear-gradient(left, #e5ed00, #06a800);
@@ -796,8 +867,10 @@ iframe {
     color: linear-gradient(left, #e5ed00, #06a800);
 }
 
+
 /*------------------------------------------------------------------
   [ Button ]*/
+
 .container-login100-form-btn {
     display: -webkit-box;
     display: -webkit-flex;
@@ -808,6 +881,7 @@ iframe {
     justify-content: center;
     padding-top: 13px;
 }
+
 .wrap-login100-form-btn {
     width: 100%;
     display: block;
@@ -817,6 +891,7 @@ iframe {
     overflow: hidden;
     margin: 0 auto;
 }
+
 .login100-form-bgbtn {
     position: absolute;
     z-index: -1;
@@ -834,6 +909,7 @@ iframe {
     -moz-transition: all 0.4s;
     transition: all 0.4s;
 }
+
 .login100-form-btn {
     font-family: Poppins-Medium;
     font-size: 17px;
@@ -851,16 +927,17 @@ iframe {
     width: 100%;
     height: 50px;
 }
+
 .wrap-login100-form-btn:hover .login100-form-bgbtn {
     left: 0;
 }
 
+
 /*------------------------------------------------------------------
   [ Responsive ]*/
+
 @media (max-width: 576px) {
     .wrap-login100 {
         padding: 77px 15px 33px 15px;
     }
 }
-
-

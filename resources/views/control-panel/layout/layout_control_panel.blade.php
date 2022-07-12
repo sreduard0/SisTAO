@@ -30,10 +30,13 @@ $theme = session('theme');
     {{-- sweetalert2 --}}
     <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
+    <!-- Utils -->
+    {{-- <link rel="stylesheet" href="{{ asset('css/main.css') }}"> --}}
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
     <!-- Utils -->
     <link rel="stylesheet" href="{{ asset('css/util.css') }}">
+
     <!-- jQuery -->
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <!-- overlayScrollbars -->
@@ -75,6 +78,8 @@ $theme = session('theme');
 
 <body class="@if ($theme == 1) dark-mode @endif sidebar-mini
     layout-fixed">
+    <div id='loading'></div>
+
     <div class="wrapper">
 
 

@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
     $("#table_users").DataTable({
         "responsive": true,
         "lengthChange": true,
@@ -170,7 +170,19 @@ $(function () {
 
 
         },
-        "buttons": ["excel", "pdf", "print",]
+        "buttons": [{
+                "extend": "print",
+                "text": "Imprimir",
+                'exportOptions': {
+                    'columns': [1, 2, 3, 4, 5, 6]
+                },
+                "autoPrint": true,
+            },
+            {
+                "extend": "pageLength",
+                "text": "Exibir",
+            },
+        ],
     }).buttons().container().appendTo('#table_users_wrapper .col-md-6:eq(0)');
 
 });

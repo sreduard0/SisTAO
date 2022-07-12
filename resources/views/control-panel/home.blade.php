@@ -33,6 +33,7 @@
 
         <section class="content">
             <div class="container-fluid">
+
                 @if (count($apps) == 1)
                     <div class="callout callout-info">
                         <h5><i class="fas fa-info"></i> Aviso:</h5>
@@ -40,6 +41,7 @@
                     </div>
                 @else
                     <div class="row">
+
                         @foreach ($apps as $app)
                             @if ($app->apps[0]->id == 6 || !$app->apps[0]->link)
                                 {{-- Ignora o sistão --}}
@@ -98,14 +100,26 @@
                                                         );
 
                                                         $('#post{{ $app->id }}').submit().remove();
-                                                        window.open('{{ $app->apps[0]->linkHome }}', '_blank');
 
+                                                        $("#loading").append(
+                                                            '<div class="load-block"><div class="c-loader"></div><span id="message" class="c-w">Enviando usuário e senha para {{ $app->apps[0]->name }}.</span><br><span id="message" class="c-w">Aguarde um segundo...</span></div>'
+                                                        );
+
+
+                                                        @if ($app->apps[0]->loading == 1)
+                                                            setTimeout(function() {
+                                                                $(".load-block").fadeOut().empty();
+                                                                window.open('{{ $app->apps[0]->linkHome }}', '_blank');
+                                                            }, 4500);
+                                                        @else
+                                                            setTimeout(function() {
+                                                                $(".load-block").fadeOut().empty();
+                                                                window.open('{{ $app->apps[0]->linkHome }}', '_blank');
+                                                            }, 1000);
+                                                        @endif
                                                     }
                                                 </script>
-
                                                 <div id="form{{ $app->id }}"></div>
-
-
                                                 <a onclick="return postToIframe{{ $app->id }}();"
                                                     class="small-box bg-success">
                                                     <div class="inner">
@@ -142,7 +156,7 @@
         <footer>
             <div class="text-center">
 
-                &copy;SisTAO 2021 (v1.0) <br>
+                &copy;SisTAO {{ date('Y') }} (v1.5) <br>
                 Desenvolvido por: Eduardo Martins
             </div>
         </footer>

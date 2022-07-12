@@ -17,16 +17,18 @@
         <script>
             @foreach ($apps as $app)
                 $(function() {
-                var check = $("#{{ $app->id }}"); //checkbox que ativara os restantes
+                    var check = $("#{{ $app->id }}"); //checkbox que ativara os restantes
 
-                check.on('click', function() {
-                if (check.prop('checked') == true) {
-                $(".{{ $app->id }}_permission").prop("disabled", false); //mostra os as permissoes
+                    check.on('click', function() {
+                        if (check.prop('checked') == true) {
+                            $(".{{ $app->id }}_permission").prop("disabled",
+                                false); //mostra os as permissoes
 
-                } else if (check.prop('checked') == false) {
-                $(".{{ $app->id }}_permission").prop("disabled", true); //oculta os as permissoes
-                }
-                })
+                        } else if (check.prop('checked') == false) {
+                            $(".{{ $app->id }}_permission").prop("disabled",
+                                true); //oculta os as permissoes
+                        }
+                    })
                 })
             @endforeach
 
@@ -38,30 +40,29 @@
                     timer: 4000
                 });
                 @foreach ($apps as $app)
-                    if($('input[name=sts_{{ $app->id }}]').is(':checked')){
-                    check{{ $app->id }} = 1;
+                    if ($('input[name=sts_{{ $app->id }}]').is(':checked')) {
+                        check{{ $app->id }} = 1;
 
-                    if(!$('input[name={{ $app->id }}_permission]').is(':checked')){
-                    Toast.fire({
-                    icon: 'error',
-                    title: '&nbsp&nbsp Selecione uma permissão para {{ $app->name }}.'
-                    });
-                    return false;
-                    }
-                    }else{
-                    check{{ $app->id }} = null;
+                        if (!$('input[name={{ $app->id }}_permission]').is(':checked')) {
+                            Toast.fire({
+                                icon: 'error',
+                                title: '&nbsp&nbsp Selecione uma permissão para {{ $app->name }}.'
+                            });
+                            return false;
+                        }
+                    } else {
+                        check{{ $app->id }} = null;
                     }
                 @endforeach
 
                 var dados = {
                     @foreach ($apps as $app)
 
-                        {{ $app->id }}:
-                        {
-                        userID: {{ $user_data->id }},
-                        appID: {{ $app->id }},
-                        check: check{{ $app->id }},
-                        permission: $('input[name={{ $app->id }}_permission]:checked').attr('value'),
+                        {{ $app->id }}: {
+                            userID: {{ $user_data->id }},
+                            appID: {{ $app->id }},
+                            check: check{{ $app->id }},
+                            permission: $('input[name={{ $app->id }}_permission]:checked').attr('value'),
                         },
                     @endforeach
                 };
@@ -70,7 +71,7 @@
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "http://sistao.3bsup.eb.mil.br/alt_permissions",
+                    url: "/alt_permissions",
                     type: "POST",
                     data: dados,
                     dataType: 'text',
@@ -165,14 +166,11 @@
                     <div class="card">
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#info"
-                                        data-toggle="tab">Informações
+                                <li class="nav-item"><a class="nav-link active" href="#info" data-toggle="tab">Informações
                                         básicas</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#address"
-                                        data-toggle="tab">Endereço</a>
+                                <li class="nav-item"><a class="nav-link" href="#address" data-toggle="tab">Endereço</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#contact"
-                                        data-toggle="tab">Contato</a>
+                                <li class="nav-item"><a class="nav-link" href="#contact" data-toggle="tab">Contato</a>
                                 </li>
                             </ul>
                         </div>
@@ -190,7 +188,8 @@
                                                 <select class="form-control" name="rank_id" id="rank_id" disabled>
                                                     <option value="">Selecione</option>
                                                     @foreach ($all_ranks as $rank)
-                                                        <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif value="{{ $rank->id }}">
+                                                        <option @if ($user_data->rank_id == $rank->id) selected="selected" @endif
+                                                            value="{{ $rank->id }}">
                                                             {{ $rank->rankAbbreviation }}</option>
                                                     @endforeach
                                                 </select>
@@ -213,7 +212,8 @@
                                                     disabled>
                                                     <option value="">Selecione</option>
                                                     @foreach ($all_departament as $departament)
-                                                        <option @if ($user_data->departament_id == $departament->id) selected="selected" @endif value="{{ $departament->id }}">
+                                                        <option @if ($user_data->departament_id == $departament->id) selected="selected" @endif
+                                                            value="{{ $departament->id }}">
                                                             {{ $departament->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -223,7 +223,8 @@
                                                 <select name="company_id" id="company_id" class="form-control" disabled>
                                                     <option value="">Selecione</option>
                                                     @foreach ($all_company as $company)
-                                                        <option @if ($user_data->company_id == $company->id) selected="selected" @endif value="{{ $company->id }}">
+                                                        <option @if ($user_data->company_id == $company->id) selected="selected" @endif
+                                                            value="{{ $company->id }}">
                                                             {{ $company->name }}</option>
                                                     @endforeach
                                                 </select>
@@ -235,15 +236,16 @@
                                             <div class="form-group col">
                                                 <label for="name">Nome completo</label>
                                                 <input type="text" class="form-control" id="name" name="name"
-                                                    placeholder="Digite seu nome completo" value="{{ $user_data->name }}"
-                                                    disabled>
+                                                    placeholder="Digite seu nome completo"
+                                                    value="{{ $user_data->name }}" disabled>
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label for="idt_mil">IDT Militar</label>
                                                 <input type="text" class="form-control"
-                                                    data-inputmask="'mask': ['999999999-9']" data-mask="" inputmode="text"
-                                                    name="idt_mil" id="idt_mil" placeholder="_________-_"
-                                                    value="{{ $user_data->idt_mil }}" disabled>
+                                                    data-inputmask="'mask': ['999999999-9']" data-mask=""
+                                                    inputmode="text" name="idt_mil" id="idt_mil"
+                                                    placeholder="_________-_" value="{{ $user_data->idt_mil }}"
+                                                    disabled>
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <label>Data de nascimento</label>
@@ -295,23 +297,25 @@
                                             <div class="form-group col-md-3">
                                                 <label for="cpf">CEP</label>
                                                 <input type="text" class="form-control"
-                                                    data-inputmask="'mask': ['99999-999']" data-mask="" inputmode="text"
-                                                    id="cep" name="cep" placeholder="_______-__"
-                                                    value="{{ $user_data->cep }}" disabled>
+                                                    data-inputmask="'mask': ['99999-999']" data-mask=""
+                                                    inputmode="text" id="cep" name="cep"
+                                                    placeholder="_______-__" value="{{ $user_data->cep }}" disabled>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label for="district">Bairro</label>
-                                                <input type="text" id="district" name="district" class="form-control"
-                                                    placeholder="Bairro" value="{{ $user_data->district }}" disabled>
+                                                <input type="text" id="district" name="district"
+                                                    class="form-control" placeholder="Bairro"
+                                                    value="{{ $user_data->district }}" disabled>
                                             </div>
                                             <div class="form-group col">
                                                 <label for="city">Cidade</label>
                                                 <select name="city" id="city" class="form-control" disabled>
                                                     <option value="">Selecione</option>
                                                     @foreach ($all_cities as $city)
-                                                        <option @if ($user_data->city_id == $city->id) selected="selected" @endif value="{{ $city->id }}">
+                                                        <option @if ($user_data->city_id == $city->id) selected="selected" @endif
+                                                            value="{{ $city->id }}">
                                                             {{ $city->name }}, {{ $city->state }}</option>
                                                     @endforeach
                                                 </select>
@@ -348,7 +352,8 @@
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->
                             <div id="btn-submit" class="text-center">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#alt-user">
+                                <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#alt-user">
                                     <i class="fa fa-user-edit"></i> Editar</button>
                             </div>
 
@@ -369,8 +374,8 @@
                                                 {{-- Ativar app --}}
                                                 <div class="custom-control custom-switch ">
                                                     <input type="checkbox" class="custom-control-input"
-                                                        name="sts_{{ $app->id }}" id={{ $app->id }} value='1'
-                                                        @if ($app->profiles) checked @endif>
+                                                        name="sts_{{ $app->id }}" id={{ $app->id }}
+                                                        value='1' @if ($app->profiles) checked @endif>
                                                     <label class="custom-control-label"
                                                         for={{ $app->id }}>{{ $app->name }}</label>
                                                 </div>
@@ -443,12 +448,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="float-r">
-                            <button class="btn btn-danger" data-toggle="modal" data-target="#delete-confirm"><i
-                                    class="fa fa-trash"></i> Excluir </button>
-                        </div>
                     @elseif(session('SisTAO')['profileType'] == 1 && !isset($user_data->login->login))
-                        <div class="float-r">
+                        <div class="float-l">
                             <a class="btn btn-primary"
                                 href="{{ route('password', ['f' => 'create', 'id' => $user_data->id]) }}"
                                 title='Criar login de acesso'> <i class="fa fa-user-lock"></i> Criar login de acesso
@@ -458,6 +459,11 @@
                                     class="fa fa-trash"></i> Excluir </button>
                         </div>
                     @endif
+                    <div class="float-r">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#delete-confirm"><i
+                                class="fa fa-trash"></i> Excluir </button>
+                    </div>
+
                 </div>
                 <div class="col-md-3">
 
@@ -497,7 +503,8 @@
                                         {{ $user_data->city->name }}
                                     @endif
                                 </li>
-                                <li class="row">ESTADO: @if (isset($user_data->city->state)){{ $user_data->city->state }}
+                                <li class="row">ESTADO: @if (isset($user_data->city->state))
+                                        {{ $user_data->city->state }}
                                     @endif
                                 </li>
                             </ul>
@@ -551,8 +558,8 @@
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <label for="upload_image" class="btn btn-success">Alterar imagem</label>
-                    <input type="file" class="btn btn-success input-img-profile" name="upload_image" id="upload_image"
-                        accept="image/png,image/jpg,image/jpeg" onchange="checkExt(this)" />
+                    <input type="file" class="btn btn-success input-img-profile" name="upload_image"
+                        id="upload_image" accept="image/png,image/jpg,image/jpeg" onchange="checkExt(this)" />
                 </div>
             </div>
         </div>
@@ -575,7 +582,8 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button id='enable-form' type="button" class="btn btn-success" data-dismiss="modal">Continuar</button>
+                    <button id='enable-form' type="button" class="btn btn-success"
+                        data-dismiss="modal">Continuar</button>
                 </div>
             </div>
         </div>
