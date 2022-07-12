@@ -43,7 +43,7 @@
                     <div class="row">
 
                         @foreach ($apps as $app)
-                            @if ($app->apps[0]->id == 6 || !$app->apps[0]->link)
+                            @if ($app->apps[0]->id == 6 || !$app->apps[0]->linkHome)
                                 {{-- Ignora o sistão --}}
                                 @continue
                             @endif

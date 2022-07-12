@@ -28,7 +28,7 @@ class ApplicationsController extends Controller
             ]
         ]);
 
-        return redirect($app->link);
+        return redirect($app->linkHome);
     }
 
 //================================={ DataTables }====================================//
@@ -78,7 +78,7 @@ class ApplicationsController extends Controller
             $dado[] = $i++;
             $dado[] = $app->name;
             $dado[] = $app->fullName;
-            $dado[] = $app->link;
+            $dado[] = $app->linkHome;
                 switch ($app->special) {
                     case 1:
                             $dado[] = 'Especial';
@@ -162,8 +162,8 @@ public function info_link($id)
         $app = new ApplicationsModel();
         $app->name = $newApp['abbreviation_app'];
         $app->fullName = $newApp['full_name'];
-        $app->link = 'http://' . str_replace(['http://','https://'], '', $newApp['urlpost']);
-        $app->linkHome = 'http://' . str_replace(['http://','https://'], '', $newApp['urlhome']);
+        $app->link =  str_replace(' ', '', $newApp['urlpost']);
+        $app->linkHome = str_replace(' ', '', $newApp['urlhome']);
         $app->loading = $newApp['loading'];
         $app->special = $newApp['special'] ;
         $app->inputUser = $newApp['inputUser'];
@@ -194,8 +194,8 @@ public function edit_application(Request $request)
     $app = ApplicationsModel::find($infoApp['id']);
     $app->name = $infoApp['abbreviation_app'];
     $app->fullName = $infoApp['full_name'];
-    $app->link = 'http://' . str_replace(['http://','https://'], '', $infoApp['urlpost']);
-    $app->linkHome = 'http://' . str_replace(['http://','https://'], '', $infoApp['urlhome']);
+    $app->link =  str_replace(' ', '', $infoApp['urlpost']);
+    $app->linkHome = str_replace(' ', '', $infoApp['urlhome']);
     $app->loading = $infoApp['loading'];
     $app->special = $infoApp['special'] ;
     $app->inputUser = $infoApp['inputUser'];
