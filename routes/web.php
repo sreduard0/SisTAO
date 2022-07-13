@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('alt_img_bg', [CrudController::class, 'alt_img_bg'])->name('alt_img_bg');
     Route::post('link_login',[ApplicationsController::class, 'link_login']);
     Route::post('create_user_submit', [CrudController::class, 'submit_create_user'])->name('submit_create_user');
-
+Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->name('delete_profile');
 });
 
 Route::middleware('auth','CheckAdm')->group(function () {
@@ -54,7 +54,7 @@ Route::middleware('auth','CheckAdm')->group(function () {
     Route::get('register/list',[ViewController::class, 'register_list'])->name('register_list');
 
     //======== ações
-    Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->name('delete_profile');
+
     Route::get('profile/login/{f}/{id}', [CrudController::class, 'password'])->name('password');
     Route::get('apps/delete/{id}',[ApplicationsController::class, 'del_application'])->name('del_application');
     Route::get('apps/info/{id}',[ApplicationsController::class, 'find_app_info'])->name('find_app_info');
@@ -76,7 +76,7 @@ Route::middleware('auth','CheckSgtte')->group(function () {
     Route::get('military/callplan/{company}',[ViewController::class, 'callplan'])->name('callplan');
     Route::get('military/view/{id?}', [ViewController::class, 'military'])->name('military_profile');
     Route::get('military/edit/{id}', [ViewController::class, 'edit_military'])->name('edit_military_profile');
-    Route::get('profile/delete/{id}', [CrudController::class, 'delete_profile'])->name('delete_profile');
+
 
     //======== ações
 
